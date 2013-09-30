@@ -34,3 +34,31 @@ From the VM host, navigate to the repository and issue the command `vagrant up`.
 
 Log into the management server using `vagrant ssh mgmt`.
 
+
+## Networking
+
+Networking is divided into two seperate networks, a private and a public network.
+
+The private network is a host-only network with an addressing of `10.1.1.0/24`. This allows machines to communicate which each other privately.
+
+The public network is a host-only network with an addressing of `10.2.2.0/24`. This is assumed to be the Internet facing side of the infrastructure even though it is not publicly addressable.
+
+## Configuration Management
+
+Currently netsoc is using Ansible. However depending on the use-cases and its effectiveness this may be subject to change.
+
+Ansible is installed onto the `mgmt` server from where the VMs can be configured. To log into the management server run `vagrant ssh mgmt`.
+
+### Installation
+
+Ansible is installed into `/opt/ansible` using virtualenv and pip. The Ubuntu version is not used as it is out of date and is lacking several security related patches.
+
+### Configuration
+
+`/etc/ansible/hosts` contains the hosts that Ansible will manage.
+
+### Running
+
+`ansible --list-hosts all` will display all the hosts.
+
+To Test if the host is reachable with Ansible use `ansible all -m ping --ask-pass`.
