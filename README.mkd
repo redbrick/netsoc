@@ -1,0 +1,36 @@
+Netsoc
+================================
+
+About
+-------------------------
+
+> While you're waiting, read the free novel we sent you. It's a Spanish story about a 
+> guy named 'Manual'. - Dilbert
+
+This document details the process for running an entire networking society's infrastructure in a virtualised fashion.
+
+The assumed distribution for running the virtual machines is Ubuntu LTS, currently 12.04.3 (Precise Pangolin). The setup has been shown to run on both Windows and Linux distributions.
+
+
+Prerequisites
+-------------------------
+
+Download and install the latest version of:
+
+ * [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+ * [Vagrant](http://downloads.vagrantup.com/tags/v1.3.3/)
+
+
+Installation
+-------------------------
+
+Download the repository by running `git clone https://github.com/redbrick/netsoc`.
+
+
+Running
+-------------------------
+
+From the VM host, navigate to the repository and issue the command `vagrant up`. This will launch a number of VMs and begin to configure them.
+
+Log into the management server using `vagrant ssh mgmt`.
+
