@@ -53,6 +53,26 @@ Ansible is installed onto the `mgmt` server from where the VMs can be configured
 
 Ansible is installed into `/opt/ansible` using virtualenv and pip. The Ubuntu version is not used as it is out of date and is lacking several security related patches.
 
+    $ apt-get update && apt-get install python-dev python-virtualenv
+    $ mkdir -p /opt/ansible/
+    $ cd /opt/ansible/
+    $ virtualenv --distribute venv
+    $ . ./venv/bin/activate
+    $ pip install ansible
+
+The following script is in `/usr/local/sbin/ansible` which will allow us to reference ansible.
+
+    #!/bin/sh
+    
+    . /opt/ansible/venv/bin/activate
+    ansible "$@"
+
+The following script is in `/usr/local/sbin/ansible-playbook` which will allow us to reference ansible-playbook.
+
+    #!/bin/sh
+    . /opt/ansible/venv/bin/activate
+    ansible-playbook "$@"  
+
 ### Configuration
 
 `/etc/ansible/hosts` contains the hosts that Ansible will manage.
