@@ -1,0 +1,15 @@
+---
+- name: Install a networking society
+  hosts: all
+  sudo: True
+  user: vagrant
+
+  pre_tasks:
+    - name: ensure package cache updated
+      action: apt update_cache=yes cache_valid_time=3600
+
+  roles:
+    - time
+    - language
+    - logging
+    - motd

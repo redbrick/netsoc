@@ -1,0 +1,10 @@
+---
+# netsoc details
+netsoc_name: netsoc
+
+# timezone settings
+time_timezone: Europe/Dublin
+
+# language settings
+language_lang: en_IE.UTF-8
+

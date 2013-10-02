@@ -1,0 +1,5 @@
+---
+ - name: ensure system language
+   template: src=locale dest=/etc/default/locale
+   tags: language
+
