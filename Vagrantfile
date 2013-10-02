@@ -12,7 +12,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     mgmt.vm.box = "precise32"
 
     mgmt.vm.hostname = "mgmt"	
-    mgmt.vm.network :private_network, ip: "10.1.1.1"
+    mgmt.vm.network :private_network, ip: "10.10.1.2"
+    mgmt.vm.synced_folder "./deployment", "/srv/ansible/"
   end
 
   # The url from where the 'config.vm.box' box will be fetched if it
