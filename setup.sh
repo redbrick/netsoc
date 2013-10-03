@@ -1,8 +1,8 @@
 #!/bin/sh
 
-ANSIBLE_DIR=/opt/ansible2/
+ANSIBLE_DIR=/opt/ansible/
 
-# exixt if ansible is installed
+# exixt if Ansible is installed
 if [ -d $ANSIBLE_DIR ]; then
 	exit
 fi
