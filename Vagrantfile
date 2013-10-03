@@ -13,7 +13,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     mgmt.vm.hostname = "mgmt"
     mgmt.vm.network :private_network, ip: "10.10.1.2"
-	
+
+    mgmt.vm.provision "shell", path: "setup.sh"	
     mgmt.vm.synced_folder "./deployment", "/srv/ansible/"
   end
 
