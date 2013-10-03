@@ -9,16 +9,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Configure a management server.
   config.vm.define "mgmt" do |mgmt|
-    mgmt.vm.box = "precise32"
+    mgmt.vm.box = "precise64"
 
-    mgmt.vm.hostname = "mgmt"	
+    mgmt.vm.hostname = "mgmt"
     mgmt.vm.network :private_network, ip: "10.10.1.2"
+	
     mgmt.vm.synced_folder "./deployment", "/srv/ansible/"
   end
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "http://files.vagrantup.com/precise32.box"
+  config.vm.box_url = "https://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
