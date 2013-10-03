@@ -39,9 +39,9 @@ Log into the management server using `vagrant ssh mgmt`.
 
 Networking is divided into two seperate networks, a private and a public network.
 
-The private network is a host-only network with an addressing of `10.1.1.0/24`. This allows machines to communicate which each other privately.
+The private network is a host-only network with an addressing of `10.10.1.0/24`. This allows machines to communicate which each other privately.
 
-The public network is a host-only network with an addressing of `10.2.2.0/24`. This is assumed to be the Internet facing side of the infrastructure even though it is not publicly addressable.
+The public network is a host-only network with an addressing of `10.20.1.0/24`. This is assumed to be the Internet facing side of the infrastructure even though it is not publicly addressable.
 
 ## Configuration Management
 
@@ -51,27 +51,7 @@ Ansible is installed onto the `mgmt` server from where the VMs can be configured
 
 ### Installation
 
-Ansible is installed into `/opt/ansible` using virtualenv and pip. The Ubuntu version is not used as it is out of date and is lacking several security related patches.
-
-    $ apt-get update && apt-get install python-dev python-virtualenv
-    $ mkdir -p /opt/ansible/
-    $ cd /opt/ansible/
-    $ virtualenv --distribute venv
-    $ . ./venv/bin/activate
-    $ pip install ansible
-
-The following script is in `/usr/local/sbin/ansible` which will allow us to reference ansible.
-
-    #!/bin/sh
-    
-    . /opt/ansible/venv/bin/activate
-    ansible "$@"
-
-The following script is in `/usr/local/sbin/ansible-playbook` which will allow us to reference ansible-playbook.
-
-    #!/bin/sh
-    . /opt/ansible/venv/bin/activate
-    ansible-playbook "$@"  
+Ansible is installed in `/opt/ansible` using virtualenv and pip. The Ubuntu version is not used as it is out of date and is lacking several security related patches. netsoc installs Ansible scripts in `/usr/local/sbin/` so that they are accessible to the system without needing to use virtualenv manually.
 
 ### Configuration
 
