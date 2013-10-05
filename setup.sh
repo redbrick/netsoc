@@ -16,7 +16,8 @@ apt-get --no-install-recommends install -y \
   build-essential \
   git \
   python-dev \
-  python-virtualenv
+  python-virtualenv \
+  sshpass
   
 # install Ansible
 mkdir -p $ANSIBLE_DIR
