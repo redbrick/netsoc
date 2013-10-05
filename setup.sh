@@ -1,8 +1,9 @@
 #!/bin/sh
 
 ANSIBLE_DIR=/opt/ansible/
+NETSOC_TMP_DIR=$(mktemp -du /tmp/netsoc.XXXXXXXXXX)
 
-# exixt if Ansible is installed
+# exit if Ansible is installed
 if [ -d $ANSIBLE_DIR ]; then
 	exit
 fi
@@ -30,6 +31,11 @@ do
   echo "#!/bin/sh
 
 . $ANSIBLE_DIR/venv/bin/activate
-$f \"$@\"" > /usr/local/sbin/$f
+$f \"\$@\"" > /usr/local/sbin/$f
   /bin/chmod 755 /usr/local/sbin/$f
 done
+
+# install the Ansible configuration
+git clone https://github.com/redbrick/netsoc $NETSOC_TMP_DIR
+mv $NETSOC_TMP_DIR/deployment/ /etc/ansible
+rm -rf $NETSOC_TMP_DIR
