@@ -1,4 +1,10 @@
 ---
+ - name: ensure language packs
+   action: apt pkg=$item state=latest install_recommends=no
+   with_items:
+     - language-pack-en
+   tags: language
+
  - name: ensure system language
    template: src=locale dest=/etc/default/locale
    tags: language
