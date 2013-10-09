@@ -1,0 +1,16 @@
+---
+- name: Upgrade all servers
+  hosts: all
+  sudo: True
+  user: vagrant
+
+  vars_files:
+    - private_vars.yml
+
+  pre_tasks:
+    - name: ensure package cache updated
+      action: apt update_cache=yes cache_valid_time=3600
+
+    - name: ensure packages upgraded
+      action: apt upgrade=safe
+
