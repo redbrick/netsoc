@@ -4,3 +4,9 @@
    with_items:
      - rsyslog
    tags: logging
+
+ - name: ensure logging configuration
+   action: template src=50-default.conf dest=/etc/rsyslog.d/50-default.conf owner=root group=root mode=0644
+   notify: restart logging
+   tags: logging
+

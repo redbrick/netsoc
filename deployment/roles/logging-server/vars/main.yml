@@ -1,0 +1,4 @@
+---
+kibana:
+  url: https://github.com/elasticsearch/kibana/
+  dir: /var/www/

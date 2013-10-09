@@ -1,0 +1,20 @@
+---
+ - name: ensure logging server
+   action: apt pkg=$item state=latest install_recommends=no
+   with_items:
+     - rsyslog
+   tags: logging-server
+
+ - name: ensure logging server configuration
+   action: template src=rsyslog.conf dest=/etc/rsyslog.conf owner=root group=root mode=0644
+   notify: restart logging server
+   tags: logging-server
+
+ - name: ensure kibana location
+   action: file path=${kibana.dir} owner=www-data group=root mode=0755 state=directory
+   tags: logging-server
+
+ - name: ensure latest kibana
+   action: git repo=${kibana.url} dest=/var/www/ version=master update=yes depth=1
+   tags:
+     - logging-server
