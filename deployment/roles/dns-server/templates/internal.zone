@@ -1,0 +1,20 @@
+; {{ ansible_managed }}
+;
+; BIND data file for {{ dns.domain }}.
+;
+$ORIGIN {{ dns.domain }}.
+$TTL    360
+@       IN      SOA  ns.{{ dns.domain }}. hostmaster.{{ dns.domain }}. (
+                     2013081001         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      ns.{{ dns.domain }}.
+ns      IN      A       {{ ansible_default_ipv4.address }}
+
+; internal domains
+{% for host in groups['servers'] %}
+{{ hostvars[host]["ansible_hostname"].ljust(15) }} IN      A {{ hostvars[host]['ansible_eth1']['ipv4']['address'].rjust(15) }}
+{% endfor %}

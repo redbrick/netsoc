@@ -1,0 +1,7 @@
+# {{ ansible_managed }}
+
+# Here come the local changes the user made, like configuration of 
+# the several backends that exist.
+
+launch=bind
+bind-config=/etc/powerdns/bind/named.conf
