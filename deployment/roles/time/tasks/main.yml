@@ -5,12 +5,13 @@
      - ntp
    tags: time
 
+ # may need to remove the file, if the file is a symlink then run this task
  - name: ensure localtime
-   action: file src=/usr/share/zoneinfo/$time_timezone dest=/etc/localtime owner=root group=root state=link force=yes
+   action: file src=/usr/share/zoneinfo/${time.timezone} path=/etc/localtime state=link owner=root group=root force=yes
    tags: time
 
  - name: ensure timezone
-   copy: content=$time_timezone dest=/etc/timezone
+   action: copy content=${time.timezone} dest=/etc/timezone
    notify:
    - update timezone
    tags: time
