@@ -2,3 +2,8 @@
  - name: ensure latest motd
    template: src=motd dest=/etc/motd owner=root group=root mode=0744
    tags: motd
+
+ - name: ensure motd command
+   action: template src=motd.sh dest=/usr/local/bin/motd owner=root group=root mode=0755
+   tags: motd
+
