@@ -10,3 +10,8 @@
    notify: restart logging
    tags: logging
 
+ - name: ensure logging remotely configuration
+   action: template src=100-remote.conf dest=/etc/rsyslog.d/100-remote.conf owner=root group=root mode=0644
+   notify: restart logging
+   tags: logging
+
