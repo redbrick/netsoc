@@ -22,3 +22,8 @@ logging:
 dns:
   domain: netsoc.org
   server: 10.10.1.4
+
+syslog:
+  server: 10.10.1.4
+  path: /var/syslog/
+  permission: "0755"
