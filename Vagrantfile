@@ -9,16 +9,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
   # Disable the default vagrant share
   config.vm.synced_folder ".", "/vagrant", :disabled => true
-
+  
   # Configure a management server.
   config.vm.define "mgmt" do |server|
     server.vm.box = "precise64"
-
+	
     server.vm.hostname = "mgmt"
     server.vm.network :private_network, ip: "10.10.1.2"
 
     server.vm.provision "shell", path: "setup.sh"	
-    server.vm.synced_folder "./deployment", "/srv/ansible/"
+    server.vm.synced_folder "./deployment", "/srv/ansible/", :mount_options => ["dmode=711","fmode=644"]
   end
   
   # Configure a DNS server.
@@ -35,6 +35,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     server.vm.hostname = "logging"
     server.vm.network :private_network, ip: "10.10.1.4"
+	
+	server.vm.provider :virtualbox do |vb|
+      # Boot with headless mode.
+      vb.gui = false
+  
+      # Use VBoxManage to customize the VM.
+      vb.customize ["modifyvm", :id, "--memory", "1024"]
+  end
   end
   
   # Configure a web server.
@@ -55,7 +63,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "https://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box"
+  config.vm.box_url = "http://files.vagrantup.com/precise64.box"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
