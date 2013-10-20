@@ -3,7 +3,11 @@
    action: apt pkg=$item state=latest install_recommends=no
    with_items:
      - pdns-server
-     #- pdns-recursor
+   tags: dns-server
+
+ - name: ensure dns configuration
+   template: src=pdns.conf dest=/etc/powerdns/pdns.conf owner=root group=root mode=0600
+   notify: restart dns server
    tags: dns-server
 
  - name: ensure dns records
@@ -23,4 +27,20 @@
  - name: ensure dns internal zone
    template: src=internal.zone dest=/etc/powerdns/bind/${dns.domain}.zone owner=root group=root mode=0644
    notify: restart dns server
+   tags: dns-server
+
+ - name: ensure recursive dns server
+   action: apt pkg=$item state=latest install_recommends=no
+   with_items:
+     - pdns-recursor
+   tags: dns-server
+
+ - name: ensure recursive dns configuration
+   template: src=forward.zones dest=/etc/powerdns/forward.zones owner=root group=root mode=0600
+   notify: restart recursive dns server
+   tags: dns-server
+
+ - name: ensure recursive dns configuration
+   template: src=recursor.conf dest=/etc/powerdns/recursor.conf owner=root group=root mode=0600
+   notify: restart recursive dns server
    tags: dns-server
