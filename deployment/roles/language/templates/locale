@@ -1,1 +1,1 @@
-LANG="{{ language_lang }}"
+LANG="{{ language.lang }}"
