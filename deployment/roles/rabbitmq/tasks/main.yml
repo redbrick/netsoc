@@ -1,0 +1,28 @@
+---
+ - name: ensure rabbitmq requirements
+   action: apt pkg=$item state=latest install_recommends=no
+   with_items:
+     - python-pycurl
+   tags: rabbitmq
+
+ - name: ensure rabbitmq keys
+   action: apt_key data="{{ item }}" state=present
+   with_file:
+     - rabbitmq.asc
+   tags: rabbitmq
+
+ - name: ensure rabbitmq repo
+   action: apt_repository repo='deb http://www.rabbitmq.com/debian/ testing main' state=present update_cache=yes
+   tags: rabbitmq
+
+ - name: ensure rabbitmq package
+   action: apt pkg=$item state=latest install_recommends=no
+   with_items:
+     - rabbitmq-server
+   tags: rabbitmq
+
+ - name: ensure rabbitmq plugins
+   action: rabbitmq_plugin names=$item state=enabled
+   with_items:
+     - rabbitmq_management
+   tags: rabbitmq
