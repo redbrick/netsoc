@@ -1,0 +1,7 @@
+---
+- name: restart sensu server
+  service: name=$item state=restarted enabled=yes
+  with_items:
+    - sensu-server
+    - sensu-api
+    - sensu-dashboard

@@ -1,0 +1,35 @@
+---
+ - name: ensure sensu server package
+   action: apt pkg=$item state=latest install_recommends=no
+   with_items:
+     - redis-server
+   tags: sensu-server
+
+ - name: ensure sensu server vhost
+   action: rabbitmq_vhost name={{ sensu.rabbitmq.vhost }} state=present
+   tags: sensu-server
+
+ - name: ensure sensu server user
+   action: rabbitmq_user user={{ sensu.rabbitmq.username }}
+                         password={{ sensu.rabbitmq.password }}
+                         vhost={{ sensu.rabbitmq.vhost }}
+                         configure_priv=.*
+                         read_priv=.*
+                         write_priv=.*
+                         state=present
+   tags: sensu-server
+
+ - name: ensure sensu server configuration
+   template: src=config.json dest=/etc/sensu/config.json owner=root group=root mode=0644
+   notify: restart sensu server
+   tags: sensu-server
+
+ - name: ensure sensu server checks
+   template: src={{ item }} dest=/etc/sensu/conf.d/{{ item }} owner=root group=root mode=644
+   with_items:
+     - check_cron.json
+     - check_disk.json
+     - check_dns.json
+     - check_ssh.json
+   notify: restart sensu server
+   tags: sensu-server
