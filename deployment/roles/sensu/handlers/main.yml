@@ -1,0 +1,4 @@
+---
+- name: restart monitoring
+  service: name=sensu-client state=restarted
+
