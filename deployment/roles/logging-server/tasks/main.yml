@@ -9,6 +9,8 @@
    action: file path=${syslog.path} owner=syslog group=root mode=0755 state=directory
    tags: logging-server
 
+ # http://www.rsyslog.com/doc/rsyslog_recording_pri.html
+ # Log the facility and priority as well
  - name: ensure logging configuration
    action: template src=rsyslog.conf dest=/etc/rsyslog.conf owner=root group=root mode=0644
    notify: restart logging server
@@ -18,4 +20,3 @@
    action: template src=10-server.conf dest=/etc/rsyslog.d/10-server.conf owner=root group=root mode=0644
    notify: restart logging server
    tags: logging-server
-
