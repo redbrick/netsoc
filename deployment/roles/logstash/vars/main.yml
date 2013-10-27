@@ -1,0 +1,12 @@
+---
+logstash:
+  url: https://download.elasticsearch.org/logstash/logstash
+  jar: logstash-1.2.2-flatjar.jar
+  dir: /opt/logstash
+  dependencies:
+    - openjdk-7-jdk
+    - openjdk-7-jre
+
+kibana:
+  url: https://github.com/elasticsearch/kibana/
+  dir: /var/www/
