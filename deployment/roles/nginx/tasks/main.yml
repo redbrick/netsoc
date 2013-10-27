@@ -1,0 +1,21 @@
+---
+ - name: ensure webserver
+   action: apt pkg=$item state=latest install_recommends=no
+   with_items:
+     - nginx
+   tags: nginx
+
+ - name: ensure webserver configuration
+   template: src=nginx.conf dest=/etc/nginx/nginx.conf
+   notify: restart webserver
+   tags: nginx
+
+ - name: ensure webserver root location
+   action: file path=${item.path} owner=www-data group=root mode=0755 state=directory
+   with_items: ${nginx.vhosts}
+   tags: nginx
+
+ - name: ensure default webserver vhost configuration
+   template: src=default dest=/etc/nginx/sites-enabled/000-default owner=root group=root mode=0644
+   notify: reload webserver
+   tags: nginx
