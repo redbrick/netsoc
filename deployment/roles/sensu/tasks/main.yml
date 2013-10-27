@@ -48,3 +48,9 @@
    template: src=config.json dest=/etc/sensu/config.json owner=root group=root mode=0644
    notify: restart monitoring
    tags: monitoring
+
+ - name: ensure monitoring default
+   template: src=default dest=/etc/default/sensu owner=root group=root mode=0644
+   notify: restart monitoring
+   tags: monitoring
+
