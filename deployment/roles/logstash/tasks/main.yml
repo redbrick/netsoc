@@ -25,3 +25,7 @@
    action: git repo=${kibana.url} dest=/var/www/ version=master update=yes depth=1
    tags: logstash
 
+ - name: ensure kibana configuration
+   action: template src=kibana.js dest=/var/www/src/config.js owner=root group=root mode=0644
+   tags: logstash
+
