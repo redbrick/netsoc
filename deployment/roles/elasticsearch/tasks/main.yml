@@ -1,0 +1,22 @@
+---
+ - name: ensure elasticsearch requirements
+   action: apt pkg=$item state=latest install_recommends=no
+   with_items:
+     - ${elasticsearch.dependencies}
+   tags: elasticsearch
+
+ - name: ensure elasticsearch package
+   get_url: url=${elasticsearch.url}/${elasticsearch.package} dest=/tmp/ sha256sum=${elasticsearch.hash}
+   register: elasticsearch_download
+   tags: elasticsearch
+
+ - name: ensure elasticsearch package installation
+   command: /usr/bin/dpkg -i --skip-same-version /tmp/${elasticsearch.package}
+   when: elasticsearch_download.changed
+   tags: elasticsearch
+
+ - name: ensure elasticsearch plugins 
+   command: /usr/share/elasticsearch/bin/plugin -install ${item.name} creates=${item.creates}
+   with_items: ${elasticsearch.plugins}
+   tags: elasticsearch
+

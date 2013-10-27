@@ -1,0 +1,10 @@
+---
+elasticsearch:
+  url: https://download.elasticsearch.org/elasticsearch/elasticsearch
+  package: elasticsearch-0.90.5.deb
+  hash: d25cdc971b1ef2393a620731137bae16e0d1107d49294b11c14634da0f1bb330
+  dependencies:
+   - openjdk-7-jre-headless
+  plugins:
+    - name: royrusso/elasticsearch-HQ
+      creates: /usr/share/elasticsearch/plugins/HQ/_site/index.html
