@@ -1,0 +1,15 @@
+---
+ - name: ensure graphite dependencies
+   action: apt pkg=$item state=latest install_recommends=no
+   with_items:
+    - ${graphite.dependencies}
+   tags: graphite
+
+ - name: ensure graphite requirements
+   action: copy src=requirements.txt dest=/tmp/requirements.txt
+   tags: graphite
+
+ - name: ensure graphite
+   pip: requirements=/tmp/requirements.txt virtualenv=${graphite.dir}
+   tags: graphite
+
