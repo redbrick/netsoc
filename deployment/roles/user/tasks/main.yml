@@ -39,6 +39,21 @@
      - bzr
    tags: user
 
+ - name: ensure user utlities
+   action: apt pkg=$item state=latest install_recommends=no
+   with_items:
+     - unzip
+     - unrar
+     - finger
+     - wget
+     - curl
+     - mutt
+     - slrn
+     - lynx
+     - w3m
+     - elinks
+   tags: user
+
  - name: ensure firewall
    action: apt pkg=$item state=latest install_recommends=no
    with_items:
