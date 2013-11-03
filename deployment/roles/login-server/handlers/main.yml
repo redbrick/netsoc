@@ -1,0 +1,7 @@
+---
+- name: update pam-auth-update
+  command: /usr/sbin/pam-auth-update --package
+
+- name: update nss
+  command: auth-client-config -t nss -p lac_ldap
+
