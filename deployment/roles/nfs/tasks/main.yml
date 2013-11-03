@@ -1,0 +1,7 @@
+---
+ - name: ensure nfs requirements
+   action: apt pkg=$item state=latest install_recommends=no
+   with_items:
+     - ${nfs.dependencies}
+   tags: nfs
+

@@ -1,0 +1,5 @@
+---
+nfs:
+  dependencies:
+    - nfs-kernel-server
+
