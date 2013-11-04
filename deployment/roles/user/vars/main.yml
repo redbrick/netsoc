@@ -1,0 +1,46 @@
+---
+user:
+  dependencies:
+    # shells
+    - bash
+    - zsh
+
+    # utilities
+    - unzip
+    - unrar
+    - finger
+
+    # download
+    - wget
+    - curl
+
+    # email
+    - mutt
+    - slrn
+
+    # browsers
+    - lynx
+    - w3m
+    - elinks
+
+    # development utilities
+    - build-essential
+    - python-dev
+    - git
+    - subversion
+    - mercurial
+    - bzr
+
+    # terminal multiplexers
+    - tmux
+    - screen
+
+    # editors
+    - nano
+    - emacs
+    - vim
+
+    # IRC
+    - irssi
+    - weechat-curses
+
