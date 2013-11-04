@@ -2,25 +2,24 @@
  - name: ensure ldap login
    action: apt pkg=$item state=latest install_recommends=no
    with_items:
-     - ldap-utils
-     - libpam-ldap
-     - libnss-ldap
-   tags: ldap-server
+     - ${login.dependencies}
+   tags: login
 
  - name: ensure ldap.secret
    copy: content=${ldap.password} dest=/etc/ldap.secret owner=root group=root mode=400
-   tags: ldap-server
+   tags: login
 
  - name: ensure ldap.conf
    template: src=ldap.conf dest=/etc/ldap.conf owner=root group=root mode=0644
-   tags: ldap-server
+   tags: login
 
  - name: ensure nss auth configuration
    action: template src=ldap-auth-config dest=/etc/auth-client-config/profile.d/ldap-auth-config owner=root group=root
    notify: update nss
-   tags: ldap-server
+   tags: login
 
  - name: ensure ldap auth configuration
    action: template src=mkhomedir dest=/usr/share/pam-configs/mkhomedir owner=root group=root
    notify: update pam-auth-update
-   tags: ldap-server
+   tags: login
+

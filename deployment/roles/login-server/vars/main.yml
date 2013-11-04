@@ -1,0 +1,7 @@
+---
+login:
+  dependencies:
+    - ldap-utils
+    - libpam-ldap
+    - libnss-ldap
+
