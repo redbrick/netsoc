@@ -1,0 +1,64 @@
+---
+ - name: ensure rbenv dependencies
+   action: apt pkg=$item state=latest install_recommends=no
+   with_items:
+     - ${rbenv.dependencies}
+   tags: rbenv
+
+ - name: ensure rbenv installed
+   action: git repo=${rbenv.url} dest=${rbenv.dir} version=${rbenv.dir} update=yes depth=1
+   tags: rbenv
+
+ - name: ensure rbenv profile
+   action: template src=rbenv.sh dest=/etc/profile.d/rbenv.sh owner=root group=root mode=0644
+   tags: rbenv
+
+ - name: ensure ruby-build installed
+   command: /usr/bin/test -x /usr/local/bin/ruby-build
+   register: ruby_build
+   ignore_errors: True
+   changed_when: False
+   tags: rbenv
+
+ - name: ensure ruby-build temporary directory
+   command: /bin/mktemp -d
+   register: ruby_build_temp
+   when: ruby_build|failed
+   tags: rbenv
+
+ - name: ensure rbenv-build installed
+   action: git repo=${rbenv-build.url} dest=${ruby_build_temp.stdout}/ version=${rbenv-build.version} update=yes depth=1
+   when: ruby_build|failed
+   tags: rbenv
+
+ - name: ensure ruby-build install
+   command: ./install.sh chdir=${ruby_build_temp.stdout}/
+   when: ruby_build|failed
+   tags: rbenv
+
+ - name: ensure ruby-build temporary directory removed
+   file: path=${ruby_build_temp.stdout} state=absent
+   when: ruby_build|failed
+   tags: rbenv
+
+ - name: ensure ruby ${ruby.version} installed
+   shell: RBENV_ROOT=${rbenv.dir} ${rbenv.dir}/bin/rbenv versions | /bin/grep ${ruby.version}
+   register: ruby_install
+   ignore_errors: yes
+   changed_when: False
+   tags: rbenv
+
+ - name: ensure ruby ${ruby.version} installed
+   shell: RBENV_ROOT=${rbenv.dir} ${rbenv.dir}/bin/rbenv install ${ruby.version}
+   when: ruby_install|failed
+   tags: rbenv
+
+ - name: ensure rbenv global ruby ${ruby.version}
+   shell: RBENV_ROOT=${rbenv.dir} ${rbenv.dir}/bin/rbenv global ${ruby.version}
+   when: ruby_install|failed
+   tags: rbenv
+
+ - name: ensure rbenv rehash
+   shell: RBENV_ROOT=${rbenv.dir} ${rbenv.dir}/bin/rbenv rehash
+   when: ruby_install|failed
+   tags: rbenv

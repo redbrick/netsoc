@@ -1,0 +1,22 @@
+---
+rbenv:
+  url: https://github.com/sstephenson/rbenv
+  version: master
+  dir: /usr/local/rbenv
+  dependencies:
+    - build-essential
+    - git
+    - libcurl4-openssl-dev
+    - libmysqlclient-dev
+    - libreadline-dev
+    - libssl-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - zlib1g-dev
+
+rbenv-build:
+  url: https://github.com/sstephenson/ruby-build
+  version: master
+
+ruby:
+  version: 2.0.0-p247
