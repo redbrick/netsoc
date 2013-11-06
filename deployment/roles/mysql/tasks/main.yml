@@ -1,0 +1,33 @@
+---
+ - name: ensure mysql dependencies
+   action: apt pkg=$item state=latest install_recommends=no
+   with_items:
+     - ${mysql.dependencies}
+   tags: mysql
+
+ - name: ensure mysql root password
+   mysql_user: name=root host=$item password=${mysql.password}
+   with_items:
+     - $ansible_hostname
+     - 127.0.0.1
+     - ::1
+     - localhost
+   tags: mysql
+
+ - name: copy .my.cnf file with root password credentials
+   template: src=my.cnf dest=/root/.my.cnf owner=root group=root mode=0600
+   tags: mysql
+
+ - name: ensure mysql no anonymous users
+   mysql_user: name='' host=$item state=absent
+   with_items:
+     - $ansible_hostname
+     - 127.0.0.1
+     - ::1
+     - localhost
+   tags: mysql
+
+ - name: ensure mysql no test database
+   mysql_db: name=test state=absent
+   tags: mysql
+

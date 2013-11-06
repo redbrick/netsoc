@@ -1,0 +1,7 @@
+---
+mysql:
+  username: root
+  password: password
+  dependencies:
+    - mysql-server
+    - python-mysqldb
