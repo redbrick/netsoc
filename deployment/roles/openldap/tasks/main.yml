@@ -1,0 +1,33 @@
+---
+ - name: ensure ldap dependencies
+   action: apt pkg=$item state=latest install_recommends=no
+   with_items:
+    - ${ldap.dependencies}
+   tags: ldap-server
+
+ - name: ensure ldap.secret
+   copy: content=${ldap.password} dest=/etc/ldap.secret owner=root group=root mode=0400
+   tags: ldap-server
+
+ - name: ensure ldap.conf
+   template: src=ldap.conf dest=/etc/ldap.conf owner=root group=root mode=0644
+   tags: ldap-server
+
+ - name: ensure ldap base
+   action: template src=base.ldif dest=/etc/ldap/ owner=root group=root
+   tags: ldap-server
+
+ - name: ensure ldap manager
+   action: template src=manager.ldif dest=/etc/ldap/ owner=root group=root
+   tags: ldap-server
+
+ - name: ensure ldap manager applied
+   command: /usr/bin/ldapmodify -Y EXTERNAL -H ldapi:/// -f /etc/ldap/manager.ldif
+   changed_when: False
+   tags: ldap-server
+
+ - name: ensure ldap base applied
+   command: /usr/bin/ldapadd -c -x -D "cn=admin,${ldap.base}" -y /etc/ldap.secret -f /etc/ldap/base.ldif
+   ignore_errors: yes
+   changed_when: False
+   tags: ldap-server

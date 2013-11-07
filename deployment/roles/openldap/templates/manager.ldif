@@ -1,0 +1,20 @@
+dn: olcDatabase={${ldap.olcdb}}hdb,cn=config
+changetype: modify
+replace: olcSuffix
+olcSuffix: ${ldap.base}
+-
+replace: olcRootDN
+olcRootDN: cn=admin,${ldap.base}
+-
+replace: olcRootPW
+olcRootPW: ${ldap.hashpw}
+-
+delete: olcAccess
+olcAccess: {0}
+olcAccess: {1}
+olcAccess: {2}
+-
+add: olcAccess
+olcAccess: {0}to attrs=userPassword,shadowLastChange by self write by anonymous auth by dn="cn=admin,${ldap.base}" write by * none
+olcAccess: {1}to dn.base="" by * read
+olcAccess: {2}to * by self write by dn="cn=admin,${ldap.base}" write by * read

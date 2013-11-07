@@ -1,0 +1,9 @@
+---
+ldap:
+  dependencies:
+    - ldap-utils
+    - slapd
+    - libpam-ldap
+    - libnss-ldap
+    - ldapscripts
+    - pwgen

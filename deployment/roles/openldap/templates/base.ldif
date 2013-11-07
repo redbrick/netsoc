@@ -1,0 +1,26 @@
+# organisation
+dn: {{ ldap.base }}
+description: Organisation
+dc: {{ netsoc.name }}
+o: {{ ldap.domain }}
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+
+# admin user
+dn: cn=admin,{{ ldap.base }}
+objectClass: simpleSecurityObject
+objectClass: organizationalRole
+cn: admin
+description: LDAP administrator
+userPassword: {{ ldap.password }}
+
+# people
+dn: ou=people,{{ ldap.base }}
+objectClass: organizationalUnit
+ou: people
+
+# groups
+dn: ou=group,{{ ldap.base }}
+objectClass: organizationalUnit
+ou: groups
