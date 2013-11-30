@@ -1,6 +1,6 @@
 ---
  - name: ensure monitoring requirements
-   action: apt pkg=$item state=latest install_recommends=no
+   action: apt pkg={{ item }} state=latest install_recommends=no
    with_items:
      - python-pycurl
    tags: monitoring
@@ -16,7 +16,7 @@
    tags: monitoring
    
  - name: ensure monitoring package
-   action: apt pkg=$item state=latest install_recommends=no
+   action: apt pkg={{ item }} state=latest install_recommends=no
    with_items:
      - sensu
      - git
@@ -53,4 +53,3 @@
    template: src=default dest=/etc/default/sensu owner=root group=root mode=0644
    notify: restart monitoring
    tags: monitoring
-
