@@ -1,6 +1,6 @@
 ---
  - name: ensure logging
-   action: apt pkg=$item state=latest install_recommends=no
+   action: apt pkg={{ item }} state=latest install_recommends=no
    with_items:
      - rsyslog
    tags: logging
