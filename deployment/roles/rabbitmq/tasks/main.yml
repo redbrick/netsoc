@@ -1,6 +1,6 @@
 ---
  - name: ensure rabbitmq requirements
-   action: apt pkg=$item state=latest install_recommends=no
+   action: apt pkg={{ item }} state=latest install_recommends=no
    with_items:
      - python-pycurl
    tags: rabbitmq
@@ -16,13 +16,13 @@
    tags: rabbitmq
 
  - name: ensure rabbitmq package
-   action: apt pkg=$item state=latest install_recommends=no
+   action: apt pkg={{ item }} state=latest install_recommends=no
    with_items:
      - rabbitmq-server
    tags: rabbitmq
 
  - name: ensure rabbitmq plugins
-   action: rabbitmq_plugin names=$item state=enabled
+   action: rabbitmq_plugin names={{ item }} state=enabled
    with_items:
      - rabbitmq_management
    tags: rabbitmq
