@@ -1,17 +1,16 @@
 ---
  - name: ensure ntp
-   action: apt pkg=$item state=latest install_recommends=no
+   action: apt pkg={{ item }} state=latest install_recommends=no
    with_items:
      - ntp
    tags: time
 
- # may need to remove the file, if the file is a symlink then run this task
  - name: ensure localtime
-   action: file src=/usr/share/zoneinfo/${time.timezone} path=/etc/localtime state=link owner=root group=root force=yes
+   action: file src=/usr/share/zoneinfo/{{ time.timezone }} path=/etc/localtime state=link owner=root group=root force=yes
    tags: time
 
  - name: ensure timezone
-   action: copy content=${time.timezone} dest=/etc/timezone
+   action: copy content={{ time.timezone }} dest=/etc/timezone
    notify:
    - update timezone
    tags: time
