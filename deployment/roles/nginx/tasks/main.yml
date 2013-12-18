@@ -1,6 +1,6 @@
 ---
  - name: ensure webserver
-   action: apt pkg=$item state=latest install_recommends=no
+   action: apt pkg={{ item }} state=latest install_recommends=no
    with_items:
      - nginx
    tags: nginx
@@ -11,8 +11,9 @@
    tags: nginx
 
  - name: ensure webserver root location
-   action: file path=${item.path} owner=www-data group=root mode=0755 state=directory
-   with_items: ${nginx.vhosts}
+   action: file path={{ item.path }} owner=www-data group=root mode=0755 state=directory
+   with_items:
+     - ${nginx.vhosts}
    tags: nginx
 
  - name: ensure default webserver vhost configuration
