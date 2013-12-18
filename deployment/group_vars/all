@@ -11,19 +11,49 @@ time:
 language:
   lang: en_IE.UTF-8
 
-# ldap server
+# ldap settings
 ldap:
-  server: netsoc.org
+  domain: netsoc.org
   password: password
+  hashpw: "{SSHA}WoOyltqjd+obGEpYcpebxZjIjmvulfhd"
+  base: "dc=netsoc,dc=org"
+  rootbinddn: cn=admin,dc=netsoc,dc=org
+  olcdb: 1
+  server: 10.10.1.2
 
+# logging settings
 logging:
   server: 10.10.1.4
 
+# dns settings
 dns:
   domain: netsoc.org
   server: 10.10.1.4
 
+# logging settings
 syslog:
   server: 10.10.1.4
-  path: /var/syslog/
+  path: /var/syslog
   permission: "0755"
+
+# monitoring settings
+sensu:
+  rabbitmq:
+    server: 10.10.1.2
+    port: 5672
+    username: sensu
+    password: sensu
+    vhost: /sensu
+  dashboard:
+    username: admin
+    password: secret
+
+# nfs
+nfs:
+  exports:
+    - path: /exports
+      network: 10.0.0.0/8
+      writeable: True
+      sync: True
+      options:
+        - no_root_squash
