@@ -1,0 +1,11 @@
+---
+- name: Install base setup
+  hosts: all
+  sudo: True
+
+  roles:
+    - time
+    - language
+    - logging
+    - motd
+    - sensu

@@ -1,0 +1,7 @@
+---
+- name: Install login servers
+  hosts: login
+  sudo: True
+
+  roles:
+    - login-server

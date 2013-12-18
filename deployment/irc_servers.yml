@@ -1,0 +1,7 @@
+---
+- name: Install IRC servers
+  hosts: irc
+  sudo: True
+
+  roles:
+    - ircd

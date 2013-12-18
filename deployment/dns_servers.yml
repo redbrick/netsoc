@@ -1,0 +1,7 @@
+---
+- name: Install DNS servers
+  hosts: dns
+  sudo: True
+
+  roles:
+    - powerdns

@@ -1,0 +1,7 @@
+---
+- name: Install www servers
+  hosts: www
+  sudo: True
+
+  roles:
+    - nginx

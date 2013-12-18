@@ -1,0 +1,10 @@
+---
+- name: Install logging servers
+  hosts: logging
+  sudo: True
+
+  roles:
+    - logging-server
+    - nginx
+    - graphite
+    - logstash

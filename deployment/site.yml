@@ -7,12 +7,14 @@
   vars_files:
     - private_vars.yml
 
-  pre_tasks:
-    - name: ensure package cache updated
-      action: apt update_cache=yes cache_valid_time=3600
+# setup the following servers before the base configuration
+- include: dns_servers.yml
+- include: mgmt_servers.yml
+- include: logging_servers.yml
 
-  roles:
-    - time
-    - language
-    - logging
-    - motd
+# configure all the servers according to this
+- include: base_servers.yml
+
+# specific servers are now configured
+- include: irc_servers.yml
+- include: www_servers.yml

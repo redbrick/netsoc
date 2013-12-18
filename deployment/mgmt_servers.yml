@@ -1,0 +1,9 @@
+---
+- name: Install management servers
+  hosts: mgmt
+  sudo: True
+
+  roles:
+    - sensu-server
+    - backup-server
+    - openldap
