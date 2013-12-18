@@ -1,12 +1,12 @@
 ---
  - name: ensure logging server
-   action: apt pkg=$item state=latest install_recommends=no
+   action: apt pkg={{ item }} state=latest install_recommends=no
    with_items:
      - rsyslog
    tags: logging-server
 
  - name: ensure logging location
-   action: file path=${syslog.path} owner=syslog group=root mode=0755 state=directory
+   action: file path={{ syslog.path }} owner=syslog group=root mode=0755 state=directory
    tags: logging-server
 
  # http://www.rsyslog.com/doc/rsyslog_recording_pri.html
