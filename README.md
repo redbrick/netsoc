@@ -18,7 +18,7 @@ Prerequisites
 Download and install the latest version of:
 
  * [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
- * [Vagrant](http://downloads.vagrantup.com/tags/v1.3.4/)
+ * [Vagrant](http://www.vagrantup.com/downloads.html)
 
 
 Installation
