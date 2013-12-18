@@ -1,7 +1,7 @@
 ---
 logstash:
   url: https://download.elasticsearch.org/logstash/logstash
-  jar: logstash-1.2.2-flatjar.jar
+  jar: logstash-1.3.1-flatjar.jar
   dir: /opt/logstash
   dependencies:
     - openjdk-7-jdk
