@@ -1,0 +1,7 @@
+---
+diamond:
+  dir: /opt/diamond
+  dependencies:
+    - python-dev
+    - python-pip
+    - python-virtualenv

@@ -1,0 +1,15 @@
+---
+ - name: ensure diamond dependencies
+   action: apt pkg={{ item }} state=latest install_recommends=no
+   with_items:
+    - ${diamond.dependencies}
+   tags: diamond
+
+ - name: ensure diamond requirements
+   action: copy src=requirements.txt dest=/tmp/requirements.txt
+   tags: diamond
+
+ - name: ensure diamond
+   pip: requirements=/tmp/requirements.txt virtualenv={{ diamond.dir }}
+   tags: diamond
+
