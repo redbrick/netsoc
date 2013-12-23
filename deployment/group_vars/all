@@ -28,7 +28,7 @@ logging:
 
 # dns settings
 dns:
-  domain: {{ netsoc.domain }}
+  domain: "{{ netsoc.domain }}"
   server: 10.10.1.4
 
 # logging settings
