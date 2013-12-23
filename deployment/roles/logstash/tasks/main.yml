@@ -1,31 +1,18 @@
 ---
  - name: ensure logstash dependencies
-   action: apt pkg=$item state=latest install_recommends=no
+   action: apt pkg={{ item }} state=latest install_recommends=no
    with_items:
     - ${logstash.dependencies}
    tags: logstash
 
  - name: ensure logstash directory
-   action: file path=${logstash.dir} group=root owner=root mode=0755 state=directory
+   action: file path={{ logstash.dir }} group=root owner=root mode=0755 state=directory
    tags: logstash
 
  - name: ensure logstash
-   get_url: url=${logstash.url}/${logstash.jar} dest=${logstash.dir} mode=0644
+   get_url: url={{ logstash.url }}/{{ logstash.jar }} dest={{ logstash.dir }} mode=0644
    tags: logstash
 
  - name: ensure logstash init
    action: template src=init dest=/etc/init/logstash.conf owner=root group=root mode=0644
    tags: logstash
-
- - name: ensure kibana location
-   action: file path=${kibana.dir} owner=www-data group=root mode=0755 state=directory
-   tags: logstash
-
- - name: ensure latest kibana
-   action: git repo=${kibana.url} dest=/var/www/ version=master update=yes depth=1
-   tags: logstash
-
- - name: ensure kibana configuration
-   action: template src=kibana.js dest=/var/www/src/config.js owner=root group=root mode=0644
-   tags: logstash
-

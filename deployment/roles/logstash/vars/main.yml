@@ -6,7 +6,3 @@ logstash:
   dependencies:
     - openjdk-7-jdk
     - openjdk-7-jre
-
-kibana:
-  url: https://github.com/elasticsearch/kibana/
-  dir: /var/www/
