@@ -1,0 +1,10 @@
+---
+nginx:
+  vhosts:
+    - domain: "logging.{{ netsoc.domain }}"
+      path: /var/www/
+      upstream:
+        path: /
+        name: elasticsearch
+        servers:
+          - 127.0.0.1:9200

@@ -2,6 +2,7 @@
 # netsoc details
 netsoc:
   name: netsoc
+  domain: netsoc.org
 
 # timezone settings
 time:
@@ -13,7 +14,7 @@ language:
 
 # ldap settings
 ldap:
-  domain: netsoc.org
+  domain: "{{ netsoc.domain }}"
   password: password
   hashpw: "{SSHA}WoOyltqjd+obGEpYcpebxZjIjmvulfhd"
   base: "dc=netsoc,dc=org"
@@ -27,7 +28,7 @@ logging:
 
 # dns settings
 dns:
-  domain: netsoc.org
+  domain: {{ netsoc.domain }}
   server: 10.10.1.4
 
 # logging settings
