@@ -17,6 +17,6 @@
    tags: nginx
 
  - name: ensure default webserver vhost configuration
-   template: src=default dest=/etc/nginx/sites-enabled/000-default owner=root group=root mode=0644
+   template: src=000-default dest=/etc/nginx/sites-enabled/000-default owner=root group=root mode=0644
    notify: reload webserver
    tags: nginx
