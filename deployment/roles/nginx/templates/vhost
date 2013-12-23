@@ -1,0 +1,82 @@
+# {{ ansible_managed }}
+
+##
+# You should look at the following URL's in order to grasp a solid understanding
+# of Nginx configuration files in order to fully unleash the power of Nginx.
+# http://wiki.nginx.org/Pitfalls
+# http://wiki.nginx.org/QuickStart
+# http://wiki.nginx.org/Configuration
+##
+
+{% if item.1.upstream.name %}
+upstream {{ item.1.domain }}-{{ item.1.upstream.name }} {
+	{% for server in item.1.upstream.servers %}
+        server {{ server }};
+	{% endfor %}
+}
+{% endif %}
+
+server {
+	listen   [::]:80;
+
+	root {{ item.1.path }};
+	index index.html index.htm;
+
+	# Make site accessible from http://localhost/
+	server_name {{ item.1.domain }} *.{{ item.1.domain }};
+
+	{% if item.1.upstream.name %}
+
+	location {{ item.1.upstream.path }} {
+		proxy_pass http://{{ item.1.domain }}-{{ item.1.upstream.name }};
+		proxy_set_header Host $host;
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header X-Forwarded-Proto $scheme;
+		proxy_set_header X-Forwarded-Port $server_port;
+		#proxy_set_header X-Request-Start $msec;
+		proxy_set_header X-Scheme $scheme;
+        }
+	{% endif %}
+
+	{% if item.1.upstream.path == "/" %}
+	{% else %}
+
+	location / {
+		# First attempt to serve request as file, then
+		# as directory, then fall back to index.html
+		try_files $uri $uri/ /index.html;
+	}
+
+	{% endif %}
+
+	#error_page 404 /404.html;
+
+	# redirect server error pages to the static page /50x.html
+	#
+	#error_page 500 502 503 504 /50x.html;
+	#location = /50x.html {
+	#	root /var/www;
+	#}
+
+	{% if item.1.php is defined and item.1.php.enabled %}
+	# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+	#
+	#location ~ \.php$ {
+	#	fastcgi_split_path_info ^(.+\.php)(/.+)$;
+	#	# NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+	#
+	#	# With php5-fpm:
+	#	fastcgi_pass unix:/var/run/php5-fpm.sock;
+	#	fastcgi_index index.php;
+	#	include fastcgi_params;
+	#}
+	{% endif %}
+
+	# deny access to .htaccess files, if Apache's document root
+	# concurs with nginx's one
+	#
+	location ~ /\.ht {
+		deny all;
+	}
+}

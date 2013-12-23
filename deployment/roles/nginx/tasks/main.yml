@@ -20,3 +20,10 @@
    template: src=000-default dest=/etc/nginx/sites-enabled/000-default owner=root group=root mode=0644
    notify: reload webserver
    tags: nginx
+
+ - name: ensure vhost configurations
+   template: src=vhost dest=/etc/nginx/sites-enabled/{{ "%03d-%s"|format(item.0 + 1, item.1.domain) }} owner=root group=root mode=0644
+   notify: reload webserver
+   with_indexed_items:
+     - ${nginx.vhosts}
+   tags: nginx
