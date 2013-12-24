@@ -6,11 +6,11 @@
    tags: logstash
 
  - name: ensure logstash directory
-   action: file path={{ logstash.dir }} group=root owner=root mode=0755 state=directory
+   action: file path={{ logstash.path }} group=root owner=root mode=0755 state=directory
    tags: logstash
 
  - name: ensure logstash
-   get_url: url={{ logstash.url }}/{{ logstash.jar }} dest={{ logstash.dir }} mode=0644
+   get_url: url={{ logstash.url }}/{{ logstash.jar }} dest={{ logstash.path }} mode=0644
    tags: logstash
 
  - name: ensure logstash init

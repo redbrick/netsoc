@@ -2,7 +2,9 @@
 logstash:
   url: https://download.elasticsearch.org/logstash/logstash
   jar: logstash-1.3.1-flatjar.jar
-  dir: /opt/logstash
+  path: /opt/logstash
+  initial_java_heap: 256m
+  maximum_java_heap: 256m
   dependencies:
     - openjdk-7-jdk
     - openjdk-7-jre

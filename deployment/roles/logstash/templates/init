@@ -12,11 +12,11 @@ respawn
 respawn limit 5 30
 limit nofile 65550 65550
 
-env JAVA_OPTS='-Xms256m -Xmx256m'
+env JAVA_OPTS='-Xms{{ logstash.initial_java_heap }} -Xmx{{ logstash.maximum_java_heap }}'
 chdir /var/lib/logstash
 console log
 
 script
-  exec java $JAVA_OPTS -jar ${logstash.dir}/${logstash.jar} agent -f /etc/logstash/logstash.conf --log /var/log/logstash.log
+  exec java $JAVA_OPTS -jar {{ logstash.path }}/{{ logstash.jar }} agent -f /etc/logstash/logstash.conf --log /var/log/logstash.log
 end script
 
