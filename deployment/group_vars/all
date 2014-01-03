@@ -48,13 +48,3 @@ sensu:
   dashboard:
     username: admin
     password: secret
-
-# nfs
-nfs:
-  exports:
-    - path: /exports
-      network: 10.0.0.0/8
-      writeable: True
-      sync: True
-      options:
-        - no_root_squash
