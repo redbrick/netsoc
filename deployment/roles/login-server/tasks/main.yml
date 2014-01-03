@@ -1,12 +1,12 @@
 ---
  - name: ensure ldap login
-   action: apt pkg=$item state=latest install_recommends=no
+   action: apt pkg={{ item }} state=latest install_recommends=no
    with_items:
      - ${login.dependencies}
    tags: login
 
  - name: ensure ldap.secret
-   copy: content=${ldap.password} dest=/etc/ldap.secret owner=root group=root mode=400
+   copy: content={{ ldap.password }} dest=/etc/ldap.secret owner=root group=root mode=400
    tags: login
 
  - name: ensure ldap.conf
