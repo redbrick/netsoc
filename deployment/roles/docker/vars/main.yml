@@ -1,0 +1,5 @@
+---
+docker:
+  dependencies:
+    - linux-image-generic-lts-raring
+    - linux-headers-generic-lts-raring
