@@ -1,7 +1,17 @@
 ---
  - name: ensure nfs requirements
-   action: apt pkg=$item state=latest install_recommends=no
+   action: apt pkg={{ item }} state=latest install_recommends=no
    with_items:
      - ${nfs.dependencies}
    tags: nfs
 
+ - name: ensure nfs directories
+   file: path={{ item.path }} owner=root group=root mode=0755 state=directory
+   with_items:
+     - ${nfs.exports}
+   tags: nfs
+
+ - name: ensure nfs exports
+   template: src=exports dest=/etc/exports owner=root group=root mode=0600
+   notify: restart nfs
+   tags: nfs

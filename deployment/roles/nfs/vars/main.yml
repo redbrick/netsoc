@@ -2,4 +2,4 @@
 nfs:
   dependencies:
     - nfs-kernel-server
-
+    - nfs-common
