@@ -5,6 +5,4 @@ before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq python-apt python-pycurl
 install:
-  - pip install apt
-  - pip install pycurl
   - pip install ansible
