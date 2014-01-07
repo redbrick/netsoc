@@ -2,3 +2,4 @@
 kibana:
   url: https://github.com/elasticsearch/kibana/
   path: /var/www/
+  version: master

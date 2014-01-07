@@ -4,10 +4,10 @@
    tags: kibana
 
  - name: ensure latest kibana
-   action: git repo={{ kibana.url }} dest=/var/www/ version=master update=yes depth=1
+   action: git repo={{ kibana.url }} dest={{ kibana.path }} version={{ kibana.version }} update=yes depth=1
    tags: kibana
 
  - name: ensure kibana configuration
-   action: template src=kibana.js dest=/var/www/src/config.js owner=root group=root mode=0644
+   action: template src=kibana.js dest={{ kibana.path }}/src/config.js owner=root group=root mode=0644
    tags: kibana
 
