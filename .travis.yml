@@ -6,3 +6,5 @@ before_install:
   - sudo apt-get install -qq python-apt python-pycurl
 install:
   - pip install ansible
+script:
+  - ansible-playbook --version
