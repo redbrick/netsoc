@@ -22,30 +22,27 @@
      - git
    tags: monitoring
 
- # TODO: use executable in later ansible versions to specify the sensu gem binary
- #- name: ensure monitoring plugins
- #  gem: name=sensu-plugin state=latest
- #  tags: monitoring
+ - name: ensure monitoring plugins
+   gem: name=sensu-plugin state=latest executable=/opt/sensu/embedded/bin/gem
+   tags: monitoring
 
  - name: ensure monitoring features installed
-   action: git repo=https://github.com/sensu/sensu-community-plugins.git dest=/opt/sensu-community-plugins version=master update=yes depth=1
+   action: git repo={{ sensu.plugins.url }} dest={{ sensu.plugins.path }} version={{ sensu.plugins.version }} update=yes depth=1
    tags: monitoring
 
  - name: ensure monitoring plugins installed
-   action: file src=/opt/sensu-community-plugins/plugins dest=/etc/sensu/plugins/sensu-community-plugins owner=root group=root state=link
+   action: file src={{ sensu.plugins.path }}/plugins dest=/etc/sensu/plugins/sensu-community-plugins owner=root group=root state=link
    tags: monitoring
 
  - name: ensure monitoring handlers installed
-   action: file src=/opt/sensu-community-plugins/handlers dest=/etc/sensu/handlers/sensu-community-plugins owner=root group=root state=link
-   tags: monitoring
-
- - name: ensure monitoring client configuration
-   template: src=client.json dest=/etc/sensu/conf.d/client.json owner=root group=root mode=0644
-   notify: restart monitoring
+   action: file src={{ sensu.plugins.path }}/handlers dest=/etc/sensu/handlers/sensu-community-plugins owner=root group=root state=link
    tags: monitoring
 
  - name: ensure monitoring configuration
-   template: src=config.json dest=/etc/sensu/config.json owner=root group=root mode=0644
+   template: src={{ item }} dest=/etc/sensu/conf.d/{{ item }} owner=root group=root mode=0644
+   with_items:
+     - client.json
+     - rabbitmq.json
    notify: restart monitoring
    tags: monitoring
 

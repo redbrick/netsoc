@@ -1,0 +1,6 @@
+---
+sensu:
+  plugins:
+    url: https://github.com/sensu/sensu-community-plugins.git
+    version: master
+    path: /opt/sensu-community-plugins
