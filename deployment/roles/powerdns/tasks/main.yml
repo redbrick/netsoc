@@ -1,6 +1,6 @@
 ---
  - name: ensure dns server
-   action: apt pkg=$item state=latest install_recommends=no
+   action: apt pkg={{ item }} state=latest install_recommends=no
    with_items:
      - pdns-server
    tags: dns-server
@@ -30,7 +30,7 @@
    tags: dns-server
 
  - name: ensure recursive dns server
-   action: apt pkg=$item state=latest install_recommends=no
+   action: apt pkg={{ item }} state=latest install_recommends=no
    with_items:
      - pdns-recursor
    tags: dns-server
