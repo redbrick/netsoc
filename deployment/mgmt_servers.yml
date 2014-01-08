@@ -5,5 +5,3 @@
 
   roles:
     - sensu-server
-    - backup-server
-    - openldap
