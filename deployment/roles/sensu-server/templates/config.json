@@ -1,36 +1,4 @@
 {
-  "rabbitmq": {
-    "host": "{{ sensu.rabbitmq.server }}",
-    "port": {{ sensu.rabbitmq.port }},
-    "user": "{{ sensu.rabbitmq.username }}",
-    "password": "{{ sensu.rabbitmq.password }}",
-    "vhost": "{{ sensu.rabbitmq.vhost }}"
-  },
-  "redis": {
-    "host": "localhost",
-    "port": 6379
-  },
-  "api": {
-    "host": "localhost",
-    "port": 4567
-  },
-  "dashboard": {
-    "port": 8080,
-    "user": "{{ sensu.dashboard.username }}",
-    "password": "{{ sensu.dashboard.password }}"
-  },
-  "handlers": {
-    "default": {
-      "type": "set",
-      "handlers": [
-        "stdout"
-      ]
-    },
-    "stdout": {
-      "type": "pipe",
-      "command": "cat"
-    }
-  },
   "checks": {
     "test": {
       "command": "echo -n OK",

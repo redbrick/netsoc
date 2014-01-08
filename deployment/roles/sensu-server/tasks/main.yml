@@ -20,13 +20,20 @@
    tags: sensu-server
 
  - name: ensure sensu server configuration
-   template: src=config.json dest=/etc/sensu/config.json owner=root group=root mode=0644
+   template: src={{ item }} dest=/etc/sensu/conf.d/{{ item }} owner=root group=root mode=0644
+   with_items:
+     - api.json
+     - dashboard.json
+     - handlers.json
+     - rabbitmq.json
+     - redis.json
    notify: restart sensu server
    tags: sensu-server
 
  - name: ensure sensu server checks
    template: src={{ item }} dest=/etc/sensu/conf.d/{{ item }} owner=root group=root mode=644
    with_items:
+     - check_cpu.json
      - check_cron.json
      - check_disk.json
      - check_dns.json
