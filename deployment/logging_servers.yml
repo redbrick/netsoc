@@ -4,7 +4,7 @@
   sudo: True
 
   roles:
-    - logging-server
-    - nginx
+    - rsyslogd
     - graphite
     - logstash
+    - kibana

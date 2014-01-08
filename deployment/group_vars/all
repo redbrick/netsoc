@@ -48,3 +48,7 @@ sensu:
   dashboard:
     username: admin
     password: secret
+  api:
+    username: admin
+    password: secret
+
