@@ -6,6 +6,6 @@
   roles:
     - time
     - language
-    - logging
+    - rsyslog
     - motd
     - sensu
