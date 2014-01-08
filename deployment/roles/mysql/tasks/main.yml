@@ -1,12 +1,12 @@
 ---
  - name: ensure mysql dependencies
-   action: apt pkg=$item state=latest install_recommends=no
+   action: apt pkg={{ item }} state=latest install_recommends=no
    with_items:
      - ${mysql.dependencies}
    tags: mysql
 
  - name: ensure mysql root password
-   mysql_user: name=root host=$item password=${mysql.password}
+   mysql_user: name=root host={{ item }} password={{ mysql.password }}
    with_items:
      - $ansible_hostname
      - 127.0.0.1
@@ -19,7 +19,7 @@
    tags: mysql
 
  - name: ensure mysql no anonymous users
-   mysql_user: name='' host=$item state=absent
+   mysql_user: name='' host={{ item }} state=absent
    with_items:
      - $ansible_hostname
      - 127.0.0.1
