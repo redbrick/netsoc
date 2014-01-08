@@ -1,29 +1,34 @@
 ---
- - name: ensure webserver
+ - name: ensure nginx
    action: apt pkg={{ item }} state=latest install_recommends=no
    with_items:
      - nginx
    tags: nginx
 
- - name: ensure webserver configuration
+ - name: ensure nginx configuration
    template: src=nginx.conf dest=/etc/nginx/nginx.conf
-   notify: restart webserver
+   notify: restart nginx
    tags: nginx
 
- - name: ensure webserver root location
+ - name: ensure nginx root location
    action: file path={{ item.path }} owner=www-data group=root mode=0755 state=directory
    with_items:
      - ${nginx.vhosts}
    tags: nginx
 
- - name: ensure default webserver vhost configuration
+ - name: ensure nginx default vhost configuration absent
+   file: path=/etc/nginx/sites-enabled/default state=absent
+   notify: reload nginx
+   tags: nginx
+
+ - name: ensure default nginx vhost configuration
    template: src=000-default dest=/etc/nginx/sites-enabled/000-default owner=root group=root mode=0644
-   notify: reload webserver
+   notify: reload nginx
    tags: nginx
 
  - name: ensure vhost configurations
    template: src=vhost dest=/etc/nginx/sites-enabled/{{ "%03d-%s"|format(item.0 + 1, item.1.domain) }} owner=root group=root mode=0644
-   notify: reload webserver
+   notify: reload nginx
    with_indexed_items:
      - ${nginx.vhosts}
    tags: nginx
