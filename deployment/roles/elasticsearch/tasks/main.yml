@@ -5,14 +5,29 @@
      - ${elasticsearch.dependencies}
    tags: elasticsearch
 
+ - name: ensure elasticsearch installed
+   command: /usr/bin/test -f /usr/share/elasticsearch/bin/elasticsearch
+   register: elasticsearch_installed
+   ignore_errors: True
+   changed_when: False
+   tags: elasticsearch
+
+ - name: ensure elasticsearch version installed
+   command: /usr/share/elasticsearch/bin/elasticsearch -v | /bin/grep {{ elasticsearch.version }}
+   register: elasticsearch_installed
+   ignore_errors: True
+   changed_when: False
+   tags: elasticsearch
+
  - name: ensure elasticsearch package
-   get_url: url={{ elasticsearch.url }}/{{ elasticsearch.package }} dest=/tmp/ sha256sum={{ elasticsearch.hash }}
-   register: elasticsearch_download
+   get_url: url={{ elasticsearch.url }} dest=/tmp/elasticsearch-{{ elasticsearch.version}}.deb sha256sum={{ elasticsearch.hash }}
+   when: elasticsearch_installed|failed
+   register: elasticsearch_downloaded
    tags: elasticsearch
 
  - name: ensure elasticsearch package installation
-   command: /usr/bin/dpkg -i --skip-same-version /tmp/{{ elasticsearch.package }}
-   when: elasticsearch_download.changed
+   command: /usr/bin/dpkg -i --skip-same-version /tmp/elasticsearch-{{ elasticsearch.version}}.deb
+   when: elasticsearch_downloaded.changed
    tags: elasticsearch
 
  - name: ensure elasticsearch plugins 
@@ -20,4 +35,3 @@
    with_items:
      - ${elasticsearch.plugins}
    tags: elasticsearch
-
