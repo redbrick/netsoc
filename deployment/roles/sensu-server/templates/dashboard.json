@@ -1,6 +1,6 @@
 {
   "dashboard": {
-    "port": 8080,
+    "port": {{ sensu.dashboard.port }},
     "user": "{{ sensu.dashboard.username }}",
     "password": "{{ sensu.dashboard.password }}"
   }
