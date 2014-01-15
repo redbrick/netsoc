@@ -2,7 +2,7 @@
 rbenv:
   url: https://github.com/sstephenson/rbenv
   version: master
-  dir: /usr/local/rbenv
+  path: /usr/local/rbenv
   dependencies:
     - build-essential
     - git

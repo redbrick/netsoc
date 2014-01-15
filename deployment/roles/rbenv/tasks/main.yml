@@ -6,7 +6,7 @@
    tags: rbenv
 
  - name: ensure rbenv installed
-   action: git repo={{ rbenv.url }} dest={{ rbenv.dir }} version={{ rbenv.dir }} update=yes depth=1
+   action: git repo={{ rbenv.url }} dest={{ rbenv.path }} version={{ rbenv.version }} update=yes depth=1
    tags: rbenv
 
  - name: ensure rbenv profile
@@ -42,44 +42,44 @@
    tags: rbenv
 
  - name: ensure ruby {{ ruby.version }} installed
-   shell: RBENV_ROOT={{ rbenv.dir }} {{ rbenv.dir }}/bin/rbenv versions | /bin/grep {{ ruby.version }}
+   shell: RBENV_ROOT={{ rbenv.path }} {{ rbenv.path }}/bin/rbenv versions | /bin/grep {{ ruby.version }}
    register: ruby_install
    ignore_errors: yes
    changed_when: False
    tags: rbenv
 
  - name: ensure ruby {{ruby.version }} installed
-   shell: RBENV_ROOT={{ rbenv.dir }} {{ rbenv.dir }}/bin/rbenv install {{ ruby.version }}
+   shell: RBENV_ROOT={{ rbenv.path }} {{ rbenv.path }}/bin/rbenv install {{ ruby.version }}
    when: ruby_install|failed
    tags: rbenv
 
  - name: ensure rbenv global ruby {{ ruby.version }}
-   shell: RBENV_ROOT={{ rbenv.dir }} {{ rbenv.dir }}/bin/rbenv global {{ ruby.version }}
+   shell: RBENV_ROOT={{ rbenv.path }} {{ rbenv.path }}/bin/rbenv global {{ ruby.version }}
    when: ruby_install|failed
    tags: rbenv
 
  - name: ensure rbenv rehash
-   shell: RBENV_ROOT={{ rbenv.dir }} {{ rbenv.dir }}/bin/rbenv rehash
+   shell: RBENV_ROOT={{ rbenv.path }} {{ rbenv.path }}/bin/rbenv rehash
    when: ruby_install|failed
    tags: rbenv
 
  - name: ensure rbenv gem
-   shell: RBENV_ROOT={{ rbenv.dir }} {{ rbenv.dir }}/bin/rbenv which gem
+   shell: RBENV_ROOT={{ rbenv.path }} {{ rbenv.path }}/bin/rbenv which gem
    when: ruby_install|failed
    register: ruby_gem
    tags: rbenv
 
  - name: ensure rbenv gem system updated
-   shell: RBENV_ROOT={{ rbenv.dir }} {{ ruby_gem.stdout }} update --system
+   shell: RBENV_ROOT={{ rbenv.path }} {{ ruby_gem.stdout }} update --system
    when: ruby_install|failed
    tags: rbenv
 
  - name: ensure rbenv gem install bundler
-   shell: RBENV_ROOT={{ rbenv.dir }} {{ ruby_gem.stdout }} install bundler
+   shell: RBENV_ROOT={{ rbenv.path }} {{ ruby_gem.stdout }} install bundler
    when: ruby_install|failed
    tags: rbenv
 
  - name: ensure rbenv gem rehash
-   shell: RBENV_ROOT={{ rbenv.dir }} {{ rbenv.dir }}/bin/rbenv rehash
+   shell: RBENV_ROOT={{ rbenv.path }} {{ rbenv.path }}/bin/rbenv rehash
    when: ruby_install|failed
    tags: rbenv
