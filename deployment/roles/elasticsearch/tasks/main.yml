@@ -14,14 +14,14 @@
 
  - name: ensure elasticsearch version installed
    command: /usr/share/elasticsearch/bin/elasticsearch -v | /bin/grep {{ elasticsearch.version }}
-   register: elasticsearch_installed
+   register: elasticsearch_version_installed
    ignore_errors: True
    changed_when: False
    tags: elasticsearch
 
  - name: ensure elasticsearch package
-   get_url: url={{ elasticsearch.url }} dest=/tmp/elasticsearch-{{ elasticsearch.version}}.deb sha256sum={{ elasticsearch.hash }}
-   when: elasticsearch_installed|failed
+   get_url: url=https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-{{ elasticsearch.version }}.deb dest=/tmp/elasticsearch-{{ elasticsearch.version}}.deb sha256sum={{ elasticsearch.hash }}
+   when: elasticsearch_installed|failed or elasticsearch_version_installed|failed
    register: elasticsearch_downloaded
    tags: elasticsearch
 
