@@ -1,6 +1,6 @@
 ---
  - name: ensure nginx
-   action: apt pkg={{ item }} state=latest install_recommends=no
+   apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
      - nginx
    tags: nginx
@@ -11,7 +11,7 @@
    tags: nginx
 
  - name: ensure nginx root location
-   action: file path={{ item.path }} owner=www-data group=root mode=0755 state=directory
+   file: path={{ item.path }} owner=www-data group=root mode=0755 state=directory
    with_items:
      - ${nginx.vhosts}
    tags: nginx
