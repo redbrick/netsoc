@@ -1,19 +1,19 @@
 ---
  - name: ensure kibana dependencies
-   action: apt pkg={{ item }} state=latest install_recommends=no
+   apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
     - ${kibana.dependencies}
    tags: kibana
 
  - name: ensure kibana location
-   action: file path={{ kibana.path }} owner=www-data group=root mode=0755 state=directory
+   file: path={{ kibana.path }} owner=www-data group=root mode=0755 state=directory
    tags: kibana
 
  - name: ensure latest kibana
-   action: git repo={{ kibana.url }} dest={{ kibana.path }} version={{ kibana.version }} update=yes depth=1
+   git: repo={{ kibana.url }} dest={{ kibana.path }} version={{ kibana.version }} update=yes depth=1
    tags: kibana
 
  - name: ensure kibana configuration
-   action: template src=kibana.js dest={{ kibana.path }}/src/config.js owner=root group=root mode=0644
+   template: src=kibana.js dest={{ kibana.path }}/src/config.js owner=root group=root mode=0644
    tags: kibana
 
