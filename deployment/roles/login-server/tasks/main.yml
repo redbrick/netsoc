@@ -1,6 +1,6 @@
 ---
  - name: ensure ldap login
-   action: apt pkg={{ item }} state=latest install_recommends=no
+   apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
      - ${login.dependencies}
    tags: login
@@ -14,12 +14,12 @@
    tags: login
 
  - name: ensure nss auth configuration
-   action: template src=ldap-auth-config dest=/etc/auth-client-config/profile.d/ldap-auth-config owner=root group=root
+   template: src=ldap-auth-config dest=/etc/auth-client-config/profile.d/ldap-auth-config owner=root group=root
    notify: update nss
    tags: login
 
  - name: ensure ldap auth configuration
-   action: template src=mkhomedir dest=/usr/share/pam-configs/mkhomedir owner=root group=root
+   template: src=mkhomedir dest=/usr/share/pam-configs/mkhomedir owner=root group=root
    notify: update pam-auth-update
    tags: login
 
