@@ -1,17 +1,17 @@
 ---
  - name: ensure logging
-   action: apt pkg={{ item }} state=latest install_recommends=no
+   apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
      - rsyslog
    tags: logging
 
  - name: ensure logging configuration
-   action: template src=50-default.conf dest=/etc/rsyslog.d/50-default.conf owner=root group=root mode=0644
+   template: src=50-default.conf dest=/etc/rsyslog.d/50-default.conf owner=root group=root mode=0644
    notify: restart logging
    tags: logging
 
  - name: ensure logging remotely configuration
-   action: template src=100-remote.conf dest=/etc/rsyslog.d/100-remote.conf owner=root group=root mode=0644
+   template: src=100-remote.conf dest=/etc/rsyslog.d/100-remote.conf owner=root group=root mode=0644
    notify: restart logging
    tags: logging
 
