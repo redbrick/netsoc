@@ -1,7 +1,18 @@
 ---
 diamond:
-  dir: /opt/diamond
+  path: /opt/diamond
   dependencies:
     - python-dev
     - python-pip
     - python-virtualenv
+
+  interval: 10
+
+  graphite:
+    host: 127.0.0.1
+    port: 2003
+
+  graphitepickle:
+    host: 127.0.0.1
+    port: 2004
+

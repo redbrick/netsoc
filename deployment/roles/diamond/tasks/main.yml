@@ -1,15 +1,35 @@
 ---
  - name: ensure diamond dependencies
-   action: apt pkg={{ item }} state=latest install_recommends=no
+   apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
     - ${diamond.dependencies}
    tags: diamond
 
+ # FIXME: security - race condition
  - name: ensure diamond requirements
-   action: copy src=requirements.txt dest=/tmp/requirements.txt
+   copy: src=requirements.txt dest=/tmp/requirements.txt
    tags: diamond
 
  - name: ensure diamond
-   pip: requirements=/tmp/requirements.txt virtualenv={{ diamond.dir }}
+   pip: requirements=/tmp/requirements.txt virtualenv={{ diamond.path }}/venv
+   notify: restart diamond
    tags: diamond
 
+ - name: ensure diamond user
+   user: name=diamond comment="Diamond service account" system=yes home=/var/log/diamond shell=/usr/sbin/nologin
+   notify: restart diamond
+   tags: diamond
+
+ - name: ensure diamond configuration directory
+   action: file path=/etc/diamond/ group=root owner=root mode=0755 state=directory
+   tags: diamond
+
+ - name: ensure diamond configuration
+   template: src=diamond.conf dest=/etc/diamond/diamond.conf owner=root group=root mode=0644
+   notify: restart diamond
+   tags: diamond
+
+ - name: ensure diamond init
+   template: src=diamond.init dest=/etc/init.d/diamond owner=root group=root mode=0755
+   notify: restart diamond
+   tags: diamond
