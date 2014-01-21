@@ -1,22 +1,22 @@
 ---
  - name: ensure sensu server package
-   action: apt pkg={{ item }} state=latest install_recommends=no
+   apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
      - redis-server
    tags: sensu-server
 
  - name: ensure sensu server vhost
-   action: rabbitmq_vhost name={{ sensu.rabbitmq.vhost }} state=present
+   rabbitmq_vhost: name={{ sensu.rabbitmq.vhost }} state=present
    tags: sensu-server
 
  - name: ensure sensu server user
-   action: rabbitmq_user user={{ sensu.rabbitmq.username }}
-                         password={{ sensu.rabbitmq.password }}
-                         vhost={{ sensu.rabbitmq.vhost }}
-                         configure_priv=.*
-                         read_priv=.*
-                         write_priv=.*
-                         state=present
+   rabbitmq_user: user={{ sensu.rabbitmq.username }}
+                  password={{ sensu.rabbitmq.password }}
+                  vhost={{ sensu.rabbitmq.vhost }}
+                  configure_priv=.*
+                  read_priv=.*
+                  write_priv=.*
+                  state=present
    tags: sensu-server
 
  - name: ensure sensu server configuration
