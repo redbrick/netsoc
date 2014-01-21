@@ -1,12 +1,12 @@
 ---
  - name: ensure logstash dependencies
-   action: apt pkg={{ item }} state=latest install_recommends=no
+   apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
     - ${logstash.dependencies}
    tags: logstash
 
  - name: ensure logstash directory
-   action: file path={{ logstash.path }} group=root owner=root mode=0755 state=directory
+   file: path={{ logstash.path }} group=root owner=root mode=0755 state=directory
    tags: logstash
 
  - name: ensure logstash
