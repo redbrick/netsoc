@@ -1,16 +1,16 @@
 ---
  - name: ensure rbenv dependencies
-   action: apt pkg={{ item }} state=latest install_recommends=no
+   apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
      - ${rbenv.dependencies}
    tags: rbenv
 
  - name: ensure rbenv installed
-   action: git repo={{ rbenv.url }} dest={{ rbenv.path }} version={{ rbenv.version }} update=yes depth=1
+   git: repo={{ rbenv.url }} dest={{ rbenv.path }} version={{ rbenv.version }} update=yes depth=1
    tags: rbenv
 
  - name: ensure rbenv profile
-   action: template src=rbenv.sh dest=/etc/profile.d/rbenv.sh owner=root group=root mode=0644
+   template: src=rbenv.sh dest=/etc/profile.d/rbenv.sh owner=root group=root mode=0644
    tags: rbenv
 
  - name: ensure ruby-build installed
@@ -27,7 +27,7 @@
    tags: rbenv
 
  - name: ensure rbenv-build installed
-   action: git repo={{ rbenv-build.url }} dest={{ ruby_build_temp.stdout }}/ version={{ rbenv-build.version }} update=yes depth=1
+   git: repo={{ rbenv-build.url }} dest={{ ruby_build_temp.stdout }}/ version={{ rbenv-build.version }} update=yes depth=1
    when: ruby_build|failed
    tags: rbenv
 
