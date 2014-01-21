@@ -1,22 +1,22 @@
 ---
  - name: ensure monitoring requirements
-   action: apt pkg={{ item }} state=latest install_recommends=no
+   apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
      - python-pycurl
    tags: monitoring
 
  - name: ensure monitoring client keys
-   action: apt_key data="{{ item }}" state=present
+   apt_key: data="{{ item }}" state=present
    with_file:
      - sensu.gpg
    tags: monitoring
 
  - name: ensure monitoring repo
-   action: apt_repository repo='deb http://repos.sensuapp.org/apt sensu main' state=present update_cache=yes
+   apt_repository: repo='deb http://repos.sensuapp.org/apt sensu main' state=present update_cache=yes
    tags: monitoring
    
  - name: ensure monitoring package
-   action: apt pkg={{ item }} state=latest install_recommends=no
+   apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
      - sensu
      - git
@@ -27,15 +27,15 @@
    tags: monitoring
 
  - name: ensure monitoring features installed
-   action: git repo={{ sensu.plugins.url }} dest={{ sensu.plugins.path }} version={{ sensu.plugins.version }} update=yes depth=1
+   git: repo={{ sensu.plugins.url }} dest={{ sensu.plugins.path }} version={{ sensu.plugins.version }} update=yes depth=1
    tags: monitoring
 
  - name: ensure monitoring plugins installed
-   action: file src={{ sensu.plugins.path }}/plugins dest=/etc/sensu/plugins/sensu-community-plugins owner=root group=root state=link
+   file: src={{ sensu.plugins.path }}/plugins dest=/etc/sensu/plugins/sensu-community-plugins owner=root group=root state=link
    tags: monitoring
 
  - name: ensure monitoring handlers installed
-   action: file src={{ sensu.plugins.path }}/handlers dest=/etc/sensu/handlers/sensu-community-plugins owner=root group=root state=link
+   file: src={{ sensu.plugins.path }}/handlers dest=/etc/sensu/handlers/sensu-community-plugins owner=root group=root state=link
    tags: monitoring
 
  - name: ensure monitoring configuration
