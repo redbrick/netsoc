@@ -1,6 +1,6 @@
 ---
  - name: ensure elasticsearch requirements
-   action: apt pkg={{ item }} state=latest install_recommends=no
+   apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
      - ${elasticsearch.dependencies}
    tags: elasticsearch
