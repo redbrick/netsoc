@@ -29,7 +29,7 @@
    notify: restart diamond
    tags: diamond
 
- - name: ensure diamond init
-   template: src=diamond.init dest=/etc/init.d/diamond owner=root group=root mode=0755
+ - name: ensure diamond upstart
+   template: src=diamond.init dest=/etc/init/diamond.conf owner=root group=root mode=0755
    notify: restart diamond
    tags: diamond
