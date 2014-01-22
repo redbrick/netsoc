@@ -1,0 +1,19 @@
+# carbon cache
+#
+#
+#
+
+description "carbon cache"
+
+start on (local-filesystems and net-device-up IFACE!=lo)
+stop on [!12345]
+
+limit nofile 32768 32768
+kill timeout 5
+
+script
+  CARBON_PID="/var/run/carbon-cache.pid"
+  CARBON_USER="diamond"
+
+  exec start-stop-daemon --start --make-pidfile --chuid $CARBON_USER --pidfile $CARBON_PID --exec /opt/graphite/bin/carbon-cache.py -- start --debug --pidfile=$CARBON_PID
+end script

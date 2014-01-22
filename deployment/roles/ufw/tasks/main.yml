@@ -1,0 +1,16 @@
+---
+ - name: ensure ufw ipv4 rules
+   template: src=user.rules dest=/lib/ufw/user.rules mode=0640
+   notify: reload ufw
+   tags: ufw
+
+ - name: ensure ufw ipv6 rules
+   template: src=user6.rules dest=/lib/ufw/user6.rules mode=0640
+   #notify: reload ufw
+   tags: ufw
+
+ - name: ensure ufw enabled
+   template: src=ufw.conf dest=/etc/ufw/ufw.conf
+   notify: reload ufw
+   tags: ufw
+
