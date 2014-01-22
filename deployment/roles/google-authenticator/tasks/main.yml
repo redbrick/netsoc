@@ -1,0 +1,6 @@
+---
+ - name: ensure google-authenticator dependencies
+   action: apt pkg={{ item }} state=latest install_recommends=no
+   with_items:
+    - ${google-authenticator.dependencies}
+   tags: google-authenticator

@@ -1,0 +1,4 @@
+---
+google-authenticator:
+  dependencies:
+    - libpam-google-authenticator
