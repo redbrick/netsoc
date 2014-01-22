@@ -2,9 +2,26 @@
 nginx:
   vhosts:
     - domain: "logging.{{ netsoc.domain }}"
-      path: /var/www/
+      path: /var/www/src
       upstream:
         name: elasticsearch
         path: /elasticsearch
         servers:
           - 127.0.0.1:9200
+
+ufw:
+  rules:
+    - name: "Allow rsyslogd UDP"
+      port: 514
+      protocol: udp
+      action: allow
+
+    - name: "Allow rsyslogd TCP"
+      port: 514
+      protocol: tcp
+      action: allow
+
+    - name: "Allow logstash web"
+      port: 80
+      protocol: tcp
+      action: allow
