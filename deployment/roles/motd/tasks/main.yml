@@ -1,6 +1,6 @@
 ---
  - name: ensure latest motd
-   template: src=motd dest=/etc/motd owner=root group=root mode=0744
+   template: src=motd dest=/etc/motd owner=root group=root mode=0644
    tags: motd
 
  - name: ensure motd command
