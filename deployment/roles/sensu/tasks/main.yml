@@ -38,6 +38,11 @@
    file: src={{ sensu.plugins.path }}/handlers dest=/etc/sensu/handlers/sensu-community-plugins owner=root group=root state=link
    tags: monitoring
 
+ - name: ensure monitoring base configuration
+   template: src=config.json dest=/etc/sensu/config.json owner=root group=root mode=0644
+   notify: restart monitoring
+   tags: monitoring
+
  - name: ensure monitoring configuration
    template: src={{ item }} dest=/etc/sensu/conf.d/{{ item }} owner=root group=root mode=0644
    with_items:

@@ -2,6 +2,13 @@
   "client": {
     "name": "{{ ansible_hostname }}",
     "address": "{{ ansible_default_ipv4.address }}",
+    "keepalive": {
+      "thresholds": {
+        "warning": 60,
+        "critical": 300
+      },
+      "refresh": 3600
+    },
     "subscriptions": [
       "test",
       "servers"
