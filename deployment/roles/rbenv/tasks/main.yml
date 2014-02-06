@@ -15,7 +15,7 @@
 
  - name: ensure ruby-build installed
    command: /usr/bin/test -x /usr/local/bin/ruby-build
-   register: ruby_build
+   register: ruby_build_exists
    ignore_errors: True
    changed_when: False
    tags: rbenv
@@ -23,22 +23,22 @@
  - name: ensure ruby-build temporary directory
    command: /bin/mktemp -d
    register: ruby_build_temp
-   when: ruby_build|failed
+   when: ruby_build_exists|failed
    tags: rbenv
 
  - name: ensure rbenv-build installed
-   git: repo={{ rbenv-build.url }} dest={{ ruby_build_temp.stdout }}/ version={{ rbenv-build.version }} update=yes depth=1
-   when: ruby_build|failed
+   git: repo={{ rbenv.build.url }} dest={{ ruby_build_temp.stdout }}/ version={{ rbenv.build.version }} update=yes depth=1
+   when: ruby_build_exists|failed
    tags: rbenv
 
  - name: ensure ruby-build install
    command: ./install.sh chdir={{ ruby_build_temp.stdout }}/
-   when: ruby_build|failed
+   when: ruby_build_exists|failed
    tags: rbenv
 
  - name: ensure ruby-build temporary directory removed
    file: path={{ ruby_build_temp.stdout }} state=absent
-   when: ruby_build|failed
+   when: ruby_build_exists|failed
    tags: rbenv
 
  - name: ensure ruby {{ ruby.version }} installed

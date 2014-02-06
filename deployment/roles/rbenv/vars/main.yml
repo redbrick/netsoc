@@ -14,9 +14,9 @@ rbenv:
     - libxslt1-dev
     - zlib1g-dev
 
-rbenv-build:
-  url: https://github.com/sstephenson/ruby-build
-  version: master
+  build:
+    url: https://github.com/sstephenson/ruby-build
+    version: master
 
 ruby:
   version: 2.1.0
