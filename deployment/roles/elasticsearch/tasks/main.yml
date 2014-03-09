@@ -5,29 +5,20 @@
      - ${elasticsearch.dependencies}
    tags: elasticsearch
 
- - name: ensure elasticsearch installed
-   command: /usr/bin/test -f /usr/share/elasticsearch/bin/elasticsearch
-   register: elasticsearch_installed
-   ignore_errors: True
-   changed_when: False
+ - name: ensure elasticsearch keys
+   apt_key: data="{{ item }}" state=present
+   with_file:
+     - elasticsearch.gpg
    tags: elasticsearch
 
- - name: ensure elasticsearch version installed
-   command: /usr/share/elasticsearch/bin/elasticsearch -v | /bin/grep {{ elasticsearch.version }}
-   register: elasticsearch_version_installed
-   ignore_errors: True
-   changed_when: False
+ - name: ensure elasticsearch repo
+   apt_repository: repo='deb http://packages.elasticsearch.org/elasticsearch/{{ elasticsearch.version }}/debian stable main' state=present update_cache=yes
    tags: elasticsearch
 
  - name: ensure elasticsearch package
-   get_url: url=https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-{{ elasticsearch.version }}.deb dest=/tmp/elasticsearch-{{ elasticsearch.version}}.deb sha256sum={{ elasticsearch.hash }}
-   when: elasticsearch_installed|failed or elasticsearch_version_installed|failed
-   register: elasticsearch_downloaded
-   tags: elasticsearch
-
- - name: ensure elasticsearch package installation
-   command: /usr/bin/dpkg -i --skip-same-version /tmp/elasticsearch-{{ elasticsearch.version}}.deb
-   when: elasticsearch_downloaded.changed
+   apt: pkg={{ item }} state=latest install_recommends=no
+   with_items:
+     - elasticsearch
    tags: elasticsearch
 
  - name: ensure elasticsearch plugins 

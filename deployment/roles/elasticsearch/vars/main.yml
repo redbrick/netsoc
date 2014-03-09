@@ -1,7 +1,6 @@
 ---
 elasticsearch:
-  version: 0.90.10
-  hash: 599a8ff133f0800bb58032f1bf4ec0b1746c307befb57c65ee9d32af9f407c04
+  version: 1.0
   dependencies:
    - openjdk-7-jre-headless
   plugins:
