@@ -1,5 +1,24 @@
 ---
- - name: ensure nginx
+ - name: ensure nginx requirements
+   apt: pkg={{ item }} state=latest install_recommends=no
+   with_items:
+     - ${nginx.dependencies}
+   tags: nginx
+
+ - name: ensure nginx keys
+   apt_key: data="{{ item }}" state=present
+   with_file:
+     - nginx.gpg
+   tags: nginx
+
+ - name: ensure nginx repo
+   apt_repository: repo="{{ item }}" state=present update_cache=yes
+   with_items:
+     - "deb http://nginx.org/packages/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} nginx"
+     - "deb-src http://nginx.org/packages/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} nginx"
+   tags: nginx
+
+ - name: ensure nginx package
    apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
      - nginx
@@ -10,24 +29,53 @@
    notify: restart nginx
    tags: nginx
 
+ - name: ensure nginx ssl location
+   file: path=/etc/nginx/ssl owner=root group=root mode=0755 state=directory
+   tags: nginx
+
  - name: ensure nginx root location
-   file: path={{ item.path }} owner=www-data group=root mode=0755 state=directory
+   file: path={{ item.path }} owner=nginx group=root mode=0755 state=directory
    with_items:
      - ${nginx.vhosts}
    tags: nginx
 
- - name: ensure nginx default vhost configuration absent
-   file: path=/etc/nginx/sites-enabled/default state=absent
+ - name: ensure nginx default configuration absent
+   file: path=/etc/nginx/conf.d/{{ item }} state=absent
+   with_items:
+     - default.conf
+     - example_ssl.conf
    notify: reload nginx
+   tags: nginx
+
+ - name: ensure default ssl certificates and keys
+   copy: src="{{ secure_dir }}/{{ item }}" dest=/etc/nginx/ssl/{{ item }} owner=root group=root mode=0600
+   notify: reload nginx
+   with_items:
+     - default.pem
+     - default.key
    tags: nginx
 
  - name: ensure default nginx vhost configuration
-   template: src=000-default dest=/etc/nginx/sites-enabled/000-default owner=root group=root mode=0644
+   template: src=000-default dest=/etc/nginx/conf.d/000-default.conf owner=root group=root mode=0644
    notify: reload nginx
    tags: nginx
 
+ - name: ensure vhost ssl certificates
+   copy: src="{{ secure_dir }}/{{ item.domain }}.pem" dest=/etc/nginx/ssl/{{ item.domain }}.pem owner=root group=root mode=0600
+   notify: reload nginx
+   with_items:
+     - ${nginx.vhosts}
+   tags: nginx
+
+ - name: ensure vhost ssl keys
+   copy: src="{{ secure_dir }}/{{ item.domain }}.key" dest=/etc/nginx/ssl/{{ item.domain }}.key owner=root group=root mode=0600
+   notify: reload nginx
+   with_items:
+     - ${nginx.vhosts}
+   tags: nginx
+
  - name: ensure vhost configurations
-   template: src=vhost dest=/etc/nginx/sites-enabled/{{ "%03d-%s"|format(item.0 + 1, item.1.domain) }} owner=root group=root mode=0644
+   template: src=vhost dest=/etc/nginx/conf.d/{{ "%03d-%s"|format(item.0 + 1, item.1.domain) }}.conf owner=root group=root mode=0644
    notify: reload nginx
    with_indexed_items:
      - ${nginx.vhosts}

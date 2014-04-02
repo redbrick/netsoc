@@ -10,73 +10,87 @@
 
 {% if item.1.upstream is defined and item.1.upstream.name %}
 upstream {{ item.1.domain }}-{{ item.1.upstream.name }} {
-	{% for server in item.1.upstream.servers %}
-        server {{ server }};
-	{% endfor %}
+    {% for server in item.1.upstream.servers %}
+    server {{ server }};
+    {% endfor %}
 }
 {% endif %}
 
 server {
-	listen   [::]:80;
+{% if item.1.ssl is defined %}
+    listen   [::]:443 ssl spdy; ## listen for ipv6
+    listen   443 ssl spdy;      ## listen for ipv4
 
-	root {{ item.1.path }};
-	index index.html index.htm;
+    ssl_certificate     /etc/nginx/ssl/{{ item.1.domain }}.pem;
+    ssl_certificate_key /etc/nginx/ssl/{{ item.1.domain }}.key;
 
-	# Make site accessible from http://localhost/
-	server_name {{ item.1.domain }} *.{{ item.1.domain }};
+    ssl_prefer_server_ciphers on;
+    ssl_session_timeout       10m;
+    ssl_session_cache         shared:SSL:10m;
+    ssl_protocols             SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers               "EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 EECDH EDH+aRSA RC4 !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS";
+{% else %}
+    listen   [::]:80;
+    listen   80;
+{% endif %}
 
-	{% if item.1.upstream is defined and item.1.upstream.name %}
+    root {{ item.1.path }};
+    index index.html index.htm;
 
-	location {{ item.1.upstream.path }} {
-		proxy_pass http://{{ item.1.domain }}-{{ item.1.upstream.name }};
-		proxy_set_header Host $host;
-		proxy_set_header X-Real-IP $remote_addr;
-		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-		proxy_set_header X-Forwarded-Proto $scheme;
-		proxy_set_header X-Forwarded-Port $server_port;
-		#proxy_set_header X-Request-Start $msec;
-		proxy_set_header X-Scheme $scheme;
-        }
-	{% endif %}
+    # Make site accessible from {{ item.1.domain }}
+    server_name {{ item.1.domain }} *.{{ item.1.domain }};
 
-	{% if item.1.upstream is defined and item.1.upstream.path == "/" %}
-	{% else %}
+    {% if item.1.upstream is defined and item.1.upstream.name %}
+    location {{ item.1.upstream.path }} {
+        proxy_pass http://{{ item.1.domain }}-{{ item.1.upstream.name }};
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Port $server_port;
+        proxy_set_header X-Request-Start $msec;
+        proxy_set_header X-Scheme $scheme;
+    }
+    {% endif %}
 
-	location / {
-		# First attempt to serve request as file, then
-		# as directory, then fall back to index.html
-		try_files $uri $uri/ /index.html;
-	}
+    {% if item.1.upstream is defined and item.1.upstream.path == "/" %}
+    {% else %}
 
-	{% endif %}
+    location / {
+        # First attempt to serve request as file, then
+        # as directory, then fall back to index.html
+        try_files $uri $uri/ /index.html;
+    }
 
-	#error_page 404 /404.html;
+    {% endif %}
 
-	# redirect server error pages to the static page /50x.html
-	#
-	#error_page 500 502 503 504 /50x.html;
-	#location = /50x.html {
-	#	root /var/www;
-	#}
+    #error_page 404 /404.html;
 
-	{% if item.1.php is defined and item.1.php.enabled %}
-	# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
-	#
-	#location ~ \.php$ {
-	#	fastcgi_split_path_info ^(.+\.php)(/.+)$;
-	#	# NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
-	#
-	#	# With php5-fpm:
-	#	fastcgi_pass unix:/var/run/php5-fpm.sock;
-	#	fastcgi_index index.php;
-	#	include fastcgi_params;
-	#}
-	{% endif %}
+    # redirect server error pages to the static page /50x.html
+    #
+    #error_page 500 502 503 504 /50x.html;
+    #location = /50x.html {
+    #	root /var/www;
+    #}
 
-	# deny access to .htaccess files, if Apache's document root
-	# concurs with nginx's one
-	#
-	location ~ /\.ht {
-		deny all;
-	}
+    {% if item.1.php is defined and item.1.php.enabled %}
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    #
+    #location ~ \.php$ {
+    #	fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    #	# NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+    #
+    #	# With php5-fpm:
+    #	fastcgi_pass unix:/var/run/php5-fpm.sock;
+    #	fastcgi_index index.php;
+    #	include fastcgi_params;
+    #}
+    {% endif %}
+
+    # deny access to .htaccess files, if Apache's document root
+    # concurs with nginx's one
+    #
+    location ~ /\.ht {
+        deny all;
+    }
 }
