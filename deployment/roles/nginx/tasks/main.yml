@@ -50,6 +50,7 @@
  - name: ensure default ssl certificates and keys
    copy: src="{{ secure_dir }}/{{ item }}" dest=/etc/nginx/ssl/{{ item }} owner=root group=root mode=0600
    notify: reload nginx
+   when: nginx.default.ssl is defined
    with_items:
      - default.pem
      - default.key
@@ -63,6 +64,7 @@
  - name: ensure vhost ssl certificates
    copy: src="{{ secure_dir }}/{{ item.domain }}.pem" dest=/etc/nginx/ssl/{{ item.domain }}.pem owner=root group=root mode=0600
    notify: reload nginx
+   when: item.ssl is defined
    with_items:
      - ${nginx.vhosts}
    tags: nginx
@@ -70,6 +72,7 @@
  - name: ensure vhost ssl keys
    copy: src="{{ secure_dir }}/{{ item.domain }}.key" dest=/etc/nginx/ssl/{{ item.domain }}.key owner=root group=root mode=0600
    notify: reload nginx
+   when: item.ssl is defined
    with_items:
      - ${nginx.vhosts}
    tags: nginx
