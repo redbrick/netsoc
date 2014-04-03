@@ -1,38 +1,32 @@
 ---
- - name: ensure logstash dependencies
+ - name: ensure logstash requirements
    apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
-    - ${logstash.dependencies}
+     - ${logstash.dependencies}
    tags: logstash
 
- - name: ensure logstash directory
-   file: path={{ logstash.path }} group=root owner=root mode=0755 state=directory
+ - name: ensure logstash keys
+   apt_key: data="{{ item }}" state=present
+   with_file:
+     - logstash.gpg
    tags: logstash
 
- - name: ensure logstash
-   get_url: url=https://download.elasticsearch.org/logstash/logstash/logstash-{{ logstash.version }}-flatjar.jar dest={{ logstash.path }} sha256sum={{ logstash.hash }} mode=0644
+ - name: ensure logstash repo
+   apt_repository: repo='deb http://packages.elasticsearch.org/logstash/{{ logstash.version }}/debian stable main' state=present update_cache=yes
+   tags: logstash
+
+ - name: ensure logstash package
+   apt: pkg={{ item }} state=latest install_recommends=no
+   with_items:
+     - logstash
+   tags: logstash
+
+ - name: ensure logstash default
+   template: src=default dest=/etc/default/logstash owner=root group=root mode=0644
    notify: restart logstash
-   tags: logstash
-
- - name: ensure logstash user
-   user: name=logstash comment="LogStash Service User" system=yes home=/var/lib/logstash shell=/usr/sbin/nologin
-   notify: restart logstash
-   tags: logstash
-
- - name: ensure logstash configuration directory
-   file: path=/etc/logstash/ group=root owner=root mode=0755 state=directory
-   tags: logstash
-
- - name: ensure logstash logs directory
-   file: path=/var/log/logstash/ group=root owner=logstash mode=0755 state=directory
    tags: logstash
 
  - name: ensure logstash configuration
-   template: src=logstash.conf dest=/etc/logstash/logstash.conf owner=root group=root mode=0644
-   notify: restart logstash
-   tags: logstash
-
- - name: ensure logstash init
-   template: src=init dest=/etc/init/logstash.conf owner=root group=root mode=0644
+   template: src=logstash.conf dest=/etc/logstash/conf.d/logstash.conf owner=root group=root mode=0644
    notify: restart logstash
    tags: logstash
