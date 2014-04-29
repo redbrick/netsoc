@@ -9,7 +9,7 @@
 ##
 
 server {
-{% if nginx.default is defined and nginx.default.ssl is defined %}
+{% if nginx.default is defined and nginx.default.ssl %}
     listen   [::]:443 ssl spdy default_server; ## listen for ipv6
     listen   443 ssl spdy default_server;      ## listen for ipv4
 

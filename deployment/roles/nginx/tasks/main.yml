@@ -64,7 +64,7 @@
  - name: ensure vhost ssl certificates
    copy: src="{{ secure_dir }}/{{ item.domain }}.pem" dest=/etc/nginx/ssl/{{ item.domain }}.pem owner=root group=root mode=0600
    notify: reload nginx
-   when: item.ssl is defined
+   when: item.ssl is defined and item.ssl
    with_items:
      - ${nginx.vhosts}
    tags: nginx
@@ -72,7 +72,7 @@
  - name: ensure vhost ssl keys
    copy: src="{{ secure_dir }}/{{ item.domain }}.key" dest=/etc/nginx/ssl/{{ item.domain }}.key owner=root group=root mode=0600
    notify: reload nginx
-   when: item.ssl is defined
+   when: item.ssl is defined and item.ssl
    with_items:
      - ${nginx.vhosts}
    tags: nginx

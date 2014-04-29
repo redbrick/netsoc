@@ -17,7 +17,7 @@ upstream {{ item.1.domain }}-{{ item.1.upstream.name }} {
 {% endif %}
 
 server {
-{% if item.1.ssl is defined %}
+{% if item.1.ssl is defined and item.1.ssl %}
     listen   [::]:443 ssl spdy; ## listen for ipv6
     listen   443 ssl spdy;      ## listen for ipv4
 
@@ -42,7 +42,7 @@ server {
 
     {% if item.1.upstream is defined and item.1.upstream.name %}
     location {{ item.1.upstream.path }} {
-        proxy_pass http://{{ item.1.domain }}-{{ item.1.upstream.name }}/;
+        proxy_pass http://{{ item.1.domain }}-{{ item.1.upstream.name }};
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
