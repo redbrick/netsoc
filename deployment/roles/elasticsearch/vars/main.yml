@@ -3,12 +3,17 @@ elasticsearch:
   version: 1.0
   dependencies:
    - openjdk-7-jre-headless
+   - python-pycurl
+
   plugins:
     - name: royrusso/elasticsearch-HQ
       creates: /usr/share/elasticsearch/plugins/HQ/_site/index.html
 
+  cluster:
+    name: elasticsearch
   index:
     number_of_shards: 1
     number_of_replicas: 0
-
   discovery.zen.ping.multicast.enabled: "false"
+  bootstrap:
+    mlockall: "true"
