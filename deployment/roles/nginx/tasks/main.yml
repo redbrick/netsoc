@@ -50,7 +50,7 @@
  - name: ensure default ssl certificates and keys
    copy: src="{{ secure_dir }}/{{ item }}" dest=/etc/nginx/ssl/{{ item }} owner=root group=root mode=0600
    notify: reload nginx
-   when: nginx.default.ssl is defined
+   when: nginx.default.ssl is defined and nginx.default.ssl
    with_items:
      - default.pem
      - default.key
