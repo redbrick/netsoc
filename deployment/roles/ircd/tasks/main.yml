@@ -1,6 +1,13 @@
 ---
- - name: ensure irc server
+ - name: ensure inspircd
    action: apt pkg={{ item }} state=latest install_recommends=no
    with_items:
      - inspircd
-   tags: ircd
+   notify: restart inspircd
+   tags: inspircd
+
+ - name: ensure inspircd default
+   template: src=default dest=/etc/default/inspircd owner=root group=root mode=0644
+   notify: restart inspircd
+   tags: inspircd
+
