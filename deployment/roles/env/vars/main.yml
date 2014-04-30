@@ -1,0 +1,6 @@
+---
+envirnoment:
+  http_proxy: off
+  https_proxy: off
+  ftp_proxy: off
+  no_proxy: "localhost,127.0.0.1"

@@ -1,0 +1,22 @@
+# {{ ansible_managed }}
+
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+
+{% if environment.http_proxy %}
+http_proxy="{{ environment.http_proxy }}"
+HTTP_PROXY="{{ environment.http_proxy }}"
+{% endif %}
+
+{% if environment.https_proxy %}
+https_proxy="{{ environment.https_proxy }}"
+HTTPS_PROXY="{{ environment.https_proxy }}"
+{% endif %}
+
+{% if environment.ftp_proxy %}
+ftp_proxy="{{ environment.ftp_proxy }}"
+FTP_PROXY="{{ environment.ftp_proxy }}"
+{% endif %}
+
+{% if environment.no_proxy %}
+no_proxy="{{ environment.no_proxy }}"
+{% endif %}
