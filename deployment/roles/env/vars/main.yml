@@ -1,5 +1,5 @@
 ---
-envirnoment:
+env:
   http_proxy: off
   https_proxy: off
   ftp_proxy: off

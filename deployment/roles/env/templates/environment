@@ -2,21 +2,21 @@
 
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 
-{% if environment.http_proxy %}
-http_proxy="{{ environment.http_proxy }}"
-HTTP_PROXY="{{ environment.http_proxy }}"
+{% if env.http_proxy %}
+http_proxy="{{ env.http_proxy }}"
+HTTP_PROXY="{{ env.http_proxy }}"
 {% endif %}
 
-{% if environment.https_proxy %}
-https_proxy="{{ environment.https_proxy }}"
-HTTPS_PROXY="{{ environment.https_proxy }}"
+{% if env.https_proxy %}
+https_proxy="{{ env.https_proxy }}"
+HTTPS_PROXY="{{ env.https_proxy }}"
 {% endif %}
 
-{% if environment.ftp_proxy %}
-ftp_proxy="{{ environment.ftp_proxy }}"
-FTP_PROXY="{{ environment.ftp_proxy }}"
+{% if env.ftp_proxy %}
+ftp_proxy="{{ env.ftp_proxy }}"
+FTP_PROXY="{{ env.ftp_proxy }}"
 {% endif %}
 
-{% if environment.no_proxy %}
-no_proxy="{{ environment.no_proxy }}"
+{% if env.no_proxy %}
+no_proxy="{{ env.no_proxy }}"
 {% endif %}
