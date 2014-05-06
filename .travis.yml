@@ -8,4 +8,6 @@ install:
   - pip install ansible
 script:
   - ansible-playbook --version
-  - ansible-playbook --syntax-check -i deployment/hosts deployment/site.yml
+  - echo localhost > inventory
+  - ansible-playbook -i inventory --syntax-check --list-tasks base_servers.yml
+  - ansible-playbook -i inventory --connection=local --sudo -vvvv deployment/base_servers.yml
