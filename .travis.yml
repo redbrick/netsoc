@@ -9,5 +9,5 @@ install:
 script:
   - ansible-playbook --version
   - echo localhost > inventory
-  - ansible-playbook -i inventory --syntax-check --list-tasks base_servers.yml
+  - ansible-playbook -i inventory --syntax-check --list-tasks deployment/base_servers.yml
   - ansible-playbook -i inventory --connection=local --sudo -vvvv deployment/base_servers.yml
