@@ -8,8 +8,7 @@ install:
   - pip install ansible
 script:
   - ansible-playbook --version
-  - cp -r ./deployment/ /etc/ansible
+  - sudo cp -r ./deployment/ /etc/ansible
   - echo localhost > /etc/ansible/hosts
-  - cd deployment
   - ansible-playbook --syntax-check --list-tasks base_servers.yml
   - ansible-playbook --connection=local --sudo -vvvv base_servers.yml
