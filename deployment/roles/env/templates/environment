@@ -1,7 +1,5 @@
 # {{ ansible_managed }}
 
-PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-
 {% if env.http_proxy %}
 http_proxy="{{ env.http_proxy }}"
 HTTP_PROXY="{{ env.http_proxy }}"
