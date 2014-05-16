@@ -9,6 +9,6 @@ install:
 script:
   - ansible-playbook --version
   - sudo cp -r ./deployment/ /etc/ansible
-  - echo localhost > /etc/ansible/hosts
-  - ansible-playbook --syntax-check --list-tasks base_servers.yml
-  - ansible-playbook --connection=local --sudo -vvvv base_servers.yml
+  - sudo echo localhost > /etc/ansible/hosts
+  - ansible-playbook -i /etc/ansible/hosts --syntax-check --list-tasks /etc/ansible/base_servers.yml
+  - ansible-playbook -i /etc/ansible/hosts --connection=local --sudo -vvvv /etc/ansible/base_servers.yml
