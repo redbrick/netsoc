@@ -1,8 +1,7 @@
 ---
  - name: ensure diamond dependencies
    apt: pkg={{ item }} state=latest install_recommends=no
-   with_items:
-    - ${diamond.dependencies}
+   with_items: diamond.dependencies
    tags: diamond
 
  # FIXME: security - race condition
