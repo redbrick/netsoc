@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ANSIBLE_DIR=/opt/ansible/
-NETSOC_TMP_DIR=$(mktemp -du /tmp/netsoc.XXXXXXXXXX)
+NETSOC_DIR=/srv/netsoc/
 
 # exit if Ansible is installed
 if [ -d $ANSIBLE_DIR ]; then
@@ -37,6 +37,5 @@ $f \"\$@\"" > /usr/local/sbin/$f
 done
 
 # install the Ansible configuration
-git clone https://github.com/redbrick/netsoc $NETSOC_TMP_DIR
-mv $NETSOC_TMP_DIR/deployment/ /etc/ansible
-rm -rf $NETSOC_TMP_DIR
+git clone https://github.com/redbrick/netsoc $NETSOC_DIR
+ln -s $NETSOC_DIR/deployment/ /etc/ansible
