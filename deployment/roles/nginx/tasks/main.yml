@@ -34,8 +34,7 @@
 
  - name: ensure nginx root location
    file: path={{ item.path }} owner=nginx group=root mode=0755 state=directory
-   with_items:
-     - ${nginx.vhosts}
+   with_items: nginx.vhosts
    tags: nginx
 
  - name: ensure nginx default configuration absent
