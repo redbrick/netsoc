@@ -1,8 +1,7 @@
 ---
  - name: ensure elasticsearch requirements
    apt: pkg={{ item }} state=latest install_recommends=no
-   with_items:
-     - ${elasticsearch.dependencies}
+   with_items: elasticsearch.dependencies
    tags: elasticsearch
 
  - name: ensure elasticsearch keys
@@ -19,12 +18,12 @@
    apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
      - elasticsearch
+   notify: restart elasticsearch
    tags: elasticsearch
 
  - name: ensure elasticsearch plugins 
    command: /usr/share/elasticsearch/bin/plugin -install {{ item.name }} creates={{ item.creates }}
-   with_items:
-     - ${elasticsearch.plugins}
+   with_items: elasticsearch.plugins
    notify: restart elasticsearch
    tags: elasticsearch
    
@@ -32,4 +31,3 @@
    template: src=elasticsearch.yml dest=/etc/elasticsearch/elasticsearch.yml owner=root group=root mode=0644
    notify: restart elasticsearch
    tags: elasticsearch
-   
