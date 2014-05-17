@@ -9,6 +9,6 @@ influxdb:
   bind_address: 127.0.0.1
   input_plugins:
    graphite:
-    enabled: true
+    enabled: "true"
     port: 2003
     database: graphite
