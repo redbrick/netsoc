@@ -5,6 +5,7 @@
 
   roles:
     - rsyslogd
-    - graphite
     - logstash
     - kibana
+    - nginx
+    - influxdb
