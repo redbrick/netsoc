@@ -5,3 +5,10 @@ influxdb:
    
   version: 0.6.4_amd64
   hash: 861ee5f74ef57499249332affa9970c5a703d5e1e9f7fae3322b89838c436316
+  
+  bind-address: 127.0.0.1
+  input_plugins:
+   graphite:
+    enabled: true
+    port: 2003
+    database: graphite

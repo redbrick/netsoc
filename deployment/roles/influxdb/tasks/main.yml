@@ -14,3 +14,8 @@
      - influxdb
    notify: restart influxdb
    tags: influxdb
+
+ - name: ensure influxdb configuration
+   template: src=config.toml dest=/opt/influxdb/shared/config.toml owner=root group=root mode=0644
+   notify: restart influxdb
+   tags: influxdb
