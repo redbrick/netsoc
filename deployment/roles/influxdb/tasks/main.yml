@@ -4,12 +4,12 @@
    with_items: influxdb.dependencies
    tags: influxdb
 
- - name: ensure influxdb package
+ - name: ensure influxdb package downloaded
    get_url: url=http://s3.amazonaws.com/influxdb/influxdb_{{ influxdb.version }}.deb dest=/tmp/influxdb_{{ influxdb.version }}.deb sha256sum={{ influxdb.hash }} mode=0440
    tags: influxdb
    
  - name: ensure influxdb package
-   apt: deb=/tmp/influxdb_{{ influxdb.version }}.deb state=latest install_recommends=no
+   apt: deb=/tmp/influxdb_{{ influxdb.version }}.deb state=installed install_recommends=no
    with_items:
      - influxdb
    notify: restart influxdb
