@@ -1,0 +1,4 @@
+---
+- name: restart rtorrent
+  service: name=rtorrent state=restarted enabled=yes
+
