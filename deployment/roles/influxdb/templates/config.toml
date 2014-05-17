@@ -7,7 +7,7 @@
 # that can be resolved here.
 # hostname = ""
 
-bind-address = "{{ influxdb.bind-address }}"
+bind-address = "{{ influxdb.bind_address }}"
 
 [logging]
 # logging level can be one of "debug", "info", "warn" or "error"
