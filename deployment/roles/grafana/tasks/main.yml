@@ -11,3 +11,7 @@
  - name: ensure latest grafana
    git: repo={{ grafana.url }} dest={{ grafana.path }} version={{ grafana.version }} update=yes depth=1
    tags: grafana
+
+ - name: ensure grafana configuration
+   template: src=config.js dest={{ grafana.path }}/src/config.js owner=root group=root mode=0644
+   tags: grafana

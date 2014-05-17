@@ -5,3 +5,8 @@ grafana:
   url: https://github.com/grafana/grafana
   path: "/srv/grafana.{{ netsoc.domain }}"
   version: master
+  
+  influxdb:
+    username: root
+	password: root
+	database: graphite
