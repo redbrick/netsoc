@@ -1,0 +1,7 @@
+---
+influxdb:
+  dependencies:
+   - python-pycurl
+   
+  version: 0.6.4_amd66
+  hash: 861ee5f74ef57499249332affa9970c5a703d5e1e9f7fae3322b89838c436316
