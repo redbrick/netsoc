@@ -8,5 +8,5 @@ grafana:
   
   influxdb:
     username: root
-	password: root
-	database: graphite
+    password: root
+    database: graphite
