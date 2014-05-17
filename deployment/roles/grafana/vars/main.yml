@@ -1,0 +1,7 @@
+---
+grafana:
+  dependencies:
+    - git
+  url: https://github.com/grafana/grafana
+  path: "/srv/grafana.{{ netsoc.domain }}"
+  version: master
