@@ -1,8 +1,7 @@
 ---
  - name: ensure nginx requirements
    apt: pkg={{ item }} state=latest install_recommends=no
-   with_items:
-     - ${nginx.dependencies}
+   with_items: nginx.dependencies
    tags: nginx
 
  - name: ensure nginx keys
@@ -65,21 +64,18 @@
    copy: src="{{ secure_dir }}/{{ item.domain }}.pem" dest=/etc/nginx/ssl/{{ item.domain }}.pem owner=root group=root mode=0600
    notify: reload nginx
    when: item.ssl is defined and item.ssl
-   with_items:
-     - ${nginx.vhosts}
+   with_items: nginx.vhosts
    tags: nginx
 
  - name: ensure vhost ssl keys
    copy: src="{{ secure_dir }}/{{ item.domain }}.key" dest=/etc/nginx/ssl/{{ item.domain }}.key owner=root group=root mode=0600
    notify: reload nginx
    when: item.ssl is defined and item.ssl
-   with_items:
-     - ${nginx.vhosts}
+   with_items: nginx.vhosts
    tags: nginx
 
  - name: ensure vhost configurations
    template: src=vhost dest=/etc/nginx/conf.d/{{ "%03d-%s"|format(item.0 + 1, item.1.domain) }}.conf owner=root group=root mode=0644
    notify: reload nginx
-   with_indexed_items:
-     - ${nginx.vhosts}
+   with_indexed_items: nginx.vhosts
    tags: nginx
