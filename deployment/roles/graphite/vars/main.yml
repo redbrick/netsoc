@@ -1,9 +1,0 @@
----
-graphite:
-  dir: /opt/graphite
-  dependencies:
-    - python-dev
-    - python-pip
-    - python-virtualenv
-    - python-cairo
-    - python-cairo-dev
