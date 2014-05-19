@@ -1,6 +1,5 @@
 ---
  - name: ensure user dependencies
    apt: pkg={{ item }} state=latest install_recommends=no
-   with_items:
-     - ${user.dependencies}
+   with_items: user.dependencies
    tags: user

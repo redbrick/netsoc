@@ -1,8 +1,7 @@
 ---
  - name: ensure nodejs dependencies
    apt: pkg={{ item }} state=latest install_recommends=no
-   with_items:
-     - ${nodejs.dependencies}
+   with_items: nodejs.dependencies
    tags: nodejs
 
  - name: ensure nodejs {{ nodejs.version }} installed

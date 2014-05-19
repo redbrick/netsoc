@@ -1,8 +1,7 @@
 ---
  - name: ensure logstash requirements
    apt: pkg={{ item }} state=latest install_recommends=no
-   with_items:
-     - ${logstash.dependencies}
+   with_items: logstash.dependencies
    tags: logstash
 
  - name: ensure logstash keys

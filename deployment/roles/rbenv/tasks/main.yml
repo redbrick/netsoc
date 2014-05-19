@@ -1,8 +1,7 @@
 ---
  - name: ensure rbenv dependencies
    apt: pkg={{ item }} state=latest install_recommends=no
-   with_items:
-     - ${rbenv.dependencies}
+   with_items: rbenv.dependencies
    tags: rbenv
 
  - name: ensure rbenv installed

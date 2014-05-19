@@ -1,8 +1,7 @@
 ---
  - name: ensure kibana dependencies
    apt: pkg={{ item }} state=latest install_recommends=no
-   with_items:
-    - ${kibana.dependencies}
+   with_items: kibana.dependencies
    tags: kibana
 
  - name: ensure kibana location

@@ -1,8 +1,7 @@
 ---
  - name: ensure ldap login
    apt: pkg={{ item }} state=latest install_recommends=no
-   with_items:
-     - ${login.dependencies}
+   with_items: login.dependencies
    tags: login
 
  - name: ensure ldap.secret
