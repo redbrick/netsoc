@@ -1,0 +1,11 @@
+---
+tmux:
+  url: http://git.code.sf.net/p/tmux/tmux-code
+  version: 1.9a
+  path: /usr/local/src/tmux
+  dependencies:
+    - build-essential
+    - git
+    - automake
+    - libevent-dev
+    - libncurses-dev
