@@ -1,0 +1,38 @@
+---
+ - name: ensure weechat dependencies
+   apt: pkg={{ item }} state=latest install_recommends=no
+   with_items: weechat.dependencies
+   tags: weechat
+
+ - name: ensure weechat {{ weechat.version }} installed
+   shell: /usr/local/bin/weechat -v | grep {{ weechat.version }}
+   register: weechat_version_exists
+   ignore_errors: True
+   changed_when: False
+   tags: weechat
+
+ - name: ensure weechat source
+   git: repo={{ weechat.url }} dest={{ weechat.path }} version=v{{ weechat.version }} update=yes depth=1
+   when: weechat_version_exists|failed
+   tags: weechat
+
+ - name: ensure weechat build directory
+   file: path="{{ weechat.path }}/build/" owner=root group=root mode=0755 state=directory
+   when: weechat_version_exists|failed
+   tags: weechat
+
+ - name: ensure weechat configured
+   command: cmake ..  chdir="{{ weechat.path }}/build/"
+   when: weechat_version_exists|failed
+   tags: weechat
+
+ - name: ensure weechat make
+   command: /usr/bin/make chdir="{{ weechat.path }}/build/"
+   when: weechat_version_exists|failed
+   tags: weechat
+
+ - name: ensure weechat make install
+   command: /usr/bin/make install chdir="{{ weechat.path }}/build/"
+   when: weechat_version_exists|failed
+   tags: weechat
+

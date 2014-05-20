@@ -1,0 +1,12 @@
+---
+weechat:
+  url: https://github.com/weechat/weechat
+  version: 0.4.3
+  path: /usr/local/src/weechat
+  dependencies:
+    - build-essential
+    - git
+    - cmake
+    - libgcrypt11-dev
+    - libcurl4-gnutls-dev
+    - libncursesw5-dev
