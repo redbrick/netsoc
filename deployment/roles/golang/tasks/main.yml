@@ -1,0 +1,25 @@
+---
+ - name: ensure golang dependencies
+   apt: pkg={{ item }} state=latest install_recommends=no
+   with_items: golang.dependencies
+   tags: golang
+
+ - name: ensure golang {{ golang.version }} installed
+   shell: "{{ golang.path }}/bin/go version | /bin/grep {{ golang.version }}"
+   register: golang_version
+   ignore_errors: True
+   tags: golang
+
+ - name: ensure golang source
+   hg: repo={{ golang.url }} dest={{ golang.path }} revision=go{{ golang.version }} force=yes
+   when: golang_version|failed
+   tags: golang
+
+ - name: ensure golang installed
+   command: ./all.bash chdir="{{ golang.path }}/src"
+   when: golang_version|failed
+   tags: golang
+
+ - name: ensure golang profile
+   template: src=golang.sh dest=/etc/profile.d/golang.sh owner=root group=root mode=0644
+   tags: golang
