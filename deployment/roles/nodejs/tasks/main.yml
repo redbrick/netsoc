@@ -5,7 +5,7 @@
    tags: nodejs
 
  - name: ensure nodejs {{ nodejs.version }} installed
-   shell: /usr/local/bin/node | grep -v {{ nodejs.version }}
+   shell: /usr/local/bin/node -v | grep -i {{ nodejs.version }}
    register: nodejs_version_exists
    ignore_errors: True
    changed_when: False
