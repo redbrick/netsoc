@@ -5,29 +5,29 @@
    tags: nodejs
 
  - name: ensure nodejs {{ nodejs.version }} installed
-   shell: /usr/bin/test -x /usr/local/bin/node
-   register: nodejs_build_exists
+   shell: /usr/local/bin/node | grep -v {{ nodejs.version }}
+   register: nodejs_version_exists
    ignore_errors: True
    changed_when: False
    tags: nodejs
 
  - name: ensure nodejs source
    git: repo={{ nodejs.url }} dest={{ nodejs.path }} version={{ nodejs.version }} update=yes depth=1
-   when: nodejs_build_exists|failed
+   when: nodejs_version_exists|failed
    tags: nodejs
 
  - name: ensure nodejs configured
    command: "{{ nodejs.path }}/configure"
-   when: nodejs_build_exists|failed
+   when: nodejs_version_exists|failed
    tags: nodejs
 
  - name: ensure nodejs make
    command: /usr/bin/make chdir="{{ nodejs.path }}"
-   when: nodejs_build_exists|failed
+   when: nodejs_version_exists|failed
    tags: nodejs
 
  - name: ensure nodejs make install
    command: /usr/bin/make install chdir="{{ nodejs.path }}"
-   when: nodejs_build_exists|failed
+   when: nodejs_version_exists|failed
    tags: nodejs
 
