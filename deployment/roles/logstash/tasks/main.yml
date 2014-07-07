@@ -19,6 +19,12 @@
    with_items:
      - logstash
    tags: logstash
+   
+ - name: ensure logstash contrib package
+   apt: pkg={{ item }} state=latest install_recommends=no
+   with_items:
+     - logstash-contrib
+   tags: logstash
 
  - name: ensure logstash default
    template: src=default dest=/etc/default/logstash owner=root group=root mode=0644
