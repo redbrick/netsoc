@@ -4,10 +4,6 @@
    with_items: kibana.dependencies
    tags: kibana
 
- - name: ensure kibana location
-   file: path={{ kibana.path }} owner=nginx group=root mode=0755 state=directory
-   tags: kibana
-
  - name: ensure latest kibana
    git: repo={{ kibana.url }} dest={{ kibana.path }} version={{ kibana.version }} update=yes depth=1
    tags: kibana

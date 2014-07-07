@@ -4,10 +4,6 @@
    with_items: grafana.dependencies
    tags: grafana
 
- - name: ensure grafana location
-   file: path={{ grafana.path }} owner=nginx group=root mode=0755 state=directory
-   tags: grafana
-
  - name: ensure latest grafana
    git: repo={{ grafana.url }} dest={{ grafana.path }} version={{ grafana.version }} update=yes depth=1
    tags: grafana
