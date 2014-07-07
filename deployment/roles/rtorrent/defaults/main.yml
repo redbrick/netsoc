@@ -1,0 +1,9 @@
+---
+rtorrent:
+  dependencies:
+    - rtorrent
+    - tmux
+  path: /srv/rtorrent
+  user: rtorrent
+  group: rtorrent
+  sections:
