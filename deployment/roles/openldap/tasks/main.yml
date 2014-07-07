@@ -1,8 +1,7 @@
 ---
  - name: ensure ldap dependencies
    apt: pkg={{ item }} state=latest install_recommends=no
-   with_items:
-    - ${ldap.dependencies}
+   with_items: ldap.dependencies
    tags: ldap-server
 
  - name: ensure ldap.secret
