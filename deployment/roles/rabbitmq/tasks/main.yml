@@ -19,6 +19,7 @@
    apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
      - rabbitmq-server
+   notify: restart rabbitmq
    tags: rabbitmq
 
  - name: ensure rabbitmq plugins
