@@ -18,8 +18,8 @@
                   write_priv=.*
                   state=present
    tags: sensu-server
-
- - name: ensure sensu server configuration
+   
+  - name: ensure sensu server configuration
    template: src={{ item }} dest=/etc/sensu/conf.d/{{ item }} owner=root group=root mode=0644
    with_items:
      - api.json
@@ -38,4 +38,11 @@
      - check_dns.json
      - check_ssh.json
    notify: restart sensu server
+   tags: sensu-server
+
+ - name: ensure uchiwa configuration
+   template: src={{ item }} dest=/etc/sensu/{{ item }} owner=root group=root mode=0644
+   with_items:
+     - uchiwa.json
+   notify: restart uchiwa
    tags: sensu-server

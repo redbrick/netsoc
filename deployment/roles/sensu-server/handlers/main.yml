@@ -4,3 +4,4 @@
   with_items:
     - sensu-server
     - sensu-api
+	- uchiwa

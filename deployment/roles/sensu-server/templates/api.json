@@ -1,6 +1,6 @@
 {
   "api": {
-    "host": "localhost",
+    "host": "{{ sensu.api.server }}",
     "port": {{ sensu.api.port }},
     "user": "{{ sensu.api.username }}",
     "password": "{{ sensu.api.password }}"
