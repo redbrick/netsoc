@@ -19,7 +19,7 @@
                   state=present
    tags: sensu-server
    
-  - name: ensure sensu server configuration
+ - name: ensure sensu server configuration
    template: src={{ item }} dest=/etc/sensu/conf.d/{{ item }} owner=root group=root mode=0644
    with_items:
      - api.json
