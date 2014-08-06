@@ -4,4 +4,3 @@
   with_items:
     - sensu-server
     - sensu-api
-    - sensu-dashboard

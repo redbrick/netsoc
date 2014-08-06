@@ -23,7 +23,6 @@
    template: src={{ item }} dest=/etc/sensu/conf.d/{{ item }} owner=root group=root mode=0644
    with_items:
      - api.json
-     - dashboard.json
      - handlers.json
      - rabbitmq.json
      - redis.json
