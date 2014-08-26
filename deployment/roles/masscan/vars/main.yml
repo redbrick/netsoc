@@ -1,0 +1,10 @@
+---
+masscan:
+  url: https://github.com/robertdavidgraham/masscan
+  version: master
+  path: /usr/local/src/masscan
+  dependencies:
+    - build-essential
+    - git
+    - automake
+    - libpcap-dev
