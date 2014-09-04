@@ -1,4 +1,4 @@
-Netsoc [![Build Status](https://travis-ci.org/redbrick/netsoc.png?branch=master)](https://travis-ci.org/redbrick/netsoc)
+Netsoc [![Build Status](https://travis-ci.org/redbrick/netsoc.svg?branch=master)](https://travis-ci.org/redbrick/netsoc)
 ================================
 
 About
