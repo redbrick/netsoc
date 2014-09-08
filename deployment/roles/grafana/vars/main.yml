@@ -3,7 +3,7 @@ grafana:
   dependencies:
     - git
   url: https://github.com/grafana/grafana
-  path: /opt/grafana"
+  path: /opt/grafana
   version: master
   
   influxdb:
