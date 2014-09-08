@@ -1,6 +1,6 @@
 {
   "redis": {
-    "host": "{{ sensu.redis.server }}",
+    "host": "{{ sensu.redis.host }}",
     "port": {{ sensu.redis.port }}
   }
 }

@@ -2,7 +2,7 @@
   "sensu": [
     {
       "name": "Sensu",
-      "host": "{{ sensu.api.server }}",
+      "host": "{{ sensu.api.host }}",
       "ssl": false,
       "port": {{ sensu.api.port }},
       "user": "{{ sensu.api.username }}",

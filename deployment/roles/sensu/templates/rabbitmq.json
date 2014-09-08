@@ -1,6 +1,6 @@
 {
   "rabbitmq": {
-    "host": "{{ sensu.rabbitmq.server }}",
+    "host": "{{ sensu.rabbitmq.host }}",
     "port": {{ sensu.rabbitmq.port }},
     "user": "{{ sensu.rabbitmq.username }}",
     "password": "{{ sensu.rabbitmq.password }}",
