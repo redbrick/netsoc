@@ -40,6 +40,12 @@
    notify: restart sensu server
    tags: sensu-server
 
+ - name: ensure uchiwa package
+   apt: pkg={{ item }} state=latest install_recommends=no
+   with_items:
+     - uchiwa
+   tags: sensu-server
+
  - name: ensure uchiwa configuration
    template: src={{ item }} dest=/etc/sensu/{{ item }} owner=root group=root mode=0644
    with_items:
