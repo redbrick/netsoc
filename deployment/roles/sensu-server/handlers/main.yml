@@ -5,3 +5,8 @@
     - sensu-server
     - sensu-api
     - uchiwa
+
+- name: restart uchiwa
+  service: name={{ item }} state=restarted enabled=yes
+  with_items:
+    - uchiwa
