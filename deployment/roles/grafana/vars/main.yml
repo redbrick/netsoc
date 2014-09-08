@@ -10,4 +10,4 @@ grafana:
     username: root
     password: root
     database: graphite
-    graphana: grafana
+    grafana: grafana
