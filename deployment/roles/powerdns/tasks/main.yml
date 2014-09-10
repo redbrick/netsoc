@@ -11,7 +11,7 @@
    tags: dns-server
 
  - name: ensure dns records
-   template: src=pdns.local dest=/etc/powerdns/pdns.d/pdns.local owner=root group=root mode=0600
+   template: src=pdns.simplebind.conf dest=/etc/powerdns/pdns.d/pdns.simplebind.conf owner=root group=root mode=0600
    notify: restart dns server
    tags: dns-server
 
@@ -20,12 +20,12 @@
    tags: dns-server
 
  - name: ensure dns internal records
-   template: src=named.conf dest=/etc/powerdns/bind/named.conf owner=root group=root mode=0644
+   template: src=named.conf dest=/etc/powerdns/bindbackend.conf owner=root group=root mode=0600
    notify: restart dns server
    tags: dns-server
 
  - name: ensure dns internal zone
-   template: src=internal.zone dest=/etc/powerdns/bind/${dns.domain}.zone owner=root group=root mode=0644
+   template: src=internal.zone dest=/etc/powerdns/bind/{{ dns.domain }}.zone owner=root group=root mode=0600
    notify: restart dns server
    tags: dns-server
 
