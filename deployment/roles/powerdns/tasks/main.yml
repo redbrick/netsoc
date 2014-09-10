@@ -20,7 +20,7 @@
    tags: dns-server
 
  - name: ensure dns internal records
-   template: src=named.conf dest=/etc/powerdns/bindbackend.conf owner=root group=root mode=0600
+   template: src=bindbackend.conf dest=/etc/powerdns/bindbackend.conf owner=root group=root mode=0600
    notify: restart dns server
    tags: dns-server
 
