@@ -1,0 +1,10 @@
+{
+  "checks": {
+    "reboot_check": {
+      "handlers": ["default"],
+      "command": "/etc/sensu/plugins/sensu-community-plugins/files/check-file-exists.rb -c /var/run/reboot-required",
+      "interval": 60,
+      "subscribers": [ "servers" ]
+    }
+  }
+}

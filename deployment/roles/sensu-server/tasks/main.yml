@@ -37,6 +37,7 @@
      - check_disk.json
      - check_dns.json
      - check_ssh.json
+     - check_reboot.json
    notify: restart sensu server
    tags: sensu-server
 
