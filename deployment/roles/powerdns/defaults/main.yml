@@ -1,0 +1,11 @@
+---
+powerdns:
+   server:
+     local_address:
+       - 127.0.0.1
+     local_port: 5353
+
+   recursor:
+     local_address:
+       - 127.0.0.1
+     local_port: 53
