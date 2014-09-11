@@ -53,7 +53,7 @@ sensu:
     port: 4567
     username: admin
     password: secret
-	bind: 0.0.0.0
+    bind: 0.0.0.0
   redis:
     host: 127.0.0.1
     port: 6379
