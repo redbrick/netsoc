@@ -1,7 +1,0 @@
----
-powerdns:
-   server:
-     local_port: 5353
-
-   recursor:
-     local_port: 53
