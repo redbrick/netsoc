@@ -12,10 +12,11 @@
     }
   ],
   "uchiwa": {
-    "user": "",
-    "pass": "",
-    "port": 3000,
-    "stats": 10,
-    "refresh": 10000
+    "host": "{{ sensu.uchiwa.host }}",
+    "port": {{ sensu.uchiwa.port }},
+    "user": "{{ sensu.uchiwa.user }}",
+    "pass": "{{ sensu.uchiwa.pass }}",
+    "refresh": 10000,
+    "dateFormat": "MM/DD/YYYY HH:mm:ss"
   }
 }
