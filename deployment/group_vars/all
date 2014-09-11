@@ -4,8 +4,8 @@ netsoc:
   name: netsoc
   domain: netsoc.org
 
-# secure directory for confidental files
-secure_dir: /etc/ansible/private/
+# private directory for confidential files
+private_dir: /etc/ansible/private/
 
 # timezone settings
 time:

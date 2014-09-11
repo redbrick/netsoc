@@ -10,9 +10,9 @@
    with_first_found:
      - files:
        - "{{ openvpn.client_conf }}"
-       - "{{ private }}/files/openvpn/{{ ansible_fqdn }}-openvpn_client"
-       - "{{ private }}/files/openvpn/{{ ansible_hostname }}-openvpn_client"
-       - "{{ private }}/files/openvpn/{{ ansible_domain }}-openvpn_client"
+       - "{{ private_dir }}/files/openvpn/{{ ansible_fqdn }}-openvpn_client"
+       - "{{ private_dir }}/files/openvpn/{{ ansible_hostname }}-openvpn_client"
+       - "{{ private_dir }}/files/openvpn/{{ ansible_domain }}-openvpn_client"
    notify:
      - restart openvpn
    tags: openvpn
