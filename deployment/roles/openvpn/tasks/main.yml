@@ -2,7 +2,7 @@
  - name: ensure openvpn
    apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
-     - openvpvn
+     - openvpn
    tags: openvpn
 
  - name: ensure openvpn
