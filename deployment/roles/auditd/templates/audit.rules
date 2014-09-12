@@ -1,0 +1,31 @@
+# {{ ansible_managed }}
+
+# This file contains the auditctl rules that are loaded
+# whenever the audit daemon is started via the initscripts.
+# The rules are simply the parameters that would be passed
+# to auditctl.
+
+# First rule - delete all
+-D
+
+# Increase the buffers to survive stress events.
+# Make this bigger for busy systems
+-b 320
+
+# Feel free to add below this line. See auditctl man page
+
+-a exit,never -F arch=b32 -S mount
+-a exit,never -F arch=b64 -S mount
+-a exit,always -F arch=b32 -S unlink -S rmdir
+-a exit,always -F arch=b64 -S unlink -S rmdir
+-a exit,always -F arch=b32 -S stime
+-a exit,always -F arch=b64 -S setrlimit
+
+-w /etc/group -p wa
+-w /etc/passwd -p wa
+-w /etc/shadow -p wa
+-w /etc/sudoers -p wa
+
+-a exit,always -F arch=b32 -S execve
+-a exit,always -F arch=b64 -S execve
+

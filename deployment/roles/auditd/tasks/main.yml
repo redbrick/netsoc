@@ -1,0 +1,11 @@
+---
+ - name: ensure auditd package
+   apt: pkg={{ item }} state=latest install_recommends=no
+   with_items:
+     - auditd
+   tags: auditd
+
+ - name: ensure auditd rules
+   template: src=audit.rules dest=/etc/audit/audit.rules owner=root group=root mode=0644
+   notify: restart auditd
+   tags: auditd
