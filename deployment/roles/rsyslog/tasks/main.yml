@@ -7,7 +7,7 @@
 
  - name: ensure logging configuration
    template: src=rsyslog.conf dest=/etc/rsyslog.conf owner=root group=root mode=0644
-   notify: restart logging server
+   notify: restart logging
    tags: logging
  
  - name: ensure logging client configuration
