@@ -1,0 +1,14 @@
+---
+influxdb:
+  dependencies:
+   - python-pycurl
+   
+  version: 0.8.2_amd64
+  hash: 7b3402022e646fe932308cf69cdb1b02bf80c35e9831b47aff8d2227f1d3b94e
+  
+  bind_address: 127.0.0.1
+  input_plugins:
+   graphite:
+    enabled: "true"
+    port: 2003
+    database: graphite
