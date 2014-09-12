@@ -31,14 +31,7 @@
 
  - name: ensure sensu server checks
    template: src={{ item }} dest=/etc/sensu/conf.d/{{ item }} owner=root group=root mode=644
-   with_items:
-     - check_cpu.json
-     - check_cron.json
-     - check_disk.json
-     - check_dns.json
-     - check_ssh.json
-     - check_ntp.json
-     - check_reboot.json
+   with_items: sensu.checks
    notify: restart sensu server
    tags: sensu-server
 

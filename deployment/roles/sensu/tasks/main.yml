@@ -1,57 +1,57 @@
 ---
- - name: ensure monitoring requirements
+ - name: ensure sensu requirements
    apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
      - python-pycurl
-   tags: monitoring
+   tags: sensu
 
- - name: ensure monitoring client keys
+ - name: ensure sensu client keys
    apt_key: data="{{ item }}" state=present
    with_file:
      - sensu.gpg
-   tags: monitoring
+   tags: sensu
 
- - name: ensure monitoring repo
+ - name: ensure sensu repo
    apt_repository: repo='deb http://repos.sensuapp.org/apt sensu main' state=present update_cache=yes
-   tags: monitoring
+   tags: sensu
    
- - name: ensure monitoring package
+ - name: ensure sensu package
    apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
      - sensu
      - git
-   tags: monitoring
+   tags: sensu
 
- - name: ensure monitoring plugins
+ - name: ensure sensu plugins
    gem: name=sensu-plugin state=latest executable=/opt/sensu/embedded/bin/gem
-   tags: monitoring
+   tags: sensu
 
- - name: ensure monitoring features installed
+ - name: ensure sensu features installed
    git: repo={{ sensu.plugins.url }} dest={{ sensu.plugins.path }} version={{ sensu.plugins.version }} update=yes depth=1
-   tags: monitoring
+   tags: sensu
 
- - name: ensure monitoring plugins installed
+ - name: ensure sensu plugins installed
    file: src={{ sensu.plugins.path }}/plugins dest=/etc/sensu/plugins/sensu-community-plugins owner=root group=root state=link
-   tags: monitoring
+   tags: sensu
 
- - name: ensure monitoring handlers installed
+ - name: ensure sensu handlers installed
    file: src={{ sensu.plugins.path }}/handlers dest=/etc/sensu/handlers/sensu-community-plugins owner=root group=root state=link
-   tags: monitoring
+   tags: sensu
 
- - name: ensure monitoring base configuration
+ - name: ensure sensu base configuration
    template: src=config.json dest=/etc/sensu/config.json owner=root group=root mode=0644
-   notify: restart monitoring
-   tags: monitoring
+   notify: restart sensu
+   tags: sensu
 
- - name: ensure monitoring configuration
+ - name: ensure sensu configuration
    template: src={{ item }} dest=/etc/sensu/conf.d/{{ item }} owner=root group=root mode=0644
    with_items:
      - client.json
      - rabbitmq.json
-   notify: restart monitoring
-   tags: monitoring
+   notify: restart sensu
+   tags: sensu
 
- - name: ensure monitoring default
+ - name: ensure sensu default
    template: src=default dest=/etc/default/sensu owner=root group=root mode=0644
-   notify: restart monitoring
-   tags: monitoring
+   notify: restart sensu
+   tags: sensu
