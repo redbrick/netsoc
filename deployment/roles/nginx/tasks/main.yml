@@ -46,7 +46,7 @@
    tags: nginx
 
  - name: ensure default ssl certificates and keys
-   copy: src="{{ private_dir }}/{{ item }}" dest=/etc/nginx/ssl/{{ item }} owner=root group=root mode=0600
+   copy: src="{{ private_dir }}/files/nginx/{{ item }}" dest=/etc/nginx/ssl/{{ item }} owner=root group=root mode=0600
    notify: reload nginx
    when: nginx.default.ssl is defined and nginx.default.ssl
    with_items:
@@ -60,14 +60,14 @@
    tags: nginx
 
  - name: ensure vhost ssl certificates
-   copy: src="{{ private_dir }}/{{ item.domain }}.pem" dest=/etc/nginx/ssl/{{ item.domain }}.pem owner=root group=root mode=0600
+   copy: src="{{ private_dir }}/files/nginx/{{ item.domain }}.pem" dest=/etc/nginx/ssl/{{ item.domain }}.pem owner=root group=root mode=0600
    notify: reload nginx
    when: item.ssl is defined and item.ssl
    with_items: nginx.vhosts
    tags: nginx
 
  - name: ensure vhost ssl keys
-   copy: src="{{ private_dir }}/{{ item.domain }}.key" dest=/etc/nginx/ssl/{{ item.domain }}.key owner=root group=root mode=0600
+   copy: src="{{ private_dir }}/files/nginx/{{ item.domain }}.key" dest=/etc/nginx/ssl/{{ item.domain }}.key owner=root group=root mode=0600
    notify: reload nginx
    when: item.ssl is defined and item.ssl
    with_items: nginx.vhosts
