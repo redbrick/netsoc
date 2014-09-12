@@ -6,6 +6,11 @@
    tags: logging
 
  - name: ensure logging configuration
+   template: src=rsyslog.conf dest=/etc/rsyslog.conf owner=root group=root mode=0644
+   notify: restart logging server
+   tags: logging
+ 
+ - name: ensure logging client configuration
    template: src=50-default.conf dest=/etc/rsyslog.d/50-default.conf owner=root group=root mode=0644
    notify: restart logging
    tags: logging
@@ -14,4 +19,3 @@
    template: src=100-remote.conf dest=/etc/rsyslog.d/100-remote.conf owner=root group=root mode=0644
    notify: restart logging
    tags: logging
-
