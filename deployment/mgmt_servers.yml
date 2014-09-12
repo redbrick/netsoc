@@ -3,5 +3,7 @@
   hosts: mgmt
   sudo: True
 
-  roles:
-    - sensu-server
+  tasks:
+    - name: ensure rkhunter
+      apt: pkg=rkhunter state=latest install_recommends=no
+      tags: rkhunter

@@ -1,0 +1,7 @@
+---
+- name: Install email servers
+  hosts: email
+  sudo: True
+
+  roles:
+    - email

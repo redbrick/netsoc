@@ -1,5 +1,5 @@
 ---
-- name: Install a networking society
+- name: Run all playbooks
   hosts: all
   sudo: True
   user: vagrant
@@ -7,6 +7,9 @@
   vars_files:
     - private_vars.yml
 
+# upgrade all the servers
+- include: upgrade_servers.yml
+	
 # setup the following servers before the base configuration
 - include: dns_servers.yml
 - include: mgmt_servers.yml
@@ -16,5 +19,6 @@
 - include: base_servers.yml
 
 # specific servers are now configured
+- include: email_servers.yml
 - include: irc_servers.yml
 - include: www_servers.yml
