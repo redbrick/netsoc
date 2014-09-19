@@ -1,11 +1,13 @@
 ---
- - name: ensure openvpn
+ - name: ensure openvpn package
    apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
      - openvpn
-   tags: openvpn
+   tags: 
+     - openvpn-server
+     - openvpn-client
 
- - name: ensure openvpn
+ - name: ensure openvpn client configuration
    template: src={{ item }} dest=/etc/openvpn/client.conf mode=600
    with_first_found:
      - files:
@@ -15,4 +17,5 @@
        - "{{ private_dir }}/files/openvpn/{{ ansible_domain }}-openvpn_client"
    notify:
      - restart openvpn
-   tags: openvpn
+   tags: 
+     - openvpn-client
