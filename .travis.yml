@@ -8,4 +8,4 @@ install:
   - pip install ansible
 script:
   - ansible-playbook --version
-  - ansible-playbook --syntax-check -i deployment/hosts deployment/site.yml
+  - ansible-playbook --syntax-check -i deployment/hosts deployment/master.yml
