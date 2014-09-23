@@ -6,6 +6,8 @@
   pre_tasks:
     - name: ensure package cache updated
       apt: update_cache=yes cache_valid_time=3600
+      tags: upgrade
 
     - name: ensure packages upgraded
       apt: upgrade=safe
+      tags: upgrade
