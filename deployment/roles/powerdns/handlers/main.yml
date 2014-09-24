@@ -2,7 +2,7 @@
 - name: restart dns server
   service: name=pdns state=restarted
 
- - name: reload dns server
+- name: reload dns server
   service: name=pdns state=reload
 
 - name: restart recursive dns server
