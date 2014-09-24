@@ -25,8 +25,8 @@
    tags: dns-server
 
  - name: ensure dns internal zone
-   template: src=internal.zone dest=/etc/powerdns/bind/{{ dns.domain }}.zone owner=root group=root mode=0600
-   notify: restart dns server
+   template: src=internal.zone dest=/etc/powerdns/bind/{{ dns.domain }}.zone owner=pdns group=root mode=0400
+   notify: reload dns server
    tags: dns-server
 
  - name: ensure recursive dns server
