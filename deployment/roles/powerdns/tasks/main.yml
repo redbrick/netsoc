@@ -33,14 +33,14 @@
    action: apt pkg={{ item }} state=latest install_recommends=no
    with_items:
      - pdns-recursor
-   tags: dns-server
+   tags: dns-recursor
 
  - name: ensure recursive dns configuration
    template: src=forward.zones dest=/etc/powerdns/forward.zones owner=root group=root mode=0600
    notify: restart recursive dns server
-   tags: dns-server
+   tags: dns-recursor
 
  - name: ensure recursive dns configuration
    template: src=recursor.conf dest=/etc/powerdns/recursor.conf owner=root group=root mode=0600
    notify: restart recursive dns server
-   tags: dns-server
+   tags: dns-recursor
