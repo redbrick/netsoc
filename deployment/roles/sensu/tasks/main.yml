@@ -40,7 +40,7 @@
 
  - name: ensure sensu base configuration
    template: src=config.json dest=/etc/sensu/config.json owner=root group=root mode=0644
-   notify: restart sensu
+   notify: restart sensu client
    tags: sensu
 
  - name: ensure sensu configuration
@@ -53,5 +53,5 @@
 
  - name: ensure sensu default
    template: src=default dest=/etc/default/sensu owner=root group=root mode=0644
-   notify: restart sensu
+   notify: restart sensu client
    tags: sensu
