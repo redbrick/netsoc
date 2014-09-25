@@ -1,6 +1,6 @@
 {
   "client": {
-    "name": "{{ ansible_hostname }}",
+    "name": "{{ ansible_fqdn }}",
     "address": "{{ ansible_default_ipv4.address }}",
     "keepalive": {
       "thresholds": {
@@ -11,7 +11,8 @@
     },
     "subscriptions": [
       "test",
-      "servers"
+      "servers",
+      "{{ ansible_fqdn }}"
     ]
   }
 }
