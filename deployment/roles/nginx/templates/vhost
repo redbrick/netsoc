@@ -9,7 +9,7 @@
 ##
 
 {% if item.1.upstream is defined and item.1.upstream.name %}
-upstream {{ item.1.domain }}-{{ item.1.upstream.name }} {
+upstream {{ item.1.name }}-{{ item.1.upstream.name }} {
     {% for server in item.1.upstream.servers %}
     server {{ server }};
     {% endfor %}
@@ -21,8 +21,8 @@ server {
     listen   [::]:443 ssl spdy; ## listen for ipv6
     listen   443 ssl spdy;      ## listen for ipv4
 
-    ssl_certificate     /etc/nginx/ssl/{{ item.1.domain }}.pem;
-    ssl_certificate_key /etc/nginx/ssl/{{ item.1.domain }}.key;
+    ssl_certificate     /etc/nginx/ssl/{{ item.1.name }}.pem;
+    ssl_certificate_key /etc/nginx/ssl/{{ item.1.name }}.key;
 
     ssl_prefer_server_ciphers on;
     ssl_session_timeout       10m;
@@ -37,12 +37,12 @@ server {
     root {{ item.1.path }};
     index index.html index.htm;
 
-    # Make site accessible from {{ item.1.domain }}
-    server_name {{ item.1.domain }} *.{{ item.1.domain }};
+    # Make site accessible from the following vhosts
+    server_name {{ item.1.domains | join(" ") }};
 
     {% if item.1.upstream is defined and item.1.upstream.name %}
     location {{ item.1.upstream.path }} {
-        proxy_pass http://{{ item.1.domain }}-{{ item.1.upstream.name }};
+        proxy_pass http://{{ item.1.name }}-{{ item.1.upstream.name }};
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
