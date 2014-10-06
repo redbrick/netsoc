@@ -2,6 +2,7 @@
   "client": {
     "name": "{{ ansible_fqdn }}",
     "address": "{{ ansible_default_ipv4.address }}",
+    "safe_mode": {{ sensu.safe_mode }},
     "keepalive": {
       "thresholds": {
         "warning": 60,

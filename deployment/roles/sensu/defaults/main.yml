@@ -5,6 +5,7 @@ sensu:
     version: master
     path: /opt/sensu-community-plugins
 
+  safe_mode: "false"
   checks:
     - check_cpu.json
     - check_cron.json
