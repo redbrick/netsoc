@@ -3,44 +3,53 @@
    action: apt pkg={{ item }} state=latest install_recommends=no
    with_items:
      - pdns-server
-   tags: dns-server
+   when: powerdns.server.enabled
+   tags: powerdns-server
 
  - name: ensure dns configuration
    template: src=pdns.conf dest=/etc/powerdns/pdns.conf owner=root group=root mode=0600
    notify: restart dns server
-   tags: dns-server
+   when: powerdns.server.enabled
+   tags: powerdns-server
 
  - name: ensure dns records
    template: src=pdns.simplebind.conf dest=/etc/powerdns/pdns.d/pdns.simplebind.conf owner=root group=root mode=0600
    notify: restart dns server
-   tags: dns-server
+   when: powerdns.server.enabled
+   tags: powerdns-server
 
  - name: ensure dns records location
    action: file path=/etc/powerdns/bind/ owner=root group=root mode=0755 state=directory
-   tags: dns-server
+   when: powerdns.server.enabled
+   tags: powerdns-server
 
  - name: ensure dns internal records
    template: src=bindbackend.conf dest=/etc/powerdns/bindbackend.conf owner=root group=root mode=0600
    notify: restart dns server
-   tags: dns-server
+   when: powerdns.server.enabled
+   tags: powerdns-server
 
  - name: ensure dns internal zone
    template: src=internal.zone dest=/etc/powerdns/bind/{{ dns.domain }}.zone owner=pdns group=root mode=0400
    notify: reload dns server
-   tags: dns-server
+   when: powerdns.server.enabled
+   tags: powerdns-server
 
  - name: ensure recursive dns server
    action: apt pkg={{ item }} state=latest install_recommends=no
    with_items:
      - pdns-recursor
-   tags: dns-recursor
+   when: powerdns.recursor.enabled
+   tags: powerdns-recursor
 
  - name: ensure recursive dns configuration
    template: src=forward.zones dest=/etc/powerdns/forward.zones owner=root group=root mode=0600
    notify: restart recursive dns server
-   tags: dns-recursor
+   when: powerdns.recursor.enabled
+   tags: powerdns-recursor
 
  - name: ensure recursive dns configuration
    template: src=recursor.conf dest=/etc/powerdns/recursor.conf owner=root group=root mode=0600
    notify: restart recursive dns server
-   tags: dns-recursor
+   when: powerdns.recursor.enabled
+   tags: powerdns-recursor

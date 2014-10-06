@@ -1,11 +1,13 @@
 ---
 powerdns:
    server:
+     enabled: false
      local_address:
        - 127.0.0.1
      local_port: 5353
 
    recursor:
+     enabled: false
      local_address:
        - 127.0.0.1
      local_port: 53
