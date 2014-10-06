@@ -48,7 +48,7 @@
    with_items:
      - client.json
      - rabbitmq.json
-   notify: restart sensu
+   notify: restart sensu client
    tags: sensu
 
  - name: ensure sensu default
