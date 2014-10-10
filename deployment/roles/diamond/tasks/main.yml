@@ -29,6 +29,6 @@
    tags: diamond
 
  - name: ensure diamond upstart
-   template: src=diamond.init dest=/etc/init/diamond.conf owner=root group=root mode=0755
+   template: src=diamond.init dest=/etc/init/diamond.conf owner=root group=root mode=0644
    notify: restart diamond
    tags: diamond
