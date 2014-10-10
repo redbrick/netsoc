@@ -10,7 +10,7 @@
    tags: diamond
 
  - name: ensure diamond
-   pip: requirements=/tmp/requirements.txt virtualenv={{ diamond.path }}/venv
+   pip: requirements=/tmp/requirements.txt virtualenv={{ diamond.path }}/venv state=latest
    notify: restart diamond
    tags: diamond
 
