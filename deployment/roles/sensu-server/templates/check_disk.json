@@ -1,6 +1,6 @@
 {
   "checks": {
-    "disk_check": {
+    "base_disk_check": {
       "handlers": ["default"],
       "command": "/etc/sensu/plugins/sensu-community-plugins/system/check-disk.rb",
       "interval": 60,

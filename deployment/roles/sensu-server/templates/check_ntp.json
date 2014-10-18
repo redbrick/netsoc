@@ -1,6 +1,6 @@
 {
   "checks": {
-    "ntp_check": {
+    "base_ntp_check": {
       "handlers": ["default"],
       "command": "/etc/sensu/plugins/sensu-community-plugins/system/check-ntp.rb",
       "interval": 60,
