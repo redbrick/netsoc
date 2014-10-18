@@ -2,19 +2,19 @@
  - name: ensure masscan dependencies
    apt: pkg={{ item }} state=latest install_recommends=no
    with_items: masscan.dependencies
-   tags: masscan
+   tags: [masscan, packages]
 
  - name: ensure masscan source
    git: repo={{ masscan.url }} dest={{ masscan.path }} version={{ masscan.version }} update=yes depth=1
    register: masscan_repo
-   tags: masscan
+   tags: [masscan, packages]
 
  - name: ensure masscan make
    command: /usr/bin/make chdir="{{ masscan.path }}"
    when: masscan_repo|changed
-   tags: masscan
+   tags: [masscan, packages]
 
  - name: ensure masscan make install
    shell: PREFIX=/usr/local/ /usr/bin/make install chdir="{{ masscan.path }}"
    when: masscan_repo|changed
-   tags: masscan
+   tags: [masscan, packages]

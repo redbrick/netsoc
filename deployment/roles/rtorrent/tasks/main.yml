@@ -2,7 +2,7 @@
  - name: ensure rtorrent dependencies
    apt: pkg={{ item }} state=latest install_recommends=no
    with_items: rtorrent.dependencies
-   tags: rtorrent
+   tags: [rtorrent, packages]
 
  - name: ensure rtorrent user
    user: name={{ rtorrent.user }} comment="rTorrent Service User" system=yes home={{ rtorrent.path }} shell=/bin/sh

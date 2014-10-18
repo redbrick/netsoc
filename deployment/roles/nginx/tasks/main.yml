@@ -2,7 +2,7 @@
  - name: ensure nginx requirements
    apt: pkg={{ item }} state=latest install_recommends=no
    with_items: nginx.dependencies
-   tags: nginx
+   tags: [nginx, packages]
 
  - name: ensure nginx keys
    apt_key: data="{{ item }}" state=present
@@ -15,13 +15,13 @@
    with_items:
      - "deb http://nginx.org/packages/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} nginx"
      - "deb-src http://nginx.org/packages/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} nginx"
-   tags: nginx
+   tags: [nginx, packages]
 
  - name: ensure nginx package
    apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
      - nginx
-   tags: nginx
+   tags: [nginx, packages]
 
  - name: ensure nginx configuration
    template: src=nginx.conf dest=/etc/nginx/nginx.conf

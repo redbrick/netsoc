@@ -3,9 +3,7 @@
    apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
      - openvpn
-   tags: 
-     - openvpn-server
-     - openvpn-client
+   tags: [openvpn-server, openvpn-client, packages]
 
  - name: ensure openvpn client configuration
    template: src={{ item }} dest=/etc/openvpn/client.conf mode=600

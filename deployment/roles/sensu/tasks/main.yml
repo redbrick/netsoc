@@ -3,40 +3,40 @@
    apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
      - python-pycurl
-   tags: sensu
+   tags: [sensu, packages]
 
  - name: ensure sensu client keys
    apt_key: data="{{ item }}" state=present
    with_file:
      - sensu.gpg
-   tags: sensu
+   tags: [sensu, packages]
 
  - name: ensure sensu repo
    apt_repository: repo='deb http://repos.sensuapp.org/apt sensu main' state=present update_cache=yes
-   tags: sensu
+   tags: [sensu, packages]
    
  - name: ensure sensu package
    apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
      - sensu
      - git
-   tags: sensu
+   tags: [sensu, packages]
 
  - name: ensure sensu plugins
    gem: name=sensu-plugin state=latest executable=/opt/sensu/embedded/bin/gem
-   tags: sensu
+   tags: [sensu, packages]
 
  - name: ensure sensu features installed
    git: repo={{ sensu.plugins.url }} dest={{ sensu.plugins.path }} version={{ sensu.plugins.version }} update=yes depth=1
-   tags: sensu
+   tags: [sensu, packages]
 
  - name: ensure sensu plugins installed
    file: src={{ sensu.plugins.path }}/plugins dest=/etc/sensu/plugins/sensu-community-plugins owner=root group=root state=link
-   tags: sensu
+   tags: [sensu, packages]
 
  - name: ensure sensu handlers installed
    file: src={{ sensu.plugins.path }}/handlers dest=/etc/sensu/handlers/sensu-community-plugins owner=root group=root state=link
-   tags: sensu
+   tags: [sensu, packages]
 
  - name: ensure sensu base configuration
    template: src=config.json dest=/etc/sensu/config.json owner=root group=root mode=0644

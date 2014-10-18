@@ -3,7 +3,7 @@
    apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
      - rsyslog
-   tags: logging-server
+   tags: [logging-server, packages]
 
  - name: ensure logging location
    file: path={{ syslog.path }} owner=syslog group=root mode=0755 state=directory

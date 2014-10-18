@@ -3,7 +3,7 @@
    apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
      - redis-server
-   tags: sensu-server
+   tags: [sensu-server, packages]
 
  - name: ensure sensu server vhost
    rabbitmq_vhost: name={{ sensu.rabbitmq.vhost }} state=present
@@ -40,7 +40,7 @@
    with_items:
      - uchiwa
    notify: restart uchiwa
-   tags: sensu-server
+   tags: [sensu-server, packages]
 
  - name: ensure uchiwa configuration
    template: src={{ item }} dest=/etc/sensu/{{ item }} owner=root group=root mode=0644

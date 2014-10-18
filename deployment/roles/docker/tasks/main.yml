@@ -2,21 +2,21 @@
  - name: ensure docker requirements
    apt: pkg={{ item }} state=latest install_recommends=no
    with_items: docker.dependencies
-   tags: docker
+   tags: [docker, packages]
 
  - name: ensure docker apt keys
    apt_key: data="{{ item }}" state=present
    with_file:
      - docker.gpg
-   tags: docker
+   tags: [docker, packages]
 
  - name: ensure docker repo
    apt_repository: repo='deb http://get.docker.io/ubuntu docker main' state=present update_cache=yes
-   tags: docker
+   tags: [docker, packages]
 
  - name: ensure docker package
    apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
      - lxc-docker
-   tags: docker
+   tags: [docker, packages]
 

@@ -2,37 +2,37 @@
  - name: ensure tmux dependencies
    apt: pkg={{ item }} state=latest install_recommends=no
    with_items: tmux.dependencies
-   tags: tmux
+   tags: [tmux, packages]
 
  - name: ensure tmux {{ tmux.version }} installed
    shell: /usr/local/bin/tmux -V | grep {{ tmux.version }}
    register: tmux_version_exists
    ignore_errors: True
    changed_when: False
-   tags: tmux
+   tags: [tmux, packages]
 
  - name: ensure tmux source
    git: repo={{ tmux.url }} dest={{ tmux.path }} version={{ tmux.version }} update=yes depth=1
    when: tmux_version_exists|failed
-   tags: tmux
+   tags: [tmux, packages]
 
  - name: ensure tmux autogen
    command: ./autogen.sh  chdir="{{ tmux.path }}"
    when: tmux_version_exists|failed
-   tags: tmux
+   tags: [tmux, packages]
 
  - name: ensure tmux configured
    command: ./configure  chdir="{{ tmux.path }}"
    when: tmux_version_exists|failed
-   tags: tmux
+   tags: [tmux, packages]
 
  - name: ensure tmux make
    command: /usr/bin/make chdir="{{ tmux.path }}"
    when: tmux_version_exists|failed
-   tags: tmux
+   tags: [tmux, packages]
 
  - name: ensure tmux make install
    command: /usr/bin/make install chdir="{{ tmux.path }}"
    when: tmux_version_exists|failed
-   tags: tmux
+   tags: [tmux, packages]
 

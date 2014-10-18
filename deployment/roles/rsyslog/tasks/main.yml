@@ -3,7 +3,7 @@
    apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
      - rsyslog
-   tags: logging
+   tags: [logging, packages]
 
  - name: ensure logging configuration
    template: src=rsyslog.conf dest=/etc/rsyslog.conf owner=root group=root mode=0644

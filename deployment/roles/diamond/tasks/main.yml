@@ -2,17 +2,17 @@
  - name: ensure diamond dependencies
    apt: pkg={{ item }} state=latest install_recommends=no
    with_items: diamond.dependencies
-   tags: diamond
+   tags: [diamond, packages]
 
  # FIXME: security - race condition
  - name: ensure diamond requirements
    copy: src=requirements.txt dest=/tmp/requirements.txt
-   tags: diamond
+   tags: [diamond, packages]
 
  - name: ensure diamond
    pip: requirements=/tmp/requirements.txt virtualenv={{ diamond.path }}/venv state=latest
    notify: restart diamond
-   tags: diamond
+   tags: [diamond, packages]
 
  - name: ensure diamond user
    user: name=diamond comment="Diamond service account" system=yes home=/var/log/diamond shell=/usr/sbin/nologin
