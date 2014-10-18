@@ -9,7 +9,7 @@
 
 # upgrade all the servers
 - include: upgrade_servers.yml
-	
+
 # setup the following servers before the base configuration
 - include: dns_servers.yml
 - include: mgmt_servers.yml
