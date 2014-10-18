@@ -4,4 +4,4 @@
   sudo: True
 
   roles:
-    - email
+    - postfix
