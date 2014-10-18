@@ -1,0 +1,16 @@
+---
+ - name: ensure postfix requirements
+   apt: pkg={{ item }} state=latest install_recommends=no
+   with_items: postfix.dependencies
+   tags: postfix
+
+ - name: ensure postfix package
+   apt: pkg={{ item }} state=latest install_recommends=no
+   with_items:
+     - postfix
+   tags: postfix
+
+ #- name: ensure postfix configuration
+ #  template: src=postfix.conf dest=/etc/postfix/postfix.conf
+ #  notify: restart postfix
+ #  tags: postfix
