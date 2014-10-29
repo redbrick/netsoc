@@ -6,8 +6,19 @@
 
  - name: ensure latest grafana
    git: repo={{ grafana.url }} dest={{ grafana.path }} version={{ grafana.version }} update=yes depth=1
+   register: grafana_repo
    tags: grafana
 
  - name: ensure grafana configuration
-   template: src=config.js dest={{ grafana.path }}/src/config.js owner=root group=root mode=0644
+   template: src=config.js dest={{ grafana.path }}/dist/config.js owner=root group=root mode=0644
+   tags: grafana
+   
+ - name: ensure grafana requirements
+   npm: path={{ grafana.path }} state=latest
+   register: grafana_requirements
+   tags: grafana
+
+ - name: ensure grafana requirements
+   command: ./node_modules/.bin/grunt build chdir="{{ grafana.path }}"
+   when: grafana_repo|changed
    tags: grafana
