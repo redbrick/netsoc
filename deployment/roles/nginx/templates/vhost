@@ -10,7 +10,7 @@
 
 map $http_upgrade $connection_upgrade {
     default upgrade;
-    '' close;
+    ''      close;
 }
 
 {% if item.1.upstream is defined and item.1.upstream.name %}
@@ -56,8 +56,9 @@ server {
         proxy_set_header X-Forwarded-Port $server_port;
         proxy_set_header X-Request-Start $msec;
         # set headers for websocket support
+		proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "Upgrade";
+        proxy_set_header Connection $connection_upgrade;
     }
     {% endif %}
 
