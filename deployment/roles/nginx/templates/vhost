@@ -8,11 +8,6 @@
 # http://wiki.nginx.org/Configuration
 ##
 
-map $http_upgrade $connection_upgrade {
-    default upgrade;
-    ''      close;
-}
-
 {% if item.1.upstream is defined and item.1.upstream.name %}
 upstream {{ item.1.name }}-{{ item.1.upstream.name }} {
     {% for server in item.1.upstream.servers %}
