@@ -24,7 +24,7 @@ server {
     ssl_certificate     /etc/nginx/ssl/{{ item.1.name }}.pem;
     ssl_certificate_key /etc/nginx/ssl/{{ item.1.name }}.key;
 
-	include /etc/nginx/ssl.conf
+    include /etc/nginx/ssl.conf
 {% else %}
     listen   [::]:80;
     listen   80;
