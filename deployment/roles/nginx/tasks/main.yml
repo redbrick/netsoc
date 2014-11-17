@@ -23,9 +23,12 @@
      - nginx
    tags: [nginx, packages]
 
- - name: ensure nginx configuration
-   template: src=nginx.conf dest=/etc/nginx/nginx.conf
-   notify: restart nginx
+ - name: ensure nginx configurations
+   template: src={{ item }} dest=/etc/nginx/{{ item }} owner=root group=root mode=0644
+   notify: reload nginx
+   with_items:
+     - nginx.conf
+     - ssl.conf
    tags: nginx
 
  - name: ensure nginx ssl location
