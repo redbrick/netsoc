@@ -18,3 +18,13 @@
    shell: PREFIX=/usr/local/ /usr/bin/make install chdir="{{ masscan.path }}"
    when: masscan_repo|changed
    tags: [masscan, packages]
+
+ - name: ensure masscan configuration directory
+   file: path=/etc/masscan/ group=root owner=root mode=0755 state=directory
+   tags: masscan
+
+ - name: ensure masscan configuration
+   template: src={{ item }} dest=/etc/masscan/{{ item }} owner=root group=root mode=0644
+   with_items: ["masscan.conf", "blacklist.conf"]
+   tags: masscan
+
