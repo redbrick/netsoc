@@ -1,0 +1,15 @@
+---
+ - name: ensure oh-my-zsh dependencies
+   apt: pkg={{ item }} state=latest install_recommends=no
+   with_items: ohmyzsh.dependencies
+   tags: [oh-my-zsh, packages]
+
+ - name: ensure oh-my-zsh source
+   git: repo={{ ohmyzsh.url }} dest={{ ohmyzsh.path }} version={{ ohmyzsh.version }} update=yes depth=1
+   register: ohmyzsh_repo
+   tags: [oh-my-zsh, packages]
+
+ - name: ensure oh-my-zsh skel
+   template: src=zshrc.zsh-template dest=/etc/skel/.zshrc owner=root group=root mode=0644
+   tags: oh-my-zsh
+
