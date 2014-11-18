@@ -4,4 +4,4 @@ kibana:
     - git
   url: https://github.com/elasticsearch/kibana/
   path: /opt/kibana/
-  version: v3.1.1
+  version: v3.1.2
