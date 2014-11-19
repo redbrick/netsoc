@@ -29,6 +29,7 @@
    with_items:
      - nginx.conf
      - ssl.conf
+     - proxy.conf
    tags: nginx
 
  - name: ensure nginx ssl location
