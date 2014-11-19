@@ -25,11 +25,13 @@
 
  - name: ensure nginx configurations
    template: src={{ item }} dest=/etc/nginx/{{ item }} owner=root group=root mode=0644
-   notify: reload nginx
    with_items:
      - nginx.conf
      - ssl.conf
      - proxy.conf
+   notify:
+     - validate nginx configuration
+     - reload nginx
    tags: nginx
 
  - name: ensure nginx ssl location
@@ -46,7 +48,9 @@
    with_items:
      - default.conf
      - example_ssl.conf
-   notify: reload nginx
+   notify:
+     - validate nginx configuration
+     - reload nginx
    tags: nginx
 
  - name: ensure default ssl certificates and keys
@@ -60,25 +64,33 @@
 
  - name: ensure default nginx vhost configuration
    template: src=000-default dest=/etc/nginx/conf.d/000-default.conf owner=root group=root mode=0644
-   notify: reload nginx
+   notify:
+     - validate nginx configuration
+     - reload nginx
    tags: nginx
 
  - name: ensure vhost ssl certificates
    copy: src="{{ private_dir }}/files/nginx/{{ item.name }}.pem" dest=/etc/nginx/ssl/{{ item.name }}.pem owner=root group=root mode=0600
-   notify: reload nginx
    when: item.ssl is defined and item.ssl
    with_items: nginx.vhosts
+   notify:
+     - validate nginx configuration
+     - reload nginx
    tags: nginx
 
  - name: ensure vhost ssl keys
    copy: src="{{ private_dir }}/files/nginx/{{ item.name }}.key" dest=/etc/nginx/ssl/{{ item.name }}.key owner=root group=root mode=0600
-   notify: reload nginx
    when: item.ssl is defined and item.ssl
    with_items: nginx.vhosts
+   notify:
+     - validate nginx configuration
+     - reload nginx
    tags: nginx
 
  - name: ensure vhost configurations
    template: src=vhost dest=/etc/nginx/conf.d/{{ "%03d-%s"|format(item.0 + 1, item.1.name) }}.conf owner=root group=root mode=0644
-   notify: reload nginx
    with_indexed_items: nginx.vhosts
+   notify:
+     - validate nginx configuration
+     - reload nginx
    tags: nginx

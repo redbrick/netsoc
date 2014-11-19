@@ -1,4 +1,7 @@
 ---
+- name: validate nginx configuration
+  shell: nginx -t
+
 - name: restart nginx
   service: name=nginx state=restarted
 
