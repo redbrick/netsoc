@@ -16,7 +16,7 @@ server {
     ssl_certificate     /etc/nginx/ssl/default.pem;
     ssl_certificate_key /etc/nginx/ssl/default.key;
 
-    include /etc/nginx/ssl.conf
+    include /etc/nginx/ssl.conf;
 {% else %}
     listen   [::]:80 default_server; ## listen for ipv6
     listen   80 default_server;      ## listen for ipv4
