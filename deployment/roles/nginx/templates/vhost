@@ -10,9 +10,9 @@
 
 {% if item.1.upstream is defined and item.1.upstream.name %}
 upstream {{ item.1.name }}-{{ item.1.upstream.name }} {
-    {% for server in item.1.upstream.servers %}
+{% for server in item.1.upstream.servers %}
     server {{ server }};
-    {% endfor %}
+{% endfor %}
 }
 {% endif %}
 
@@ -36,24 +36,22 @@ server {
     # Make site accessible from the following vhosts
     server_name {{ item.1.domains | join(" ") }};
 
-    {% if item.1.upstream is defined and item.1.upstream.name %}
+{% if item.1.upstream is defined and item.1.upstream.name %}
     location {{ item.1.upstream.path }} {
         proxy_pass http://{{ item.1.name }}-{{ item.1.upstream.name }};
 		
         include /etc/nginx/proxy.conf;
     }
-    {% endif %}
+{% endif %}
 
-    {% if item.1.upstream is defined and item.1.upstream.path == "/" %}
-    {% else %}
-
+{% if item.1.upstream is defined and item.1.upstream.path == "/" %}
+{% else %}
     location / {
         # First attempt to serve request as file, then
         # as directory, then fall back to index.html
         try_files $uri $uri/ =404;
     }
-
-    {% endif %}
+{% endif %}
 
     #error_page 404 /404.html;
 
@@ -64,7 +62,7 @@ server {
     #	root /var/www;
     #}
 
-    {% if item.1.php is defined and item.1.php.enabled %}
+{% if item.1.php is defined and item.1.php.enabled %}
     # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
     #
     #location ~ \.php$ {
@@ -76,7 +74,7 @@ server {
     #	fastcgi_index index.php;
     #	include fastcgi_params;
     #}
-    {% endif %}
+{% endif %}
 
     # deny access to .htaccess files, if Apache's document root
     # concurs with nginx's one
