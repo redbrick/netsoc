@@ -5,6 +5,7 @@ diamond:
     - python-dev
     - python-pip
     - python-virtualenv
+    - build-essential
 
   interval: 10
 
