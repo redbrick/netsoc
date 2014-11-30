@@ -1,2 +1,2 @@
 # {{ ansible_managed }}
-EMBEDDED_RUBY=true
+EMBEDDED_RUBY={{ sensu.embedded_ruby }}
