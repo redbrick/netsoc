@@ -1,0 +1,17 @@
+---
+ - name: ensure clamav requirements
+   apt: pkg={{ item }} state=latest install_recommends=no
+   with_items: clamav.dependencies
+   tags: clamav
+
+ - name: ensure clamav package
+   apt: pkg={{ item }} state=latest install_recommends=no
+   with_items:
+     - clamav
+     - clamav-freshclam
+   tags: clamav
+
+ #- name: ensure clamav configuration
+ #  template: src=clamav.conf dest=/etc/clamav/clamav.conf
+ #  notify: restart clamav
+ #  tags: clamav

@@ -1,0 +1,7 @@
+---
+- name: restart clamav
+  service: name=clamav state=restarted
+
+- name: reload clamav
+  service: name=clamav state=reloaded
+
