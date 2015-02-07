@@ -57,10 +57,12 @@ server {
 
     # redirect server error pages to the static page /50x.html
     #
-    #error_page 500 502 503 504 /50x.html;
-    #location = /50x.html {
-    #	root /var/www;
-    #}
+    error_page 500 502 503 504 /50x.html;
+    location = /50x.html {
+        internal;
+        root {{ item.1.path }}/errors/;
+    }
+
 
 {% if item.1.php is defined and item.1.php.enabled %}
     # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
