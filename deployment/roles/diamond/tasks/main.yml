@@ -4,13 +4,12 @@
    with_items: diamond.dependencies
    tags: [diamond, packages]
 
- # FIXME: security - race condition
  - name: ensure diamond requirements
-   copy: src=requirements.txt dest=/tmp/requirements.txt
+   template: src=requirements.txt dest={{ diamond.path }}/requirements.txt
    tags: [diamond, packages]
 
  - name: ensure diamond
-   pip: requirements=/tmp/requirements.txt virtualenv={{ diamond.path }}/venv state=latest
+   pip: requirements={{ diamond.path }}/requirements.txt virtualenv={{ diamond.path }}/venv state=latest
    notify: restart diamond
    tags: [diamond, packages]
 
