@@ -17,9 +17,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "mgmt" do |server|
     server.vm.hostname = "mgmt"
     server.vm.network :private_network, ip: "10.10.1.2"
-	
-    server.vm.provision "shell", path: "setup.sh"	
-    server.vm.synced_folder "./deployment", "/srv/ansible/", :mount_options => ["dmode=711","fmode=644"]
+
+    server.vm.provision "shell", path: "setup.sh"
+    server.vm.synced_folder "./deployment", "/etc/ansible/", :mount_options => ["dmode=711","fmode=644"]
   end
   
   # Configure a DNS server.
@@ -40,14 +40,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "logging" do |server|
     server.vm.hostname = "logging"
     server.vm.network :private_network, ip: "10.10.1.5"
-	
+
     server.vm.provider :virtualbox do |vb|
-      # Boot with headless mode.
-      vb.gui = false
-  
       # Use VBoxManage to customize the VM.
       vb.customize ["modifyvm", :id, "--memory", "1024"]
-      vb.customize ["modifyvm", :id, "--cpus", "2"]   
+      vb.customize ["modifyvm", :id, "--cpus", "2"]
     end
   end
   
@@ -72,5 +69,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
     # Use VBoxManage to customize the VM.
     vb.customize ["modifyvm", :id, "--memory", "256"]
+    vb.customize ['modifyvm', :id, '--natdnshostresolver1', 'on']
   end
 end

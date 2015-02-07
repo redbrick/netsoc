@@ -1,7 +1,6 @@
 #!/bin/sh
 
 ANSIBLE_DIR=/opt/ansible/
-NETSOC_DIR=/srv/netsoc/
 
 # exit if Ansible is installed
 if [ -d $ANSIBLE_DIR ]; then
@@ -35,7 +34,3 @@ do
 $f \"\$@\"" > /usr/local/sbin/$f
   /bin/chmod 755 /usr/local/sbin/$f
 done
-
-# install the Ansible configuration
-git clone https://github.com/redbrick/netsoc $NETSOC_DIR
-ln -s $NETSOC_DIR/deployment/ /etc/ansible
