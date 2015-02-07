@@ -38,7 +38,7 @@ server {
 
 {% if item.1.upstream is defined and item.1.upstream.name %}
     location {{ item.1.upstream.path }} {
-        proxy_pass http://{{ item.1.name }}-{{ item.1.upstream.name }};
+        proxy_pass http://{{ item.1.name }}-{{ item.1.upstream.name }}/;
 		
         include /etc/nginx/proxy.conf;
     }
