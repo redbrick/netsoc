@@ -4,7 +4,7 @@ grafana:
     - git
   url: https://github.com/grafana/grafana
   path: /opt/grafana
-  version: master
+  version: v1.9.1
   
   influxdb:
     username: root
