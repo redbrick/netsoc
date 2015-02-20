@@ -13,6 +13,7 @@
 # setup the following servers before the base configuration
 - include: dns_servers.yml
 - include: mgmt_servers.yml
+- include: ldap_servers.yml
 - include: logging_servers.yml
 
 # configure all the servers according to this

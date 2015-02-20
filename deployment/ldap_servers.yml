@@ -1,0 +1,7 @@
+---
+- name: Install LDAP servers
+  hosts: ldap
+  sudo: True
+
+  roles:
+    - openldap
