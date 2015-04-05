@@ -1,6 +1,6 @@
 ---
 golang:
-  url: https://code.google.com/p/go
+  url: https://go.googlesource.com/go
   version: 1.4.2
   path: /usr/local/src/golang
   dependencies:

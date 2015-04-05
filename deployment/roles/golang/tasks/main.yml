@@ -11,7 +11,7 @@
    tags: [golang, packages]
 
  - name: ensure golang source
-   hg: repo={{ golang.url }} dest={{ golang.path }} revision=go{{ golang.version }} force=yes
+   git: repo={{ golang.url }} dest={{ golang.path }} version=go{{ golang.version }} update=yes depth=1
    when: golang_version|failed
    tags: [golang, packages]
 
