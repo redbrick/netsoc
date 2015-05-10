@@ -19,6 +19,6 @@ rbenv:
     version: master
 
 ruby:
-  version: 2.2.1
+  version: 2.2.2
   gems:
     - bundler
