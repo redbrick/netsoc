@@ -23,6 +23,7 @@ server {
 
     ssl_certificate     /etc/nginx/ssl/{{ item.1.name }}.pem;
     ssl_certificate_key /etc/nginx/ssl/{{ item.1.name }}.key;
+    ssl_dhparam         /etc/nginx/ssl/{{ item.1.name }}_dhparam.pem;
 
     include /etc/nginx/ssl.conf;
 {% else %}

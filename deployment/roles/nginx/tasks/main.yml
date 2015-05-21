@@ -87,6 +87,15 @@
      - reload nginx
    tags: nginx
 
+ - name: ensure vhost ssl dhparams
+   command: openssl dhparam -out /etc/nginx/ssl/{{ item.name }}_dhparam.pem 2048 creates=/etc/nginx/ssl/{{ item.name }}_dhparam.pem
+   when: item.ssl is defined and item.ssl
+   with_items: nginx.vhosts
+   notify:
+     - validate nginx configuration
+     - reload nginx
+   tags: nginx
+
  - name: ensure vhost configurations
    template: src=vhost dest=/etc/nginx/conf.d/{{ "%03d-%s"|format(item.0 + 1, item.1.name) }}.conf owner=root group=root mode=0644
    with_indexed_items: nginx.vhosts
