@@ -10,6 +10,6 @@
    tags: time
 
  - name: ensure timezone
-   copy: content={{ time.timezone }} dest=/etc/timezone
+   copy: content="{{ time.timezone }}\n" dest=/etc/timezone
    notify: update timezone
    tags: time
