@@ -12,9 +12,16 @@
       apt: upgrade=dist
       tags: upgrade
 
-    - name: ensure unused dependencies removed
-      command: apt-get -y --purge autoremove
+    - name: ensure unused dependencies need to be removed
+      command: apt-get --dry-run autoremove
+      register: check_autoremove
+      changed_when: False
       tags: upgrade
+
+     - name: ensure unused dependencies removed
+       command: apt-get -y --purge autoremove
+       when: "'packages will be REMOVED' in check_autoremove.stdout"
+       tags: upgrade
 
     - name: ensure unused packages removed
       command: apt-get -y autoclean
