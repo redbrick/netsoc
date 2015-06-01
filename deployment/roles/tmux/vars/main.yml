@@ -8,4 +8,4 @@ tmux:
     - git
     - automake
     - libevent-dev
-    - libncurses-dev
+    - libncurses5-dev
