@@ -23,6 +23,13 @@
        when: "'packages will be REMOVED' in check_autoremove.stdout"
        tags: upgrade
 
+     - name: ensure unused packages need to be removed
+       command: apt-get --dry-run autoclean
+       register: check_autoclean
+       changed_when: False
+       tags: upgrade
+	   
     - name: ensure unused packages removed
       command: apt-get -y autoclean
+      when: "'Del ' in check_autoclean.stdout"
       tags: upgrade
