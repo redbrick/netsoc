@@ -1,6 +1,6 @@
 ---
 tmux:
-  url: http://git.code.sf.net/p/tmux/tmux-code
+  url: https://github.com/tmux/tmux/
   version: 2.0
   path: /usr/local/src/tmux
   dependencies:
