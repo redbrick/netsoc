@@ -14,7 +14,7 @@
    register: grafana_requirements
    tags: grafana
 
- - name: ensure grafana requirements
+ - name: ensure grafana build
    command: ./node_modules/.bin/grunt build chdir="{{ grafana.path }}"
    when: grafana_repo|changed
    tags: grafana
