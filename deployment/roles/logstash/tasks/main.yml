@@ -26,6 +26,10 @@
    tags: logstash
 
  - name: ensure logstash configuration
-   template: src=logstash.conf dest=/etc/logstash/conf.d/logstash.conf owner=root group=root mode=0644
+   template: src={{ item }} dest=/etc/logstash/conf.d/{{ item }} owner=root group=root mode=0644
+   with_items:
+     - 01_input.conf
+     - 02_filter.conf
+     - 03_output.conf
    notify: restart logstash
    tags: logstash
