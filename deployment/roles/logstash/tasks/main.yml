@@ -28,8 +28,8 @@
  - name: ensure logstash configuration
    template: src={{ item }} dest=/etc/logstash/conf.d/{{ item }} owner=root group=root mode=0644
    with_items:
-     - 01_input.conf
-     - 02_filter.conf
-     - 03_output.conf
+     - 000_input.conf
+     - 100_filter.conf
+     - 900_output.conf
    notify: restart logstash
    tags: logstash
