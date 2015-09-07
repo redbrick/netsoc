@@ -3,8 +3,8 @@ influxdb:
   dependencies:
    - python-pycurl
 
-  version: 0.8.8_amd64
-  hash: 04f0b74ca102e2680191bbd83aa2601cd7ce1b50b3fd8aa7d7d084fa7032c492
+  version: 0.9.3_amd64
+  hash: d82ffbb414722fd7e3154642c6a7a6c369db55a233f506e6cfe044f587eb28e2
 
   bind_address: 127.0.0.1
   input_plugins:
