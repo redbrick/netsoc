@@ -1,7 +1,7 @@
 ---
 nodejs:
   url: https://github.com/joyent/node
-  version: v0.12.7
+  version: v4.0.0
   path: /usr/local/src/nodejs
   dependencies:
     - build-essential
