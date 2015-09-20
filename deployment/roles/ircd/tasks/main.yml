@@ -1,6 +1,6 @@
 ---
  - name: ensure inspircd
-   action: apt pkg={{ item }} state=latest install_recommends=no
+   apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
      - inspircd
    notify: restart inspircd

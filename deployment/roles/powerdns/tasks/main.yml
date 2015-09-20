@@ -1,6 +1,6 @@
 ---
  - name: ensure dns server
-   action: apt pkg={{ item }} state=latest install_recommends=no
+   apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
      - pdns-server
    when: powerdns.server.enabled
@@ -19,7 +19,7 @@
    tags: powerdns-server
 
  - name: ensure dns records location
-   action: file path=/etc/powerdns/bind/ owner=root group=root mode=0755 state=directory
+   file: path=/etc/powerdns/bind/ owner=root group=root mode=0755 state=directory
    when: powerdns.server.enabled
    tags: powerdns-server
 
@@ -36,7 +36,7 @@
    tags: powerdns-server
 
  - name: ensure recursive dns server
-   action: apt pkg={{ item }} state=latest install_recommends=no
+   apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
      - pdns-recursor
    when: powerdns.recursor.enabled

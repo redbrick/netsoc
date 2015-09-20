@@ -4,6 +4,6 @@
    tags: motd
 
  - name: ensure motd command
-   action: template src=motd.sh dest=/usr/local/bin/motd owner=root group=root mode=0755
+   template: src=motd.sh dest=/usr/local/bin/motd owner=root group=root mode=0755
    tags: motd
 

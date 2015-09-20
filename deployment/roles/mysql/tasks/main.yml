@@ -1,6 +1,6 @@
 ---
  - name: ensure mysql dependencies
-   action: apt pkg={{ item }} state=latest install_recommends=no
+   apt: pkg={{ item }} state=latest install_recommends=no
    with_items: mysql.dependencies
    tags: mysql
 
