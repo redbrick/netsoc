@@ -1,6 +1,6 @@
 ---
 elasticsearch:
-  version: 1.6
+  version: 1.7
   dependencies:
    - openjdk-7-jre-headless
    - python-pycurl
