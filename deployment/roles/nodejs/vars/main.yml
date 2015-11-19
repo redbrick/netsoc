@@ -1,7 +1,7 @@
 ---
 nodejs:
   url: https://github.com/nodejs/node
-  version: v4.2.1
+  version: v5.1.0
   path: /usr/local/src/nodejs
   dependencies:
     - build-essential
