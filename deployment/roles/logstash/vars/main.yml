@@ -1,6 +1,6 @@
 ---
 logstash:
-  version: 1.5
+  version: 2.0
   dependencies:
    - python-pycurl
    - openjdk-7-jre-headless
