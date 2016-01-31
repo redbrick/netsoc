@@ -12,7 +12,7 @@
    tags: [sensu, packages]
 
  - name: ensure sensu repo
-   apt_repository: repo='deb http://repos.sensuapp.org/apt sensu main' state=present update_cache=yes
+   apt_repository: repo='deb http://repositories.sensuapp.org/apt sensu main' state=present update_cache=yes
    tags: [sensu, packages]
    
  - name: ensure sensu package
