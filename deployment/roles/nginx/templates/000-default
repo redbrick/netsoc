@@ -10,8 +10,8 @@
 
 server {
 {% if nginx.default is defined and nginx.default.ssl %}
-    listen   [::]:443 ssl spdy default_server; ## listen for ipv6
-    listen   443 ssl spdy default_server;      ## listen for ipv4
+    listen   [::]:443 ssl http2 default_server; ## listen for ipv6
+    listen   443 ssl http2 default_server;      ## listen for ipv4
 
     ssl_certificate     /etc/nginx/ssl/default.pem;
     ssl_certificate_key /etc/nginx/ssl/default.key;
