@@ -1,0 +1,21 @@
+---
+- name: Firewall all servers
+  hosts: all
+  sudo: True
+
+  pre_tasks:
+    - name: ensure firewall allows ssh
+      ufw: rule=allow name=OpenSSH
+      tags: firewall
+
+    - name: ensure firewall deny incoming
+      ufw: policy=deny direction=incoming
+      tags: firewall
+
+    - name: ensure firewall logging
+      ufw: logging=on
+      tags: firewall
+
+    - name: ensure firewall enabled
+      ufw: state=enabled
+      tags: firewall
