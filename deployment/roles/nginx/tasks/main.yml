@@ -13,8 +13,8 @@
  - name: ensure nginx repo
    apt_repository: repo="{{ item }}" state=present update_cache=yes
    with_items:
-     - "deb http://nginx.org/packages/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} nginx"
-     - "deb-src http://nginx.org/packages/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} nginx"
+     - "deb http://nginx.org/packages/mainline/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} nginx"
+     - "deb-src http://nginx.org/packages/mainline/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} nginx"
    tags: [nginx, packages]
 
  - name: ensure nginx package
