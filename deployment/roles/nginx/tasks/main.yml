@@ -70,7 +70,7 @@
    tags: nginx
 
  - name: ensure vhost ssl certificates
-   copy: src="{{ private_dir }}/files/nginx/{{ item.name }}.pem" dest=/etc/nginx/ssl/{{ item.name }}.pem owner=root group=root mode=0600
+   copy: src="{{ item.ssl.cert }}" dest=/etc/nginx/ssl/{{ item.name }}.pem owner=root group=root mode=0600
    when: item.ssl is defined and item.ssl
    with_items: nginx.vhosts
    notify:
@@ -79,7 +79,7 @@
    tags: nginx
 
  - name: ensure vhost ssl keys
-   copy: src="{{ private_dir }}/files/nginx/{{ item.name }}.key" dest=/etc/nginx/ssl/{{ item.name }}.key owner=root group=root mode=0600
+   copy: src="{{ item.ssl.key }}" dest=/etc/nginx/ssl/{{ item.name }}.key owner=root group=root mode=0600
    when: item.ssl is defined and item.ssl
    with_items: nginx.vhosts
    notify:
