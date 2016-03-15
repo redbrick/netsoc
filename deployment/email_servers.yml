@@ -1,7 +1,8 @@
 ---
 - name: Install email servers
   hosts: email
-  sudo: True
+  become: True
+  become_method: sudo
 
   roles:
     - postfix
