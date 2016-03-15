@@ -1,8 +1,8 @@
 ---
 - name: Run all playbooks
   hosts: all
-  sudo: True
-  user: vagrant
+  become: True
+  become_method: sudo
 
   vars_files:
     - private_vars.yml
