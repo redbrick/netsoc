@@ -1,7 +1,8 @@
 ---
 - name: Install IRC servers
   hosts: irc
-  sudo: True
+  become: True
+  become_method: sudo
 
   roles:
     - ircd
