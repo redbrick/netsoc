@@ -1,7 +1,7 @@
 ---
  - name: ensure language packs
    apt: pkg={{ item }} state=latest install_recommends=no
-   with_items: language.dependencies
+   with_items: "{{ language.dependencies }}"
    tags: language
 
  - name: ensure system language
