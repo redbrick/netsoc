@@ -1,7 +1,8 @@
 ---
 - name: Install login servers
   hosts: login
-  sudo: True
+  become: True
+  become_method: sudo
 
   roles:
     - login-server
