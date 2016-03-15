@@ -1,7 +1,7 @@
 ---
  - name: ensure docker requirements
    apt: pkg={{ item }} state=latest install_recommends=no
-   with_items: docker.dependencies
+   with_items: "{{ docker.dependencies }}"
    tags: [docker, packages]
 
  - name: ensure docker apt keys
