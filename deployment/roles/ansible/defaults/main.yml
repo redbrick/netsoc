@@ -1,0 +1,9 @@
+---
+ansible:
+  path: /opt/ansible
+  dependencies:
+    - python-dev
+    - python-pip
+    - python-virtualenv
+    - build-essential
+    - sshpass
