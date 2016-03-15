@@ -1,7 +1,7 @@
 ---
  - name: ensure logstash requirements
    apt: pkg={{ item }} state=latest install_recommends=no
-   with_items: logstash.dependencies
+   with_items: "{{ logstash.dependencies }}"
    tags: logstash
 
  - name: ensure logstash keys
@@ -11,7 +11,7 @@
    tags: logstash
 
  - name: ensure logstash repo
-   apt_repository: repo='deb http://packages.elasticsearch.org/logstash/{{ logstash.version }}/debian stable main' state=present update_cache=yes
+   apt_repository: repo='deb http://packages.elastic.co/logstash/{{ logstash.version }}/debian stable main' state=present update_cache=yes
    tags: logstash
 
  - name: ensure logstash package
