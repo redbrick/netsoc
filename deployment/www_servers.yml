@@ -1,7 +1,8 @@
 ---
 - name: Install www servers
   hosts: www
-  sudo: True
+  become: True
+  become_method: sudo
 
   roles:
     - nginx
