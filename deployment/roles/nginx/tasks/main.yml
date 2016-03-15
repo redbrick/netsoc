@@ -1,7 +1,7 @@
 ---
  - name: ensure nginx requirements
    apt: pkg={{ item }} state=latest install_recommends=no
-   with_items: nginx.dependencies
+   with_items: "{{ nginx.dependencies }}"
    tags: [nginx, packages]
 
  - name: ensure nginx keys
@@ -40,7 +40,7 @@
 
  - name: ensure nginx root location
    file: path={{ item.path }} owner=nginx group=root mode=0755 state=directory
-   with_items: nginx.vhosts
+   with_items: "{{ nginx.vhosts }}"
    tags: nginx
 
  - name: ensure nginx default configuration absent
@@ -72,7 +72,7 @@
  - name: ensure vhost ssl certificates
    copy: src="{{ item.ssl.cert }}" dest=/etc/nginx/ssl/{{ item.name }}.pem owner=root group=root mode=0600
    when: item.ssl is defined and item.ssl
-   with_items: nginx.vhosts
+   with_items: "{{ nginx.vhosts }}"
    notify:
      - validate nginx configuration
      - reload nginx
@@ -81,7 +81,7 @@
  - name: ensure vhost ssl keys
    copy: src="{{ item.ssl.key }}" dest=/etc/nginx/ssl/{{ item.name }}.key owner=root group=root mode=0600
    when: item.ssl is defined and item.ssl
-   with_items: nginx.vhosts
+   with_items: "{{ nginx.vhosts }}"
    notify:
      - validate nginx configuration
      - reload nginx
@@ -90,7 +90,7 @@
  - name: ensure vhost ssl dhparams
    command: openssl dhparam -out /etc/nginx/ssl/{{ item.name }}_dhparam.pem 2048 creates=/etc/nginx/ssl/{{ item.name }}_dhparam.pem
    when: item.ssl is defined and item.ssl
-   with_items: nginx.vhosts
+   with_items: "{{ nginx.vhosts }}"
    notify:
      - validate nginx configuration
      - reload nginx
@@ -98,7 +98,7 @@
 
  - name: ensure vhost configurations
    template: src=vhost dest=/etc/nginx/conf.d/{{ "%03d-%s"|format(item.0 + 1, item.1.name) }}.conf owner=root group=root mode=0644
-   with_indexed_items: nginx.vhosts
+   with_indexed_items: "{{ nginx.vhosts }}"
    notify:
      - validate nginx configuration
      - reload nginx
