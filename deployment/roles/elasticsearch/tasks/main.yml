@@ -1,7 +1,7 @@
 ---
  - name: ensure elasticsearch requirements
    apt: pkg={{ item }} state=latest install_recommends=no
-   with_items: elasticsearch.dependencies
+   with_items: "{{ elasticsearch.dependencies }}"
    tags: [elasticsearch, packages]
 
  - name: ensure elasticsearch keys
@@ -11,7 +11,7 @@
    tags: [elasticsearch, packages]
 
  - name: ensure elasticsearch repo
-   apt_repository: repo='deb http://packages.elasticsearch.org/elasticsearch/{{ elasticsearch.version }}/debian stable main' state=present update_cache=yes
+   apt_repository: repo='deb http://packages.elastic.co/elasticsearch/{{ elasticsearch.version }}/debian stable main' state=present update_cache=yes
    tags: [elasticsearch, packages]
 
  - name: ensure elasticsearch package
@@ -22,8 +22,8 @@
    tags: [elasticsearch, packages]
 
  - name: ensure elasticsearch plugins 
-   command: /usr/share/elasticsearch/bin/plugin -install {{ item.name }} creates={{ item.creates }}
-   with_items: elasticsearch.plugins
+   command: /usr/share/elasticsearch/bin/plugin install {{ item.name }} creates={{ item.creates }}
+   with_items: "{{ elasticsearch.plugins }}"
    notify: restart elasticsearch
    tags: [elasticsearch, packages]
    
