@@ -3,6 +3,7 @@
    apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
      - redis-server
+     - rabbitmq-server
    tags: [sensu-server, packages]
 
  - name: ensure sensu server vhost
@@ -31,7 +32,7 @@
 
  - name: ensure sensu server checks
    template: src={{ item }} dest=/etc/sensu/conf.d/{{ item }} owner=root group=root mode=644
-   with_items: sensu.checks
+   with_items: "{{ sensu.checks }}"
    notify: restart sensu server
    tags: sensu-server
 
