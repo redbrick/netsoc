@@ -1,9 +1,13 @@
 ---
 sensu:
-  plugins:
-    url: https://github.com/sensu/sensu-community-plugins.git
-    version: master
-    path: /opt/sensu-community-plugins
+  plugins: 
+    - sensu-plugins-cpu-checks
+    - sensu-plugins-disk-checks
+    - sensu-plugins-dns
+    - sensu-plugins-filesystem-checks
+    - sensu-plugins-network-checks
+    - sensu-plugins-ntp
+    - sensu-plugins-process-checks
 
   embedded_ruby: "true"
   safe_mode: "false"

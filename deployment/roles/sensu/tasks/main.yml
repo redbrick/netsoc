@@ -23,19 +23,8 @@
    tags: [sensu, packages]
 
  - name: ensure sensu plugins
-   gem: name=sensu-plugin state=latest executable=/opt/sensu/embedded/bin/gem
-   tags: [sensu, packages]
-
- - name: ensure sensu features installed
-   git: repo={{ sensu.plugins.url }} dest={{ sensu.plugins.path }} version={{ sensu.plugins.version }} update=yes depth=1
-   tags: [sensu, packages]
-
- - name: ensure sensu plugins installed
-   file: src={{ sensu.plugins.path }}/plugins dest=/etc/sensu/plugins/sensu-community-plugins owner=root group=root state=link
-   tags: [sensu, packages]
-
- - name: ensure sensu handlers installed
-   file: src={{ sensu.plugins.path }}/handlers dest=/etc/sensu/handlers/sensu-community-plugins owner=root group=root state=link
+   gem: name={{ item }} state=latest executable=/opt/sensu/embedded/bin/gem
+   with_items: "{{ sensu.plugins }}"
    tags: [sensu, packages]
 
  - name: ensure sensu base configuration
