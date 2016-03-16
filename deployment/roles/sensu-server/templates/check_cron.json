@@ -2,7 +2,7 @@
   "checks": {
     "base_cron_check": {
       "handlers": ["default"],
-      "command": "/etc/sensu/plugins/sensu-community-plugins/processes/check-procs.rb -p cron -C 1 -u root",
+      "command": "check-process.rb -p cron -C 1 -u root",
       "interval": 60,
       "subscribers": [ "servers" ]
     }

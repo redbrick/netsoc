@@ -2,7 +2,7 @@
   "checks": {
     "base_cpu_check": {
       "handlers": ["default"],
-      "command": "/etc/sensu/plugins/sensu-community-plugins/system/check-cpu.rb",
+      "command": "check-cpu.rb",
       "interval": 60,
       "subscribers": [ "servers" ]
     }

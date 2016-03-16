@@ -2,7 +2,7 @@
   "checks": {
     "base_dns_check": {
       "handlers": ["default"],
-      "command": "/etc/sensu/plugins/sensu-community-plugins/dns/check-dns.rb -d www.google.com",
+      "command": "check-dns.rb -d www.google.com",
       "interval": 60,
       "subscribers": [ "servers" ]
     }
