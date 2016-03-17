@@ -1,0 +1,8 @@
+---
+rust:
+  url: https://github.com/rust-lang/rust
+  version: 1.7.0
+  path: /usr/local/src/rust
+  dependencies:
+    - build-essential
+    - git

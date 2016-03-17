@@ -1,0 +1,28 @@
+---
+ - name: ensure rust dependencies
+   apt: pkg={{ item }} state=latest install_recommends=no
+   with_items: "{{ rust.dependencies }}"
+   tags: rust
+
+ - name: ensure rust {{ rust.version }} installed
+   shell: /usr/local/bin/rust -v | grep -i {{ rust.version }}
+   register: rust_version_exists
+   ignore_errors: True
+   changed_when: False
+   tags: rust
+
+ - name: ensure rust source
+   git: repo={{ rust.url }} dest={{ rust.path }} version={{ rust.version }} update=yes depth=1
+   when: rust_version_exists|failed
+   tags: rust
+
+ - name: ensure rust configured
+   command: chdir="{{ rust.path }}" "{{ rust.path }}/configure"
+   when: rust_version_exists|failed
+   tags: rust
+
+ - name: ensure rust make
+   command: chdir="{{ rust.path }}" /usr/bin/make
+   when: rust_version_exists|failed
+   tags: rust
+
