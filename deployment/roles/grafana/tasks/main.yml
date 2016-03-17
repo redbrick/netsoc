@@ -1,7 +1,7 @@
 ---
  - name: ensure grafana dependencies
    apt: pkg={{ item }} state=latest install_recommends=no
-   with_items: grafana.dependencies
+   with_items: "{{ grafana.dependencies }}"
    tags: grafana
 
  - name: ensure latest grafana
