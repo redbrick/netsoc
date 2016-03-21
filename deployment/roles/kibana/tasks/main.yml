@@ -1,14 +1,22 @@
 ---
  - name: ensure kibana dependencies
    apt: pkg={{ item }} state=latest install_recommends=no
-   with_items: kibana.dependencies
-   tags: kibana
+   with_items: "{{ kibana.dependencies }}"
+   tags: [kibana]
 
- - name: ensure latest kibana
-   git: repo={{ kibana.url }} dest={{ kibana.path }} version={{ kibana.version }} update=yes depth=1
-   tags: kibana
+ - name: ensure kibana keys
+   apt_key: data="{{ item }}" state=present
+   with_file:
+     - kibana.gpg
+   tags: [kibana, packages]
 
- - name: ensure kibana configuration
-   template: src=kibana.js dest={{ kibana.path }}/src/config.js owner=root group=root mode=0644
-   tags: kibana
+ - name: ensure kibana repo
+   apt_repository: repo='deb http://packages.elastic.co/kibana/{{ kibana.version }}/debian stable main' state=present update_cache=yes
+   tags: [kibana, packages]
 
+ - name: ensure kibana package
+   apt: pkg={{ item }} state=latest install_recommends=no
+   with_items:
+     - kibana
+   notify: restart kibana
+   tags: [kibana, packages]
