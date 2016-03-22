@@ -1,7 +1,11 @@
 ---
  - name: ensure diamond dependencies
    apt: pkg={{ item }} state=latest install_recommends=no
-   with_items: diamond.dependencies
+   with_items: "{{ diamond.dependencies }}"
+   tags: [diamond, packages]
+
+ - name: ensure diamond directory
+   file: path={{ diamond.path }} group=root owner=root mode=0755 state=directory
    tags: [diamond, packages]
 
  - name: ensure diamond requirements
@@ -19,7 +23,7 @@
    tags: diamond
 
  - name: ensure diamond configuration directory
-   action: file path=/etc/diamond/collectors group=root owner=root mode=0755 state=directory
+   file: path=/etc/diamond/collectors group=root owner=root mode=0755 state=directory
    tags: diamond
 
  - name: ensure diamond configuration
@@ -29,7 +33,7 @@
 
  - name: ensure diamond collectors
    command: creates="/etc/diamond/collectors/{{ item }}.conf" cp /opt/diamond/venv/etc/diamond/collectors/{{ item }}.conf /etc/diamond/collectors/{{ item }}.conf
-   with_items: diamond.collectors
+   with_items: "{{ diamond.collectors }}"
    notify: restart diamond
    tags: diamond
 
