@@ -4,21 +4,20 @@
    with_items: "{{ grafana.dependencies }}"
    tags: grafana
 
- - name: ensure latest grafana
-   git: repo={{ grafana.url }} dest={{ grafana.path }} version={{ grafana.version }} update=yes depth=1
-   register: grafana_repo
-   tags: grafana
-   
- - name: ensure grafana requirements
-   npm: path={{ grafana.path }} state=latest
-   register: grafana_requirements
-   tags: grafana
+ - name: ensure grafana keys
+   apt_key: data="{{ item }}" state=present
+   with_file:
+     - grafana.gpg
+   tags: [grafana, packages]
 
- - name: ensure grafana build
-   command: ./node_modules/.bin/grunt build chdir="{{ grafana.path }}"
-   when: grafana_repo|changed
-   tags: grafana
-   
- - name: ensure grafana configuration
-   template: src=config.js dest={{ grafana.path }}/dist/config.js owner=root group=root mode=0644
-   tags: grafana
+ - name: ensure grafana repo
+   apt_repository: repo='deb https://packagecloud.io/grafana/stable/debian/ wheezy main' state=present update_cache=yes
+   tags: [grafana, packages]
+
+ - name: ensure grafana package
+   apt: pkg={{ item }} state=latest install_recommends=no
+   with_items:
+     - grafana
+   notify: restart grafana
+   tags: [grafana, packages]
+
