@@ -1,7 +1,7 @@
 ---
  - name: ensure tmux dependencies
    apt: pkg={{ item }} state=latest install_recommends=no
-   with_items: tmux.dependencies
+   with_items: "{{ tmux.dependencies }}"
    tags: [tmux, packages]
 
  - name: ensure tmux {{ tmux.version }} installed

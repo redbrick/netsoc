@@ -1,7 +1,7 @@
 ---
  - name: ensure postfix requirements
    apt: pkg={{ item }} state=latest install_recommends=no
-   with_items: postfix.dependencies
+   with_items: "{{ postfix.dependencies }}"
    tags: postfix
 
  - name: ensure postfix package

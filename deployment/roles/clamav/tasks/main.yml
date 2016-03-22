@@ -1,7 +1,7 @@
 ---
  - name: ensure clamav requirements
    apt: pkg={{ item }} state=latest install_recommends=no
-   with_items: clamav.dependencies
+   with_items: "{{ clamav.dependencies }}"
    tags: clamav
 
  - name: ensure clamav package

@@ -1,7 +1,7 @@
 ---
  - name: ensure rtorrent dependencies
    apt: pkg={{ item }} state=latest install_recommends=no
-   with_items: rtorrent.dependencies
+   with_items: "{{ rtorrent.dependencies }}"
    tags: [rtorrent, packages]
 
  - name: ensure rtorrent user
@@ -20,13 +20,13 @@
 
  - name: ensure rtorrent watch section directory
    file: path="{{ rtorrent.path }}/watch/{{ item }}" group={{ rtorrent.group }} owner={{ rtorrent.user }} mode=0755 state=directory
-   with_items: rtorrent.sections
+   with_items: "{{ rtorrent.sections }}"
    notify: restart rtorrent
    tags: rtorrent
 
  - name: ensure rtorrent complete section directory
    file: path="{{ rtorrent.path }}/complete/{{ item }}" group={{ rtorrent.group }} owner={{ rtorrent.user }} mode=0755 state=directory
-   with_items: rtorrent.sections
+   with_items: "{{ rtorrent.sections }}"
    notify: restart rtorrent
    tags: rtorrent
 

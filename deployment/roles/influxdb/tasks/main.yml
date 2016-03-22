@@ -1,7 +1,7 @@
 ---
  - name: ensure influxdb requirements
    apt: pkg={{ item }} state=latest install_recommends=no
-   with_items: influxdb.dependencies
+   with_items: "{{ influxdb.dependencies }}"
    tags: influxdb
 
  - name: ensure influxdb package downloaded

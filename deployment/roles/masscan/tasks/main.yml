@@ -1,7 +1,7 @@
 ---
  - name: ensure masscan dependencies
    apt: pkg={{ item }} state=latest install_recommends=no
-   with_items: masscan.dependencies
+   with_items: "{{ masscan.dependencies "}}
    tags: [masscan, packages]
 
  - name: ensure masscan source

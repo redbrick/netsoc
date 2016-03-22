@@ -1,7 +1,7 @@
 ---
  - name: ensure weechat dependencies
    apt: pkg={{ item }} state=latest install_recommends=no
-   with_items: weechat.dependencies
+   with_items: "{{ weechat.dependencies }}"
    tags: [weechat, packages]
 
  - name: ensure weechat {{ weechat.version }} installed

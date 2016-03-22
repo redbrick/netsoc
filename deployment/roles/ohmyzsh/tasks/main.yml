@@ -1,7 +1,7 @@
 ---
  - name: ensure oh-my-zsh dependencies
    apt: pkg={{ item }} state=latest install_recommends=no
-   with_items: ohmyzsh.dependencies
+   with_items: "{{ ohmyzsh.dependencies }}"
    tags: [oh-my-zsh, packages]
 
  - name: ensure oh-my-zsh source

@@ -1,7 +1,7 @@
 ---
  - name: ensure golang dependencies
    apt: pkg={{ item }} state=latest install_recommends=no
-   with_items: golang.dependencies
+   with_items: "{{ golang.dependencies }}"
    tags: [golang, packages]
 
  - name: ensure golang {{ golang.version }} installed
