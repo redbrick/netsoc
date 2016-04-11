@@ -1,7 +1,7 @@
 ---
 tmux:
   url: https://github.com/tmux/tmux/
-  version: 2.1
+  version: 2.2
   path: /usr/local/src/tmux
   dependencies:
     - build-essential
