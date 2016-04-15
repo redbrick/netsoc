@@ -1,5 +1,9 @@
 ---
 docker:
   dependencies:
-    - linux-image-generic-lts-raring
-    - linux-headers-generic-lts-raring
+   - linux-image-extra-{{ ansible_kernel }}
+   - apt-transport-https
+   - python-pycurl
+
+  apt:
+   key: 58118E89F3A912897C070ADBF76221572C52609D

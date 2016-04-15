@@ -5,18 +5,16 @@
    tags: [docker, packages]
 
  - name: ensure docker apt keys
-   apt_key: data="{{ item }}" state=present
-   with_file:
-     - docker.gpg
+   apt_key: keyserver=keyserver.ubuntu.com id={{ docker.apt.key }}
    tags: [docker, packages]
 
  - name: ensure docker repo
-   apt_repository: repo='deb http://get.docker.io/ubuntu docker main' state=present update_cache=yes
+   apt_repository: repo='deb https://apt.dockerproject.org/repo {{ ansible_distribution|lower }}-{{ ansible_distribution_release|lower }} main' state=present update_cache=yes
    tags: [docker, packages]
 
  - name: ensure docker package
    apt: pkg={{ item }} state=latest install_recommends=no
    with_items:
-     - lxc-docker
+     - docker-engine
+   notify: restart docker
    tags: [docker, packages]
-
