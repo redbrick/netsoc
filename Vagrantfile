@@ -24,8 +24,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
   # Configure a DNS server.
   config.vm.define "dns" do |server|
-    server.vm.box = "precise64"
-
     server.vm.hostname = "dns"
     server.vm.network :private_network, ip: "10.10.1.3"
   end
@@ -43,7 +41,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     server.vm.provider :virtualbox do |vb|
       # Use VBoxManage to customize the VM.
-      vb.customize ["modifyvm", :id, "--memory", "1024"]
+      vb.customize ["modifyvm", :id, "--memory", "2048"]
       vb.customize ["modifyvm", :id, "--cpus", "2"]
     end
   end
