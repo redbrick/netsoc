@@ -1,6 +1,6 @@
 # {{ ansible_managed }}
 #
-# https://raw2.github.com/rakshasa/rtorrent/master/doc/rtorrent.rc
+# https://github.com/rakshasa/rtorrent/blob/master/doc/rtorrent.rc
 
 # Maximum and minimum number of peers to connect to per torrent.
 #min_peers = 40
