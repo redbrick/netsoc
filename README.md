@@ -9,7 +9,7 @@ About
 
 This document details the process for running an entire networking society's infrastructure in a virtualised fashion.
 
-The assumed distribution for running the virtual machines is Ubuntu LTS, currently 12.04.3 (Precise Pangolin). The setup has been shown to run on both Windows and Linux distributions.
+The assumed distribution for running the virtual machines is Ubuntu LTS. The setup has been shown to run on both Windows and Linux distributions.
 
 
 Prerequisites
