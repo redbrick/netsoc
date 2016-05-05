@@ -1,7 +1,7 @@
 ---
 weechat:
   url: https://github.com/weechat/weechat
-  version: 1.4
+  version: 1.5
   path: /usr/local/src/weechat
   dependencies:
     - build-essential
