@@ -7,3 +7,4 @@ ansible:
     - python-virtualenv
     - build-essential
     - sshpass
+    - libffi-dev
