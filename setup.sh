@@ -13,6 +13,8 @@ apt-get update
 # download the requirements for Ansible
 apt-get --no-install-recommends install -y \
   build-essential \
+  libffi-dev \
+  libssl-dev \
   git \
   python-dev \
   python-virtualenv \
